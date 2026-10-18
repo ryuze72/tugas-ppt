@@ -390,6 +390,8 @@ html,body{height:100%;overflow:hidden;background:#1a1a1a;font-family:'Quicksand'
 .slabs i:nth-child(1){background:var(--yellow)}
 .slabs i:nth-child(2){background:#f5f0e1;width:6%}
 .slabs i:nth-child(3){background:var(--purple);width:3%}
+/* ===== geser: slide yang sedang keluar tetap hidup (tidak dijeda) ===== */
+.slide.leaving:not(.active) *{animation-play-state:running!important}
 </style>
 </head>
 <body>
@@ -1188,78 +1190,129 @@ function tagMorph() {
   });
 }
 const EASE = 'cubic-bezier(.45,0,.2,1)', EASE_OUT = 'cubic-bezier(.22,1,.36,1)';
+
+/* ===== ANIMASI MASUK 3D ===== */
+const P3 = 'perspective(900px)';
+const I3 = `${P3} translate3d(0px,0px,0px) rotateX(0deg) rotateY(0deg) scale(1)`;
 function enterEls(slide, shared, dir, base) {
   [...slide.querySelectorAll('.pop, .deco')].filter(e => !(e.dataset.vt && shared.includes(e.dataset.vt))).forEach((el, k) => {
-    const d = base + Math.min(k * 45, 300);
+    const d = base + Math.min(k * 60, 380);
     if (el.classList.contains('deco')) {
-      el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: d, easing: 'ease', fill: 'backwards' });
+      el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, delay: d, easing: 'ease', fill: 'backwards' });
       return;
     }
+    const m = k % 3;
+    const from = m === 0 ? `${P3} translate3d(${dir * 70}px,24px,-320px) rotateX(10deg) rotateY(${-dir * 75}deg) scale(.9)`
+               : m === 1 ? `${P3} translate3d(0px,70px,-200px) rotateX(-80deg) rotateY(0deg) scale(.92)`
+               :           `${P3} translate3d(${-dir * 50}px,-30px,-420px) rotateX(0deg) rotateY(${dir * 55}deg) scale(.85)`;
+    const o = m === 1 ? '50% 100%' : (dir > 0 ? '0% 50%' : '100% 50%');
     el.animate([
-      { opacity: 0, transform: `translate(${dir * 38}px,16px) scale(.94)` },
-      { opacity: 1, offset: .4 },
-      { opacity: 1, transform: 'none' }
-    ], { duration: 800, delay: d, easing: EASE_OUT, fill: 'backwards' });
+      { opacity: 0, transform: from, transformOrigin: o },
+      { opacity: 1, offset: .3 },
+      { opacity: 1, transform: I3, transformOrigin: o }
+    ], { duration: 1100, delay: d, easing: 'cubic-bezier(.2,.85,.25,1.12)', fill: 'backwards' });
   });
 }
 
+/* ===== TRANSISI MORPH ala PowerPoint =====
+   Slide TIDAK bergeser. Objek yang sama di dua slide (ditandai data-vt) = "objek berpasangan":
+   ia terbang melengkung dari posisi lama ke posisi baru, berubah ukuran, sedikit miring/berputar,
+   dan isinya saling memudar di tengah jalan. Objek tanpa pasangan memudar keluar / masuk.
+   Semua animasi memakai transform/opacity (jalur GPU) + satu durasi & satu easing. */
 function show(n, dir) {
   if (dir === undefined) { swap(n); return; }
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !Element.prototype.animate) { swap(n); busy = false; return; }
   busy = true;
+  const MD = 1250, EZ = 'cubic-bezier(.62,0,.2,1)';
   const old = slides[i], nw = slides[n];
   const om = {}, nm = {};
   old.querySelectorAll('[data-vt]').forEach(e => om[e.dataset.vt] = e);
   nw.querySelectorAll('[data-vt]').forEach(e => nm[e.dataset.vt] = e);
   const keys = Object.keys(om).filter(k => nm[k]);
-  const oR = {}; keys.forEach(k => oR[k] = om[k].getBoundingClientRect());
-  const isShared = e => e.dataset.vt && keys.includes(e.dataset.vt);
+  const box = r => ({ x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width, h: r.height });
+  const sz = el => el.offsetWidth * (parseFloat(getComputedStyle(el).scale) || 1);
 
-  // slide lama tetap tampil; elemen tanpa pasangan memudar pelan sambil bergeser sedikit
-  const exits = [];
-  [...old.querySelectorAll('.pop, .deco')].filter(e => !isShared(e)).forEach((el, k) => {
-    const deco = el.classList.contains('deco');
-    exits.push(el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: deco ? 'none' : `translate(${-dir * 38}px,-10px) scale(.96)` }],
-      { duration: 520, delay: Math.min(k * 14, 100), easing: 'cubic-bezier(.4,0,.6,1)', fill: 'forwards' }));
-  });
-
+  /* BACA semua ukuran dulu → ubah state → baru animasikan (tanpa layout-thrash) */
+  const O = {}, dOld = {};
+  keys.forEach(k => { O[k] = box(om[k].getBoundingClientRect()); if (SPIN.includes(k)) dOld[k] = sz(om[k]); });
   old.classList.add('leaving');
   swap(n);
-  const flip = (el, from, to, fade) => {
-    const dx = (from.left + from.width / 2) - (to.left + to.width / 2), dy = (from.top + from.height / 2) - (to.top + to.height / 2);
-    const sc = Math.max(.5, Math.min(2, Math.min(from.width / (to.width || 1), from.height / (to.height || 1))));
-    return { dx, dy, sc };
-  };
+  const N = {}, nTr = {};
   keys.forEach(k => {
-    const el = nm[k], r1 = el.getBoundingClientRect(), r0 = oR[k];
-    const f = flip(el, r0, r1);
-    const SP = SPIN.includes(k);
-    const fromT = `translate(${f.dx}px,${f.dy}px) scale(${SP ? Math.max(.3, Math.min(3, r0.width / (r1.width || 1))) : f.sc})`;
-    // baru: bergerak dari posisi lama ke posisi baru, muncul cepat di awal
-    el.animate([
-      { transform: fromT, opacity: SP ? 1 : 0 },
-      { opacity: 1, offset: .35 },
-      { transform: 'none', opacity: 1 }
-    ], { duration: 1000, easing: EASE, fill: 'backwards' });
-    // lama: ikut bergerak menuju posisi baru sambil memudar (crossfade morph), disembunyikan jika objek dekoratif
-    if (SP) { om[k].style.visibility = 'hidden'; }
-    else {
-      const g = flip(om[k], r1, r0);
-      exits.push(om[k].animate([
-        { transform: 'none', opacity: 1 },
-        { opacity: 0, offset: .55 },
-        { transform: `translate(${g.dx}px,${g.dy}px) scale(${g.sc})`, opacity: 0 }
-      ], { duration: 1000, easing: EASE, fill: 'forwards' }));
+    N[k] = box(nm[k].getBoundingClientRect());
+    if (SPIN.includes(k)) {
+      const cs = getComputedStyle(nm[k]);
+      const t = cs.translate === 'none' ? [0, 0] : cs.translate.split(' ').map(parseFloat);
+      nTr[k] = { tx: t[0] || 0, ty: t[1] || 0, s: parseFloat(cs.scale) || 1 };
     }
   });
-  enterEls(nw, keys, dir, 120);
+
+  const A = [];
+  const an = (el, kf, o) => { const a = el.animate(kf, Object.assign({ duration: MD, easing: EZ, fill: 'both' }, o)); A.push(a); return a; };
+  const Z = 'translate3d(0px,0px,0px)';
+  const clamp = v => Math.max(.5, Math.min(2.1, v));
+  /* lengkungan jalur: titik tengah digeser tegak lurus arah gerak → terbang melengkung, bukan garis lurus kaku */
+  const arc = (vx, vy, sgn) => { const L = Math.hypot(vx, vy) || 1, m = Math.min(L * .16, 54) * sgn; return [-vy / L * m, vx / L * m]; };
+  const LIN = { easing: 'linear' };
+
+  /* objek berpasangan */
+  keys.forEach((k, idx) => {
+    const oe = om[k], ne = nm[k], a = O[k], b = N[k];
+    const dx = a.x - b.x, dy = a.y - b.y;
+    const sgn = (idx % 2 ? 1 : -1) * dir;
+    const [px, py] = arc(dx, dy, sgn);
+    if (SPIN.includes(k)) {
+      /* dekorasi: properti translate/scale/rotate terpisah → putaran/melayang CSS bawaan tidak terputus */
+      const t = nTr[k];
+      const s0 = Math.max(.3, Math.min(3, dOld[k] / (ne.offsetWidth || 1)));
+      oe.style.visibility = 'hidden';
+      an(ne, [
+        { translate: `${t.tx + dx}px ${t.ty + dy}px`, scale: String(s0), rotate: `${-dir * 150}deg` },
+        { translate: `${t.tx + dx * .5 + px}px ${t.ty + dy * .5 + py}px`, scale: String((s0 + t.s) / 2 * 1.08), rotate: `${-dir * 70}deg`, offset: .5 },
+        { translate: `${t.tx}px ${t.ty}px`, scale: String(t.s), rotate: '0deg' }
+      ]);
+    } else {
+      /* kartu/judul/ilustrasi/pemandu */
+      const sx = a.w / (b.w || 1), sy = a.h / (b.h || 1);
+      const su = k === 'scene' ? clamp(Math.min(sx, sy)) : clamp(Math.sqrt(sx * sy));
+      const eu = k === 'scene' ? clamp(Math.min(1 / sx, 1 / sy)) : clamp(Math.sqrt(1 / (sx * sy)));
+      const tilt = (idx % 2 ? 1 : -1) * dir * (k === 'scene' ? 5 : 3);
+      an(ne, [
+        { transform: `translate3d(${dx}px,${dy}px,0px) scale(${su}) rotate(${-tilt}deg)` },
+        { transform: `translate3d(${dx * .5 + px}px,${dy * .5 + py}px,0px) scale(${(su + 1) / 2}) rotate(${tilt}deg)`, offset: .5 },
+        { transform: `${Z} scale(1) rotate(0deg)` }
+      ]);
+      an(ne, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: .1 }, { opacity: 1, offset: .5 }, { opacity: 1, offset: 1 }], LIN);
+      /* objek lama menempuh jalur yang sama persis menuju posisi baru */
+      an(oe, [
+        { transform: `${Z} scale(1) rotate(0deg)` },
+        { transform: `translate3d(${-dx * .5 + px}px,${-dy * .5 + py}px,0px) scale(${(1 + eu) / 2}) rotate(${tilt}deg)`, offset: .5 },
+        { transform: `translate3d(${-dx}px,${-dy}px,0px) scale(${eu}) rotate(${-tilt}deg)` }
+      ]);
+      an(oe, [{ opacity: 1, offset: 0 }, { opacity: 1, offset: .4 }, { opacity: 0, offset: .8 }, { opacity: 0, offset: 1 }], LIN);
+    }
+  });
+
+  /* objek tanpa pasangan: lama memudar duluan, baru muncul menyusul bertahap */
+  const paired = new Set(keys.flatMap(k => [om[k], nm[k]]));
+  [...old.querySelectorAll('.pop, .deco')].filter(e => !paired.has(e)).forEach(el => {
+    if (el.classList.contains('deco')) an(el, [{ opacity: 1 }, { opacity: 0 }], { duration: MD * .45, easing: 'ease' });
+    else an(el, [{ opacity: 1, transform: `${Z} scale(1)` }, { opacity: 0, transform: 'translate3d(0px,-10px,0px) scale(.95)' }], { duration: MD * .5, easing: 'cubic-bezier(.4,0,.7,1)' });
+  });
+  old.querySelectorAll('.mm-lines').forEach(l => an(l, [{ opacity: 1 }, { opacity: 0 }], { duration: MD * .4, easing: 'ease' }));
+  [...nw.querySelectorAll('.pop, .deco')].filter(e => !paired.has(e)).forEach((el, k) => {
+    const d = MD * .36 + Math.min(k * 40, 200), dur = MD * .5;
+    if (el.classList.contains('deco')) an(el, [{ opacity: 0 }, { opacity: 1 }], { duration: dur, delay: d, easing: 'ease' });
+    else an(el, [{ opacity: 0, transform: 'translate3d(0px,18px,0px) scale(.94)' }, { opacity: 1, transform: `${Z} scale(1)` }], { duration: dur, delay: d, easing: 'cubic-bezier(.2,.8,.2,1)' });
+  });
+
   setTimeout(() => {
-    exits.forEach(a => a.cancel());
+    A.forEach(a => a.cancel());
     old.classList.remove('leaving');
     keys.forEach(k => { om[k].style.visibility = ''; });
-  }, 1060);
-  setTimeout(() => { busy = false; if (queued !== null) { const q = queued; queued = null; if (q !== i) go(q); } }, 1080);
+  }, MD + 60);
+  setTimeout(() => { busy = false; if (queued !== null) { const q = queued; queued = null; if (q !== i) go(q); } }, MD + 90);
 }
 
 function playWipe(dir) {
@@ -1391,6 +1444,11 @@ stageEl.addEventListener('wheel', e => {
 }, { passive: true });
 
 tagMorph(); layoutAll();
+/* ilustrasi utama tiap slide (pulau, stadion, pelari, dst.) ikut berpasangan → terbang antar slide */
+slides.forEach(sl => {
+  const sv = sl.querySelector('svg[class*="ic-scene"]'), host = sv && sv.closest('.pop');
+  if (host && !host.dataset.vt) host.dataset.vt = 'scene';
+});
 addEventListener('resize', layoutAll);
 document.fonts && document.fonts.ready.then(layoutAll);
 swap(0);
