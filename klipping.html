@@ -2,341 +2,234 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Makalah & Klipping — Olahraga</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Source+Sans+3:wght@400;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Klipping Makalah — Harian Olahraga</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#1a1a1a;--paper:#f3efe6;--card:#fffdf8;--line:#d6d3d1;
-  --red:#b3261e;--muted:#57534e;--accent:#9a3412;
-}
+:root{--ink:#111;--paper:#bcbcbc;--mid:#454545;--red:#b3261e;
+  --hd:'Playfair Display','Times New Roman',serif;--bd:'Libre Baskerville',Georgia,serif}
 html{scroll-behavior:smooth}
-body{
-  font-family:'Source Sans 3',system-ui,sans-serif;
-  background:#e7e5e4;
-  color:var(--ink);
-  line-height:1.65;
+body{background:#7d7d7d;font-family:var(--bd);color:var(--ink);line-height:1.55}
+.page{
+  max-width:66rem;margin:0 auto;min-height:100vh;
+  background:radial-gradient(ellipse at 50% 20%,#cacaca,#b3b3b3 80%);
+  position:relative;
+  padding:1.2rem 1rem 3rem;
 }
+.page::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(0,0,0,.07) .8px,transparent 1.2px) 0 0/4px 4px;
+  box-shadow:inset 0 0 80px rgba(0,0,0,.2)}
+.inner{position:relative;z-index:1}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;gap:.5rem;
+  padding:.45rem .8rem;border:1px solid var(--ink);background:var(--paper);
+  font:italic .68rem var(--bd);margin-bottom:1rem;
+}
+.topbar b{font-style:normal;font-family:var(--hd)}
 .sheet{
-  max-width:880px;
-  margin:0 auto;
   background:var(--paper);
-  min-height:100vh;
-  box-shadow:0 0 0 1px #cfcbc6, 0 20px 50px rgba(0,0,0,.12);
-}
-.inner{padding:1.5rem 1.25rem 3rem}
-@media(min-width:700px){.inner{padding:2.2rem 2.4rem 4rem}}
-.cover{
-  text-align:center;
-  padding:2.5rem 1rem 2rem;
-  border-bottom:4px double var(--ink);
-  margin-bottom:1.5rem;
-  position:relative;
-}
-.cover .stamp{
-  display:inline-block;
-  border:3px solid var(--red);
-  color:var(--red);
-  font-family:'Playfair Display',serif;
-  font-weight:900;
-  font-size:.75rem;
-  letter-spacing:.18em;
-  padding:.25rem .7rem;
-  transform:rotate(-6deg);
-  margin-bottom:1rem;
-}
-.cover h1{
-  font-family:'Playfair Display',serif;
-  font-weight:900;
-  font-size:clamp(1.5rem,4.5vw,2.2rem);
-  line-height:1.15;
-  text-transform:uppercase;
-  margin:.4rem 0 1rem;
-}
-.cover .tema{
-  font-family:'Literata',Georgia,serif;
-  font-size:1.05rem;
-  color:var(--muted);
-  margin-bottom:1.4rem;
-}
-.identitas{
-  display:inline-block;
-  text-align:left;
   border:1px solid var(--ink);
-  padding:1rem 1.2rem;
-  background:var(--card);
-  font-size:.9rem;
+  padding:1.4rem 1.1rem 2rem;
+  box-shadow:0 12px 40px rgba(0,0,0,.18);
 }
-.identitas div{margin:.2rem 0}
-.identitas span{color:var(--muted);display:inline-block;min-width:5.5rem}
-.toc-box{
-  border:1px solid var(--ink);
-  background:var(--card);
-  padding:1rem 1.1rem;
-  margin-bottom:1.6rem;
-}
-.toc-box h2{
-  font-family:'Playfair Display',serif;
-  font-size:1.05rem;
-  margin-bottom:.6rem;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-}
-.toc-box a{
-  display:flex;gap:.5rem;align-items:baseline;
-  text-decoration:none;color:var(--ink);
-  padding:.35rem 0;border-bottom:1px dotted rgba(0,0,0,.25);
-  font-size:.92rem;
-}
-.toc-box a:hover{color:var(--red)}
-.toc-box .no{font-family:'Playfair Display',serif;font-weight:800;width:1.6rem}
-.sec{margin-bottom:1.8rem}
-.sec-h{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.15rem,3vw,1.45rem);
-  text-transform:uppercase;
-  border-bottom:2px solid var(--ink);
-  padding-bottom:.35rem;
-  margin-bottom:.85rem;
-}
-.sec p{margin-bottom:.7rem;text-align:justify;font-size:.95rem}
-.sec ul{margin:.3rem 0 .8rem 1.2rem;font-size:.95rem}
-.sec li{margin:.28rem 0}
+@media(min-width:700px){.sheet{padding:2rem 2.2rem 2.5rem}}
+.rule{border-top:1.5px solid var(--ink);margin:.45rem 0}
+.rule.dbl{border-top:4px double var(--ink)}
+.big{font:900 clamp(1.8rem,8vw,3.6rem)/.95 var(--hd);text-transform:uppercase;text-align:center;margin:.35rem 0}
+.blackbar{background:var(--ink);color:#dcdcdc;display:flex;justify-content:space-between;gap:.5rem;padding:.25rem .8rem;font:italic .68rem var(--bd);margin:.3rem 0}
+.subt{display:flex;align-items:center;gap:.8rem;margin:.7rem 0}
+.subt i{flex:1;border-top:1.5px solid var(--ink)}
+.subt span{font:400 clamp(.8rem,2vw,1rem) var(--hd);letter-spacing:.06em;text-transform:uppercase}
+.sechead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:1.2rem 0 .7rem;padding-top:.4rem;border-top:1px solid var(--ink)}
+.hl{font:800 clamp(1.15rem,3.8vw,1.9rem)/1.05 var(--hd);text-transform:uppercase}
+.sec{font:italic .68rem var(--bd);color:var(--mid);white-space:nowrap}
+.body{font-size:clamp(.78rem,1.8vw,.95rem);line-height:1.55;text-align:justify}
+.dropcap::first-letter{font:900 2.8em/.8 var(--hd);float:left;padding:.06em .08em 0 0}
+.quote{font:italic 400 clamp(.9rem,2.2vw,1.2rem)/1.45 var(--hd);text-align:justify;margin:.5rem 0}
+.quote::first-letter{font:900 2.4em/.8 var(--hd);float:left;padding:.05em .08em 0 0;font-style:normal}
 .clip{
-  background:var(--card);
-  border:1px solid var(--line);
-  box-shadow:0 6px 18px rgba(0,0,0,.06);
-  margin:1rem 0 1.2rem;
-  position:relative;
-  overflow:hidden;
-}
-.clip .tape{
-  position:absolute;width:70px;height:16px;background:#fde68a;opacity:.9;
-  box-shadow:0 1px 2px rgba(0,0,0,.1);
-}
-.clip .t1{top:8px;left:14px;transform:rotate(-7deg)}
-.clip .t2{top:10px;right:16px;transform:rotate(5deg)}
-.clip-body{padding:1.25rem 1.1rem 1.15rem}
-.clip .src{
-  font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:.3rem;
-}
-.clip h3{
-  font-family:'Playfair Display',serif;
-  font-size:1.15rem;line-height:1.25;margin-bottom:.4rem;
-}
-.clip .by{font-size:.78rem;color:var(--muted);margin-bottom:.7rem;padding-bottom:.55rem;border-bottom:1px dashed var(--line)}
-.clip p{font-size:.92rem;margin-bottom:.55rem;text-align:justify}
-.clip ul{margin:.2rem 0 .6rem 1.1rem;font-size:.92rem}
-.hi{background:linear-gradient(transparent 55%,#fde68a 55%)}
-.quote{
-  border-left:3px solid var(--red);
-  padding:.5rem .85rem;margin:.8rem 0;background:#fff7ed;
-  font-family:'Literata',Georgia,serif;font-style:italic;color:#444;
-}
-.tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.7rem}
-.tag{font-size:.68rem;font-weight:700;background:#f5f5f4;border:1px solid var(--line);padding:.15rem .45rem;border-radius:4px;color:var(--muted)}
-.note{
   border:1px solid var(--ink);
-  padding:.6rem .8rem;
-  font-size:.85rem;
-  background:rgba(255,255,255,.4);
-  margin-top:1rem;
+  background:rgba(255,255,255,.22);
+  padding:1rem .9rem;
+  margin:.9rem 0 1.1rem;
+  position:relative;
 }
-.note b{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-right:.4rem}
-.foot{
-  margin-top:2rem;padding-top:1rem;border-top:4px double var(--ink);
-  text-align:center;font-size:.8rem;color:var(--muted);
+.clip::before{
+  content:'KLIPING';
+  position:absolute;top:-.55rem;left:.8rem;
+  background:var(--paper);padding:0 .4rem;
+  font:700 .55rem var(--hd);letter-spacing:.12em;color:var(--red);
 }
+.clip h3{font:800 1.05rem/1.2 var(--hd);text-transform:uppercase;margin:.2rem 0 .5rem}
+.clip ul{margin:.3rem 0 .5rem 1.1rem;font-size:clamp(.78rem,1.8vw,.92rem)}
+.clip li{margin:.2rem 0}
+.ident{border:1px solid var(--ink);padding:.7rem .9rem;margin:.8rem 0;font-size:.88rem;background:rgba(255,255,255,.2)}
+.ident div{margin:.15rem 0}
+.ident span{color:var(--mid);display:inline-block;min-width:6rem}
+.toc a{
+  display:flex;gap:.5rem;align-items:baseline;text-decoration:none;color:var(--ink);
+  padding:.4rem .2rem;border-bottom:1px solid rgba(0,0,0,.35);
+  font:400 .9rem var(--hd);
+}
+.toc a:hover{background:var(--ink);color:var(--paper)}
+.toc .no{font:900 1.1rem var(--hd);width:1.8rem}
+.note{margin-top:.8rem;border:1px solid var(--ink);padding:.4rem .7rem;font:italic .72rem var(--bd);background:rgba(255,255,255,.18)}
+.note b{font:700 .6rem var(--hd);letter-spacing:.1em;text-transform:uppercase;margin-right:.4rem;font-style:normal}
+.stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font:900 1rem var(--hd);letter-spacing:.15em;padding:.2rem .7rem;transform:rotate(-8deg);margin:1rem 0}
+.foot{text-align:center;margin-top:1.5rem;padding-top:.8rem;border-top:4px double var(--ink);font:italic .72rem var(--bd);color:var(--mid)}
+.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.7rem;margin-top:.5rem}
+.tag{font:700 .55rem var(--hd);letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:.25rem}
+.cap{font:700 .78rem var(--hd);text-align:center;margin-top:.3rem}
+.cap small{display:block;font:400 .64rem var(--bd);color:var(--mid)}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:.6rem}
+@media(max-width:560px){.people{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-<div class="sheet"><div class="inner">
+<div class="page"><div class="inner">
+  <div class="topbar">
+    <span><b>HARIAN OLAHRAGA</b> · Edisi Klipping</span>
+    <span id="date"></span>
+  </div>
 
-  <header class="cover">
-    <div class="stamp">MAKALAH + KLIPING</div>
-    <div style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Tugas Sekolah · PJOK</div>
-    <h1>Olahraga untuk Kesehatan Tubuh dan Mental</h1>
-    <p class="tema">Makalah disertai kumpulan kliping materi tentang olahraga</p>
-    <div class="identitas">
+  <div class="sheet">
+    <div class="rule dbl"></div>
+    <h1 class="big">Makalah & Klipping</h1>
+    <div class="blackbar"><span>Edisi PJOK</span><span>KELOMPOK 1</span><span id="today"></span></div>
+    <div class="subt"><i></i><span>Olahraga · Tugas Sekolah</span><i></i></div>
+
+    <div class="ident">
+      <div><span>Judul</span> <strong>Olahraga untuk Kesehatan Tubuh dan Mental</strong></div>
       <div><span>Disusun oleh</span> <strong>Nama Kamu / Kelompok 1</strong></div>
-      <div><span>Kelas</span> <strong>VII (Tujuh)</strong></div>
+      <div><span>Kelas</span> <strong>VII</strong></div>
       <div><span>Sekolah</span> <strong>[Nama Sekolah]</strong></div>
-      <div><span>Tahun</span> <strong>2026</strong></div>
     </div>
-  </header>
 
-  <nav class="toc-box" id="daftar-isi">
-    <h2>Daftar Isi</h2>
-    <a href="#kata-pengantar"><span class="no">01</span> Kata Pengantar</a>
-    <a href="#pendahuluan"><span class="no">02</span> Pendahuluan</a>
-    <a href="#pengertian"><span class="no">03</span> Pengertian Olahraga <em style="margin-left:auto;font-size:.75rem;color:var(--muted)">(kliping)</em></a>
-    <a href="#jenis"><span class="no">04</span> Jenis-Jenis Olahraga <em style="margin-left:auto;font-size:.75rem;color:var(--muted)">(kliping)</em></a>
-    <a href="#manfaat"><span class="no">05</span> Manfaat Olahraga <em style="margin-left:auto;font-size:.75rem;color:var(--muted)">(kliping)</em></a>
-    <a href="#cedera"><span class="no">06</span> Cedera & Pencegahan <em style="margin-left:auto;font-size:.75rem;color:var(--muted)">(kliping)</em></a>
-    <a href="#penutup"><span class="no">07</span> Penutup</a>
-    <a href="#pustaka"><span class="no">08</span> Daftar Pustaka</a>
-  </nav>
+    <div class="sechead"><h2 class="hl">Daftar Isi</h2><span class="sec">Navigasi</span></div>
+    <div class="toc">
+      <a href="#pengantar"><span class="no">01</span> Kata Pengantar</a>
+      <a href="#latar"><span class="no">02</span> Latar Belakang</a>
+      <a href="#tujuan"><span class="no">03</span> Tujuan</a>
+      <a href="#pengertian"><span class="no">04</span> Pengertian Olahraga</a>
+      <a href="#jenis"><span class="no">05</span> Jenis-Jenis Olahraga</a>
+      <a href="#manfaat"><span class="no">06</span> Manfaat Olahraga</a>
+      <a href="#cedera"><span class="no">07</span> Cedera & Pencegahan</a>
+      <a href="#kesimpulan"><span class="no">08</span> Kesimpulan</a>
+      <a href="#penutup"><span class="no">09</span> Penutup</a>
+    </div>
 
-  <section class="sec" id="kata-pengantar">
-    <h2 class="sec-h">Kata Pengantar</h2>
-    <p>
-      Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa karena atas rahmat-Nya makalah kliping
-      berjudul <strong>“Olahraga untuk Kesehatan Tubuh dan Mental”</strong> dapat diselesaikan.
+    <div class="sechead" id="pengantar"><h2 class="hl">Kata Pengantar</h2><span class="sec">Pengantar</span></div>
+    <p class="body dropcap">
+      Puji syukur kami panjatkan karena makalah klipping bertema olahraga ini dapat diselesaikan.
+      Karya ini menggabungkan <strong>makalah</strong> (uraian terstruktur) dan <strong>kliping</strong>
+      (cuplikan materi yang disusun rapi) sebagai tugas PJOK.
     </p>
-    <p>
-      Makalah ini disusun sebagai tugas sekolah pada mata pelajaran Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK).
-      Isinya menggabungkan <strong>makalah</strong> (uraian terstruktur) dengan <strong>kliping</strong>
-      (kumpulan cuplikan materi/artikel yang disusun rapi) agar lebih mudah dipahami.
+    <p class="body" style="margin-top:.6rem">
+      Semoga bermanfaat. Saran dan kritik membangun sangat kami harapkan.
     </p>
-    <p>
-      Kami menyadari masih terdapat kekurangan. Saran dan kritik yang membangun sangat kami harapkan.
-      Semoga makalah kliping ini bermanfaat bagi pembaca.
-    </p>
-    <p style="text-align:right;margin-top:1rem">Hormat kami,<br/><strong>Kelompok 1</strong></p>
-  </section>
+    <p class="body" style="text-align:right;margin-top:.8rem">Hormat kami,<br/><strong>Kelompok 1</strong></p>
 
-  <section class="sec" id="pendahuluan">
-    <h2 class="sec-h">Pendahuluan</h2>
-    <p>
-      Olahraga merupakan bagian penting dalam menjaga kesehatan sejak usia sekolah.
-      Aktivitas fisik yang teratur membantu tubuh tetap bugar, menurunkan risiko penyakit,
-      serta mendukung kesehatan mental seperti mengurangi stres dan meningkatkan konsentrasi belajar.
-    </p>
-    <p>
-      Melalui makalah kliping ini, kami bertujuan:
-    </p>
-    <ul>
-      <li>Menjelaskan pengertian olahraga secara sederhana;</li>
-      <li>Menguraikan jenis-jenis olahraga yang umum dikenal;</li>
-      <li>Menyajikan manfaat olahraga bagi tubuh dan mental;</li>
-      <li>Memberikan tips pencegahan cedera saat berolahraga.</li>
-    </ul>
-  </section>
+    <div class="sechead" id="latar"><h2 class="hl">Latar Belakang</h2><span class="sec">Sorotan</span></div>
+    <div class="clip">
+      <h3>Mengapa Olahraga Penting?</h3>
+      <p class="body dropcap">
+        Olahraga penting dilakukan sejak dini untuk menjaga kesehatan tubuh dan meningkatkan kebugaran jasmani sehari-hari.
+        Dengan berolahraga secara teratur, tubuh menjadi lebih kuat, mental lebih stabil, dan risiko penyakit menurun.
+      </p>
+      <div class="note"><b>Catatan Redaksi</b> Olahraga bikin badan sehat dan bugar setiap hari!</div>
+    </div>
 
-  <section class="sec" id="pengertian">
-    <h2 class="sec-h">Bab I — Pengertian Olahraga</h2>
-    <article class="clip">
-      <div class="tape t1"></div><div class="tape t2"></div>
-      <div class="clip-body">
-        <div class="src">Kliping 1 · Definisi</div>
-        <h3>Apa Itu Olahraga?</h3>
-        <div class="by">Disusun ulang dari bahan ajar PJOK · untuk keperluan makalah sekolah</div>
-        <p>
-          <span class="hi">Olahraga</span> adalah aktivitas fisik yang dilakukan secara terencana, terstruktur, dan berulang
-          dengan tujuan menjaga kesehatan, meningkatkan kebugaran jasmani, serta melatih keterampilan gerak.
-        </p>
-        <p>
-          Di sekolah, olahraga tidak hanya berarti pertandingan. Termasuk di dalamnya pemanasan, latihan inti,
-          dan pendinginan yang dilakukan secara teratur agar tubuh lebih kuat, lentur, dan tahan lelah.
-        </p>
-        <div class="quote">
-          “Olahraga yang baik dilakukan rutin, sesuai kemampuan, serta diikuti istirahat dan asupan yang cukup.”
-        </div>
-        <div class="tags"><span class="tag">#pengertian</span><span class="tag">#kebugaran</span><span class="tag">#PJOK</span></div>
+    <div class="sechead" id="tujuan"><h2 class="hl">Tujuan</h2><span class="sec">Agenda</span></div>
+    <div class="clip">
+      <h3>Empat Hal yang Dipelajari</h3>
+      <ul>
+        <li>Mengetahui pengertian olahraga</li>
+        <li>Mengetahui jenis-jenis olahraga</li>
+        <li>Mengetahui manfaat olahraga bagi tubuh dan mental</li>
+        <li>Mengetahui cara mencegah cedera saat berolahraga</li>
+      </ul>
+    </div>
+
+    <div class="sechead" id="pengertian"><h2 class="hl">Pengertian Olahraga</h2><span class="sec">Definisi</span></div>
+    <div class="clip">
+      <h3>Apa Itu Olahraga?</h3>
+      <p class="quote">
+        “Olahraga adalah aktivitas fisik yang dilakukan secara terencana dan berulang untuk menjaga kesehatan,
+        meningkatkan kebugaran tubuh, serta melatih keterampilan gerak.”
+      </p>
+      <div class="note"><b>Catatan Redaksi</b> Olahraga = gerak tubuh yang terencana dan berulang.</div>
+    </div>
+
+    <div class="sechead" id="jenis"><h2 class="hl">Jenis-Jenis Olahraga</h2><span class="sec">Klasifikasi</span></div>
+    <div class="clip">
+      <h3>Beregu & Perorangan</h3>
+      <div class="kinds">
+        <div><div class="tag">Beregu</div><div class="cap">Permainan Bola<small>sepak bola · basket · voli</small></div></div>
+        <div><div class="tag">Perorangan</div><div class="cap">Atletik<small>lari · lompat · tolak</small></div></div>
+        <div><div class="tag">Perorangan</div><div class="cap">Bela Diri<small>silat · karate · taekwondo</small></div></div>
+        <div><div class="tag">Perorangan</div><div class="cap">Renang<small>gaya bebas · dada</small></div></div>
+        <div><div class="tag">Perorangan</div><div class="cap">Senam & Kebugaran<small>senam · yoga · sepeda</small></div></div>
       </div>
-    </article>
-  </section>
+      <div class="note"><b>Catatan Redaksi</b> Ada olahraga beregu dan perorangan, lho!</div>
+    </div>
 
-  <section class="sec" id="jenis">
-    <h2 class="sec-h">Bab II — Jenis-Jenis Olahraga</h2>
-    <article class="clip">
-      <div class="tape t1"></div><div class="tape t2"></div>
-      <div class="clip-body">
-        <div class="src">Kliping 2 · Klasifikasi</div>
-        <h3>Beragam Jenis Olahraga</h3>
-        <div class="by">Ringkasan klasifikasi untuk makalah siswa</div>
-        <ul>
-          <li><strong>Permainan bola (beregu)</strong> — sepak bola, basket, voli</li>
-          <li><strong>Atletik (perorangan)</strong> — lari, lompat, tolak</li>
-          <li><strong>Bela diri</strong> — pencak silat, karate, taekwondo</li>
-          <li><strong>Renang</strong> — gaya bebas, gaya dada, dll.</li>
-          <li><strong>Senam & kebugaran</strong> — senam, yoga, bersepeda</li>
-        </ul>
-        <p>
-          Tidak ada jenis yang “paling benar” untuk semua orang. Yang penting adalah
-          <span class="hi">konsistensi</span>, teknik yang aman, dan kegiatan yang disukai agar mudah dijaga.
-        </p>
-        <div class="tags"><span class="tag">#jenis</span><span class="tag">#beregu</span><span class="tag">#perorangan</span></div>
-      </div>
-    </article>
-  </section>
+    <div class="sechead" id="manfaat"><h2 class="hl">Manfaat Olahraga</h2><span class="sec">Manfaat</span></div>
+    <div class="clip">
+      <h3>Tubuh & Mental Lebih Baik</h3>
+      <ul>
+        <li><strong>Jantung sehat</strong> — melatih jantung & paru-paru</li>
+        <li><strong>Otot kuat</strong> — membangun kekuatan tubuh</li>
+        <li><strong>Daya tahan</strong> — stamina lebih baik</li>
+        <li><strong>Mental baik</strong> — kurangi stres & cemas</li>
+        <li><strong>Sportivitas</strong> — melatih kerja sama & fair play</li>
+      </ul>
+      <div class="note"><b>Catatan Redaksi</b> Rutin olahraga: jantung, otot, dan mental ikut kuat!</div>
+    </div>
 
-  <section class="sec" id="manfaat">
-    <h2 class="sec-h">Bab III — Manfaat Olahraga</h2>
-    <article class="clip">
-      <div class="tape t1"></div><div class="tape t2"></div>
-      <div class="clip-body">
-        <div class="src">Kliping 3 · Manfaat fisik & mental</div>
-        <h3>Mengapa Harus Rutin Berolahraga?</h3>
-        <div class="by">Disarikan dari edukasi kesehatan remaja</div>
-        <ul>
-          <li><strong>Jantung & paru-paru</strong> lebih efisien memasok oksigen.</li>
-          <li><strong>Otot & tulang</strong> lebih kuat; postur tubuh lebih baik.</li>
-          <li><strong>Berat badan</strong> lebih mudah dijaga dalam rentang sehat.</li>
-          <li><strong>Stres berkurang</strong> karena tubuh melepaskan endorfin.</li>
-          <li><strong>Konsentrasi belajar</strong> sering meningkat setelah aktivitas fisik.</li>
-          <li><strong>Sportivitas</strong> — melatih kerja sama dan sikap fair play.</li>
-        </ul>
-        <p>Untuk pelajar, 30–60 menit beberapa kali seminggu sudah cukup bila dilakukan dengan teknik yang benar.</p>
-        <div class="tags"><span class="tag">#manfaat</span><span class="tag">#mental</span><span class="tag">#stamina</span></div>
-      </div>
-    </article>
-  </section>
+    <div class="sechead" id="cedera"><h2 class="hl">Cedera & Pencegahan</h2><span class="sec">Keselamatan</span></div>
+    <div class="clip">
+      <h3>Jaga Aman Saat Bergerak</h3>
+      <ul>
+        <li>Keseleo & kram — pemanasan dulu</li>
+        <li>Gunakan sepatu & alat yang sesuai</li>
+        <li>Jaga teknik gerakan yang benar</li>
+        <li>Minum air cukup (hidrasi)</li>
+        <li>Berhenti jika sakit atau sangat lelah</li>
+      </ul>
+      <div class="note"><b>Catatan Redaksi</b> Pemanasan dulu ya, biar tidak cedera!</div>
+    </div>
 
-  <section class="sec" id="cedera">
-    <h2 class="sec-h">Bab IV — Cedera & Pencegahan</h2>
-    <article class="clip">
-      <div class="tape t1"></div><div class="tape t2"></div>
-      <div class="clip-body">
-        <div class="src">Kliping 4 · Keselamatan</div>
-        <h3>Cara Mencegah Cedera Saat Berolahraga</h3>
-        <div class="by">Poin praktis untuk kegiatan di sekolah dan di rumah</div>
-        <ul>
-          <li><strong>Pemanasan 5–10 menit</strong> sebelum kegiatan inti.</li>
-          <li><strong>Pendinginan</strong> setelah latihan agar detak jantung turun bertahap.</li>
-          <li>Gunakan <strong>sepatu dan alat</strong> yang sesuai.</li>
-          <li>Jaga <strong>teknik gerakan</strong> yang benar.</li>
-          <li><strong>Minum air</strong> cukup (hidrasi).</li>
-          <li><strong>Berhenti</strong> jika nyeri tajam atau sangat lelah; laporkan ke guru/pelatih.</li>
-        </ul>
-        <div class="quote">
-          Urutan aman: pemanasan → kegiatan inti → pendinginan. Melewatkan salah satunya meningkatkan risiko cedera.
-        </div>
-        <div class="tags"><span class="tag">#pencegahan</span><span class="tag">#pemanasan</span><span class="tag">#keselamatan</span></div>
-      </div>
-    </article>
-  </section>
+    <div class="sechead" id="kesimpulan"><h2 class="hl">Kesimpulan</h2><span class="sec">Ringkasan</span></div>
+    <div class="clip">
+      <p class="body dropcap">
+        Olahraga sangat penting untuk kesehatan tubuh dan mental. Lakukan secara teratur dengan urutan:
+        <strong>pemanasan → kegiatan inti → pendinginan</strong>. Jaga keselamatan, minum cukup, dan istirahat yang cukup agar tubuh tetap bugar.
+      </p>
+      <div class="note"><b>Catatan Redaksi</b> Ingat urutannya: pemanasan, inti, pendinginan.</div>
+    </div>
 
-  <section class="sec" id="penutup">
-    <h2 class="sec-h">Penutup</h2>
-    <p>
-      Dari uraian makalah dan kliping di atas dapat disimpulkan bahwa olahraga adalah kebutuhan,
-      bukan sekadar hobi. Manfaatnya mencakup kebugaran fisik, kesehatan mental, dan karakter sportif.
-    </p>
-    <p>
-      Kami menyarankan pelajar memulai dari aktivitas yang disukai, menjaganya secara rutin,
-      serta selalu memperhatikan pemanasan dan pendinginan. Semoga makalah kliping ini bermanfaat.
-    </p>
-    <div class="note"><b>Catatan</b> Ganti nama penyusun, kelas, dan sekolah pada bagian cover sesuai data kelompok.</div>
-  </section>
+    <div class="sechead" id="penutup"><h2 class="hl">Penutup</h2><span class="sec">Terima Kasih</span></div>
+    <div style="text-align:center">
+      <div class="subt"><i></i><span>Presentasi Olahraga</span><i></i></div>
+      <div class="stamp">SELESAI</div>
+      <p class="sec" style="display:block;white-space:normal;margin-top:.5rem">Kelompok 1 · Edisi PJOK · Ada pertanyaan?</p>
+    </div>
 
-  <section class="sec" id="pustaka">
-    <h2 class="sec-h">Daftar Pustaka</h2>
-    <p style="font-size:.9rem">
-      1. Bahan ajar Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK) Sekolah Menengah Pertama.<br/>
-      2. Kementerian Kesehatan Republik Indonesia. (n.d.). <em>Manfaat aktivitas fisik bagi kesehatan</em>.<br/>
-      3. Sumber edukasi kesehatan remaja dan kebugaran jasmani (disusun ulang untuk keperluan tugas sekolah).
-    </p>
-    <p style="font-size:.82rem;color:var(--muted);margin-top:.6rem">
-      *Daftar pustaka dapat dilengkapi dengan sumber artikel/koran yang kamu gunakan di kliping asli.
-    </p>
-  </section>
+    <div class="sechead"><h2 class="hl">Disusun Oleh</h2><span class="sec">Tim</span></div>
+    <div class="people">
+      <div><div class="cap">Nama Kamu<small>Ketua · Pembawa materi</small></div></div>
+      <div><div class="cap">Nama Teman 1<small>Moderator · Pengarah</small></div></div>
+      <div><div class="cap">Nama Teman 2<small>Notulen · Pencatat</small></div></div>
+    </div>
 
-  <footer class="foot">
-    Makalah + Klipping · Olahraga · Tugas PJOK 2026
-  </footer>
+    <footer class="foot">Harian Olahraga · Makalah & Klipping · Tugas Sekolah PJOK</footer>
+  </div>
 </div></div>
+<script>
+const today = new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+document.getElementById('date').textContent = today;
+document.getElementById('today').textContent = today;
+</script>
 </body>
 </html>
