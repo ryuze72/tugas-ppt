@@ -4,9 +4,25 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tugas Sekolah — Olahraga</title>
-<meta http-equiv="refresh" content="0;url=presentasi.html"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Patrick+Hand&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-<p>Membuka presentasi… <a href="presentasi.html">Klik di sini</a></p>
+<div class="stage" id="stage">
+  <div class="stars" id="stars"></div>
+  <div class="progress" id="progress"></div>
+  <canvas class="confetti" id="confetti"></canvas>
+  <div class="wipe" id="wipe"></div>
+  <div id="morph-layer"></div>
+  <button class="toc-btn" onclick="go(2)">☰ Daftar Isi</button>
+  <div class="counter"><span id="cur">1</span> / <span id="tot">10</span></div>
+  <div id="slides-root"></div>
+  <div class="nav">
+    <button class="btn btn-prev" id="prev" onclick="goDir(-1)">← Prev</button>
+    <div class="dots" id="dots"></div>
+    <button class="btn btn-next" id="next" onclick="goDir(1)">Lanjut →</button>
+  </div>
+</div>
+<script src="app.js"></script>
 </body>
 </html>
