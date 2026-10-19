@@ -2,509 +2,162 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Tugas Sekolah — Olahraga</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Patrick+Hand&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Harian Olahraga — Tugas Sekolah</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#2f2f2f;--bg2:#3a3a3a;
-  --yellow:#f4e04d;--lime:#c5e384;--green:#2f7d3a;
-  --purple:#7b7fd6;--orange:#e8903a;--blue:#a9c8ee;
-  --cream:#f5f0e1;--ink:#1a1a1a;--white:#fff;
-}
-html,body{height:100%;overflow:hidden;background:#1a1a1a;font-family:'Quicksand',sans-serif}
-.stage{position:relative;width:100%;height:100%;background:var(--bg);overflow:hidden}
+:root{--ink:#111;--paper:#bcbcbc;--mid:#454545;--red:#b3261e;--b:.15s;
+  --hd:'Playfair Display','Times New Roman',serif;--bd:'Libre Baskerville',Georgia,serif}
+html,body{height:100%;overflow:hidden;background:#7d7d7d;font-family:var(--bd);color:var(--ink)}
+@media(min-width:900px){html{font-size:clamp(16px,min(1.5vw,2.3vh),34px)}.photo.tall{aspect-ratio:4/5;height:40vh;width:auto;margin-inline:auto}.photo svg{max-height:38vh}.barw{height:clamp(110px,30vh,320px)}.dot{width:.6rem;height:.6rem}.dot.on{width:1.3rem}}
+.stage{position:relative;height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#cacaca,#b3b3b3 75%)}
+.stage::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:60;
+  background:radial-gradient(circle,rgba(0,0,0,.09) .8px,transparent 1.2px) 0 0/4px 4px,repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0 1px,transparent 1px 3px);
+  box-shadow:inset 0 0 80px rgba(0,0,0,.28)}
+.top{position:absolute;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border-bottom:1px solid var(--ink);background:var(--paper);font:italic .68rem var(--bd)}
+.top .dt{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top button{font:700 .64rem var(--hd);letter-spacing:.08em;text-transform:uppercase;background:none;border:1px solid var(--ink);padding:.2rem .55rem;cursor:pointer;color:var(--ink)}
+.top button:hover{background:var(--ink);color:var(--paper)}
+.ticker{position:absolute;left:0;right:0;bottom:3rem;height:1.5rem;z-index:50;display:flex;align-items:center;background:var(--ink);color:#e4e4e4;overflow:hidden;
+  font:700 .64rem var(--hd);letter-spacing:.1em;text-transform:uppercase}
+.ticker b{background:var(--red);color:#fff;padding:0 .7rem;height:100%;display:flex;align-items:center;z-index:2;flex:none}
+.ticker div{white-space:nowrap;animation:tick 40s linear infinite;padding-left:1rem}
+@keyframes tick{to{transform:translateX(-50%)}}
+.nav{position:absolute;left:0;right:0;bottom:0;height:3rem;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  padding:0 1rem;background:var(--paper);border-top:4px double var(--ink)}
+.btn{font:700 .72rem var(--hd);letter-spacing:.1em;text-transform:uppercase;padding:.45rem .9rem;border:1.5px solid var(--ink);background:none;color:var(--ink);cursor:pointer;transition:.15s}
+.btn:hover:not(:disabled){background:var(--ink);color:var(--paper)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn-next{background:var(--ink);color:#eee}
+.btn-next:hover:not(:disabled){background:var(--red);border-color:var(--red);color:#fff}
+.dots{display:flex;gap:5px;flex:1;justify-content:center;align-items:center}
+.dot{width:8px;height:8px;border:1px solid var(--ink);background:none;cursor:pointer;padding:0;transition:width .25s,background .25s}
+.dot.on{background:var(--ink);width:18px}
 
-/* stars */
-.stars{position:absolute;inset:0;pointer-events:none;z-index:0}
-.star{position:absolute;border-radius:50%;background:#fff;opacity:.5;animation:twinkle 3s ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:.9}}
-
-/* slides */
-.slide{
-  position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;
-  z-index:1;display:flex;align-items:center;justify-content:center;padding:1.4rem 1.2rem 4.2rem;
-}
-.slide.active{visibility:visible;opacity:1;pointer-events:auto;z-index:5;animation:slideIn .8s cubic-bezier(.22,1,.36,1) both}
-
-.blob{position:relative}
-.blob-y{background:var(--yellow)}
-.blob-g{background:var(--lime)}
-.blob-p{background:var(--purple)}
-.blob-c{background:var(--cream)}
-.blob-o{background:var(--orange)}
-.blob-b{background:var(--blue)}
-
-.h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.1;color:var(--ink)}
-.h2{font-family:'Fredoka',sans-serif;font-weight:600;line-height:1.15;color:var(--ink)}
-.body{font-family:'Quicksand',sans-serif;color:#2a2a2a;line-height:1.5}
-
-.deco{position:absolute;pointer-events:none;z-index:2}
-.sun{
-  width:68px;height:68px;border-radius:50%;background:var(--yellow);
-  box-shadow:0 0 0 8px rgba(244,224,77,.22);animation:spin 22s linear infinite;
-}
-.sun::before,.sun::after{content:'';position:absolute;background:var(--yellow)}
-.sun::before{width:11px;height:86px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:4px}
-.sun::after{width:86px;height:11px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:4px}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-
-.cloud{width:68px;height:26px;background:#fff;border-radius:40px;position:relative;opacity:.9}
-.cloud::before,.cloud::after{content:'';position:absolute;background:#fff;border-radius:50%}
-.cloud::before{width:34px;height:34px;top:-16px;left:10px}
-.cloud::after{width:26px;height:26px;top:-10px;right:12px}
-
-/* nav */
-.nav{
-  position:absolute;bottom:0;left:0;right:0;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.65rem 1rem;background:rgba(18,18,18,.94);border-top:2px solid #4a4a4a;gap:.5rem;
-}
-.btn{
-  font-family:'Fredoka',sans-serif;font-weight:600;font-size:.88rem;
-  padding:.5rem 1.1rem;border:none;border-radius:999px;cursor:pointer;
-  transition:transform .15s,background .15s;
-}
-.btn:hover:not(:disabled){transform:translateY(-2px)}
-.btn:disabled{opacity:.35;cursor:not-allowed}
-.btn-prev{background:#4a4a4a;color:#fff}
-.btn-next{background:var(--yellow);color:#1a1a1a;box-shadow:0 3px 12px rgba(244,224,77,.35)}
-.dots{display:flex;gap:6px;align-items:center;justify-content:center;max-width:180px;flex-wrap:wrap}
-.dot{width:9px;height:9px;border-radius:50%;background:#555;border:none;cursor:pointer;transition:all .25s}
-.dot.on{background:var(--yellow);width:20px;border-radius:6px}
-.counter{
-  position:absolute;top:.65rem;right:1rem;z-index:40;
-  font-family:'Fredoka',sans-serif;font-size:.72rem;color:#ccc;
-  background:rgba(0,0,0,.45);padding:.28rem .65rem;border-radius:999px;
-}
-.toc-btn{
-  position:absolute;top:.65rem;left:1rem;z-index:40;
-  font-family:'Fredoka',sans-serif;font-size:.72rem;
-  background:var(--purple);color:#fff;border:none;padding:.32rem .8rem;
-  border-radius:999px;cursor:pointer;
-}
-
-/* pop (lihat blok ANIMASI di bawah) */
-
-/* member */
-.member{
-  background:#3f3f3f;border-radius:18px;padding:.9rem .8rem;text-align:center;
-  border:2px solid #555;width:155px;
-}
-.avatar{
-  width:68px;height:68px;border-radius:50%;margin:0 auto .55rem;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.7rem;color:#fff;border:3px solid #fff;overflow:hidden;
-  background-size:cover;background-position:center;
-}
-.member .name{font-family:'Fredoka',sans-serif;font-size:.92rem;color:var(--yellow);margin-bottom:.12rem}
-.member .role{font-size:.72rem;color:#bbb}
-
-.toc-num{
-  width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;
-  font-family:'Fredoka',sans-serif;font-weight:700;font-size:.95rem;
-  background:#6b4a2a;color:#fff;transition:transform .15s,background .15s;
-  box-shadow:0 3px 0 #4a3018;
-}
-.toc-num:hover{transform:translateY(-3px);background:#8a5a30}
-
-.wrap{position:relative;z-index:3;width:100%;max-width:1080px;margin:0 auto}
-
-@media(max-width:700px){
-  .member{width:115px;padding:.65rem}
-  .avatar{width:52px;height:52px;font-size:1.25rem}
-  .toc-num{width:40px;height:40px;font-size:.8rem}
-  .h1{font-size:1.55rem!important}
-  .h2{font-size:1.2rem!important}
-}
-
-/* =========================================================
-   ANIMASI & TRANSISI (v2)
-   ========================================================= */
-.deco.cloud{position:absolute}
-.deco{translate:calc(var(--mx,0)*22px) calc(var(--my,0)*14px);transition:translate .5s ease-out}
-.stars{translate:calc(var(--mx,0)*-14px) calc(var(--my,0)*-10px);transition:translate .6s ease-out}
-
-@keyframes slideIn{
-  from{opacity:0;transform:translateX(calc(var(--dx,60px)*.5)) scale(.95)}
-  to{opacity:1;transform:none}
-}
-
-/* transisi: dua lapis warna melebar dari pojok, lalu memudar */
-.wipe{position:absolute;inset:0;z-index:45;pointer-events:none;overflow:hidden}
-.wipe i{position:absolute;inset:0;clip-path:circle(0px at var(--ox,100%) var(--oy,100%))}
-.wipe i:nth-child(1){background:var(--purple)}
-.wipe i:nth-child(2){background:var(--yellow)}
-.wipe.go{animation:wipeFade .32s ease .46s both}
-.wipe.go i{animation:iris .38s cubic-bezier(.6,0,.3,1) both}
-.wipe.go i:nth-child(2){animation-delay:.07s}
-@keyframes iris{from{clip-path:circle(0px at var(--ox,100%) var(--oy,100%))}to{clip-path:circle(150% at var(--ox,100%) var(--oy,100%))}}
-@keyframes wipeFade{to{opacity:0}}
-
-/* progress bar atas */
-.progress{position:absolute;top:0;left:0;height:5px;z-index:60;width:100%;transform-origin:0 50%;transform:scaleX(calc(var(--p,10)/100));background:linear-gradient(90deg,var(--yellow),var(--lime),var(--purple));transition:transform .8s cubic-bezier(.22,1,.36,1)}
-.confetti{position:absolute;inset:0;width:100%;height:100%;z-index:35;pointer-events:none}
-#cur{display:inline-block}
-
-/* pop-in: arah berbeda-beda (--from diisi JS), efek pegas */
-.pop{opacity:0;transform:var(--from,scale(.88));
-  transition:opacity .5s ease,transform .85s cubic-bezier(.34,1.56,.64,1)}
-.slide.active .pop{opacity:1;transform:none;will-change:transform,opacity;transition-delay:calc(.1s + var(--n,0)*.08s)}
-.p7{--n:6}.p1{--n:0}.p2{--n:1}.p3{--n:2}.p4{--n:3}.p5{--n:4}.p6{--n:5}
-.slide.active.settled .pop{transition-delay:0s;will-change:auto}
-.slide.active .pop[style*="border-radius"]:hover,.slide.active .member:hover{
-  transform:translateY(-6px) scale(1.04) rotate(-1deg);transition-duration:.3s;transition-delay:0s}
-
-/* blob bermorfing */
-@keyframes morph{
-  0%,100%{border-radius:30% 70% 60% 40%/50% 40% 60% 50%}
-  33%{border-radius:55% 45% 40% 60%/40% 60% 45% 55%}
-  66%{border-radius:42% 58% 62% 38%/58% 42% 52% 48%}
-}
-.blob{animation:breathe 6s ease-in-out infinite;animation-delay:var(--md,0s)}
-@keyframes breathe{0%,100%{rotate:-.7deg;scale:1}50%{rotate:.7deg;scale:1.03}}
-
-/* judul cover huruf demi huruf */
-.letter{display:inline-block;opacity:0}
-.slide.active .letter{animation:letterIn .75s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(.12s + var(--i)*.05s)}
-@keyframes letterIn{from{opacity:0;transform:translateY(55px) rotate(10deg) scale(.5)}to{opacity:1;transform:none}}
-
-/* tombol daftar isi muncul satu-satu */
-.toc-item{opacity:0}
-.slide.active .toc-item{animation:tocIn .65s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(.2s + var(--i)*.07s)}
-@keyframes tocIn{from{opacity:0;transform:scale(.3) translateY(14px) rotate(-12deg)}to{opacity:1;transform:none}}
-
-/* ikon hidup */
-.ic{display:block;transform-origin:50% 100%}
-.ic-bola{animation:bounce 1.8s ease-in-out infinite}
-.ic-basket{animation:bounce 1.8s ease-in-out infinite .35s}
-.ic-piala{animation:wiggle 3s ease-in-out infinite;transform-origin:50% 90%}
-.ic-sepatu{animation:tilt 2.2s ease-in-out infinite}
-.ic-pelari{animation:run 1.1s ease-in-out infinite}
-.ic-bumi{animation:spin 40s linear infinite;transform-origin:50% 50%}
-@keyframes bounce{
-  0%{transform:translateY(0) scale(1.1,.88) rotate(0)}
-  12%{transform:translateY(0) scale(1) rotate(30deg)}
-  50%{transform:translateY(-24px) scale(1) rotate(200deg)}
-  88%{transform:translateY(0) scale(1) rotate(330deg)}
-  100%{transform:translateY(0) scale(1.1,.88) rotate(360deg)}
-}
-@keyframes wiggle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg) translateY(-4px)}}
-@keyframes tilt{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg) translateY(-3px)}}
-@keyframes run{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
-
-/* dekorasi */
-.sun{animation:spin 22s linear infinite}
-@keyframes glow{
-  0%,100%{box-shadow:0 0 0 8px rgba(244,224,77,.22)}
-  50%{box-shadow:0 0 0 18px rgba(244,224,77,.1),0 0 40px rgba(244,224,77,.35)}
-}
-.cloud{animation:drift 14s ease-in-out infinite alternate}
-@keyframes drift{from{transform:translateX(-16px)}to{transform:translateX(16px)}}
-.shoot{position:absolute;top:8%;left:-12%;width:100px;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,transparent,#fff);opacity:0;animation:shoot 9s linear infinite 2.5s;z-index:0}
-@keyframes shoot{
-  0%{opacity:0;transform:translate(0,0) rotate(25deg)}
-  2%{opacity:1}
-  9%{opacity:0;transform:translate(125vw,58vh) rotate(25deg)}
-  100%{opacity:0;transform:translate(125vw,58vh) rotate(25deg)}
-}
-
-/* tombol */
-.btn:active:not(:disabled){transform:scale(.93)}
-.btn-next{animation:nudge 2.6s ease-in-out infinite}
-@keyframes nudge{0%,80%,100%{transform:translateX(0)}88%{transform:translateX(5px)}94%{transform:translateX(-1px)}}
-.btn-next:hover{animation:none}
-
-.btn{white-space:nowrap}
-@media(max-width:700px){
-  .nav{padding:.55rem .7rem;gap:.4rem}
-  .btn{font-size:.8rem;padding:.5rem .85rem}
-  .dots{max-width:none;flex-wrap:nowrap;gap:4px;flex:1}
-  .dot{width:7px;height:7px}.dot.on{width:15px}
-  .counter,.toc-btn{top:.8rem}
-}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
-}
-
-/* ilustrasi */
-.heart-bg{position:absolute;left:50%;top:50%;translate:-50% -50%;width:118%;max-width:560px;height:auto;z-index:0;pointer-events:none;animation:heartbeat 1.3s ease-in-out infinite}
-@keyframes heartbeat{0%,100%{scale:1}15%{scale:1.05}30%{scale:1}45%{scale:1.04}}
-.ic-bolaK{transform-origin:50% 50%;animation:spin 5s linear infinite}
-.card-ic{display:block;width:44px;height:44px;flex:0 0 auto}
-.card-ic.big{width:64px;height:64px}
-.card-ic svg{width:100%;height:100%}
-.ic-lari{animation:run 1.1s ease-in-out infinite}
-.ic-beladiri{animation:wiggle 1.6s ease-in-out infinite}
-.ic-renang{animation:tilt 2.4s ease-in-out infinite}
-.ic-senam{animation:wiggle 3s ease-in-out infinite}
-.ic-hati,.ic-bolt,.ic-teknik,.ic-stop{transform-origin:50% 50%;animation:pulse 1.1s ease-in-out infinite}
-.ic-dumbbell{animation:lift 1.3s ease-in-out infinite}
-.ic-smile{animation:tilt 2.5s ease-in-out infinite}
-.ic-medal{transform-origin:50% 0;animation:wiggle 2.4s ease-in-out infinite}
-.ic-plester,.ic-botol,.ic-sepatu2{animation:tilt 2.2s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
-@keyframes lift{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
-.arrow{display:inline-block;animation:arrowgo 1.2s ease-in-out infinite}
-@keyframes arrowgo{0%,100%{translate:0 0}50%{translate:6px 0}}
-
-/* jumping jack */
-.jj-body{animation:jjBody .55s ease-in-out infinite alternate}
-.jj-armL{transform-origin:106px 64px;animation:jjL .55s ease-in-out infinite alternate}
-.jj-armR{transform-origin:134px 64px;animation:jjR .55s ease-in-out infinite alternate}
-.jj-legL{transform-origin:112px 108px;animation:jjLL .55s ease-in-out infinite alternate}
-.jj-legR{transform-origin:128px 108px;animation:jjRR .55s ease-in-out infinite alternate}
-.jj-ball{animation:jjBall 1.1s cubic-bezier(.3,0,.7,1) infinite alternate}
-@keyframes jjBody{from{transform:translateY(0)}to{transform:translateY(-12px)}}
-@keyframes jjL{from{transform:rotate(8deg)}to{transform:rotate(168deg)}}
-@keyframes jjR{from{transform:rotate(-8deg)}to{transform:rotate(-168deg)}}
-@keyframes jjLL{from{transform:rotate(0)}to{transform:rotate(17deg)}}
-@keyframes jjRR{from{transform:rotate(0)}to{transform:rotate(-17deg)}}
-@keyframes jjBall{from{transform:translateY(0)}to{transform:translateY(-34px)}}
-
-/* pelari */
-.run-body{animation:runBob .3s ease-in-out infinite alternate}
-.rn-a{transform-origin:138px 60px;animation:rnA .3s ease-in-out infinite alternate}
-.rn-b{transform-origin:138px 60px;animation:rnB .3s ease-in-out infinite alternate}
-.rn-c{transform-origin:128px 96px;animation:rnA .3s ease-in-out infinite alternate}
-.rn-d{transform-origin:128px 96px;animation:rnB .3s ease-in-out infinite alternate}
-.heart-p{transform-origin:214px 44px;animation:pulse .8s ease-in-out infinite}
-.speed{animation:speed .45s linear infinite}
-.track-line{animation:track .5s linear infinite}
-@keyframes runBob{from{transform:translateY(0)}to{transform:translateY(-5px)}}
-@keyframes rnA{from{transform:rotate(-32deg)}to{transform:rotate(32deg)}}
-@keyframes rnB{from{transform:rotate(32deg)}to{transform:rotate(-32deg)}}
-@keyframes speed{from{transform:translateX(20px);opacity:0}30%{opacity:.6}to{transform:translateX(-24px);opacity:0}}
-@keyframes track{to{stroke-dashoffset:-28}}
-
-/* ===== saat transisi: ringankan kerja browser ===== */
-.vting .slide.active .pop:not([data-vt]){opacity:0!important;transform:var(--from,scale(.88))!important;transition:none!important}
-.vting .slide.active .pop[data-vt]{opacity:1!important;transform:none!important;transition:none!important}
-.vting .slide.active .letter,.vting .slide.active .toc-item{animation:none!important;opacity:0}
-.vting *{animation-play-state:paused!important}
-.slide:not(.active) *{animation-play-state:paused!important}
-/* ===== TRANSISI MORPH (View Transitions) ===== */
-#slides-root{position:absolute;inset:0;--vtn:slides}
-.slide.active [data-vt=sun]{--vtn:vt-sun}
-.slide.active [data-vt=c1]{--vtn:vt-c1}
-.slide.active [data-vt=c2]{--vtn:vt-c2}
-.slide.active [data-vt=title]{--vtn:vt-title}
-.vting .slide.active{animation:none}
-::view-transition-group(vt-sun),::view-transition-group(vt-c1),::view-transition-group(vt-c2),::view-transition-group(vt-title){
-  animation-duration:.7s;animation-timing-function:cubic-bezier(.65,0,.2,1)}
-::view-transition-old(vt-sun),::view-transition-new(vt-sun),
-::view-transition-old(vt-c1),::view-transition-new(vt-c1),
-::view-transition-old(vt-c2),::view-transition-new(vt-c2),
-::view-transition-old(vt-title),::view-transition-new(vt-title){height:100%;width:100%;object-fit:contain;mix-blend-mode:normal}
-::view-transition-old(root),::view-transition-new(root){animation-duration:.35s;mix-blend-mode:normal}
-::view-transition-old(slides),::view-transition-new(slides){mix-blend-mode:normal}
-::view-transition-old(slides){animation:vtOut .35s cubic-bezier(.4,0,1,1) both}
-::view-transition-new(slides){animation:vtIn .6s cubic-bezier(.22,1,.36,1) .08s both}
-@keyframes vtOut{to{opacity:0;transform:translateX(calc(var(--vx,60px)*-.7)) scale(.97)}}
-@keyframes vtIn{from{opacity:0;transform:translateX(var(--vx,60px)) scale(.97)}}
-@media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
-
-
-/* ===== presenter: karakter penjelas tiap slide ===== */
-.guru{position:absolute;bottom:58px;z-index:3;display:flex;align-items:flex-end;gap:6px;pointer-events:none;width:max-content;max-width:calc(100% - 150px)}
-.guru.L{left:10px}.guru.R{right:10px;flex-direction:row-reverse}
-.guru-c{width:62px;flex:0 0 auto}.guru-c svg{width:100%;height:auto;display:block;overflow:visible}
-.guru-b{position:relative;background:var(--cream);color:#1a1a1a;font-family:'Fredoka',sans-serif;font-size:.74rem;line-height:1.25;padding:.5em .8em;border-radius:14px;max-width:168px;margin-bottom:34px;box-shadow:0 3px 0 rgba(0,0,0,.25)}
-.guru.L .guru-b::after{content:'';position:absolute;left:-7px;bottom:10px;border:7px solid transparent;border-right-color:var(--cream);border-left:0}
-.guru.R .guru-b::after{content:'';position:absolute;right:-7px;bottom:10px;border:7px solid transparent;border-left-color:var(--cream);border-right:0}
-.g-body{animation:gBob 1.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
-.g-arm{animation:gWave 1.2s ease-in-out infinite;transform-box:view-box;transform-origin:58px 54px}
-.g-arm2{animation:gWave2 2.4s ease-in-out infinite;transform-box:view-box;transform-origin:22px 54px}
-.g-mouth{animation:gTalk .34s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 50%}
-.g-eye{animation:gBlink 3.4s infinite;transform-box:fill-box;transform-origin:50% 50%}
-.g-head{animation:gNod 1.2s ease-in-out infinite;transform-box:view-box;transform-origin:40px 44px}
-@keyframes gBob{0%,100%{transform:translateY(0) scale(1.02,.98)}50%{transform:translateY(-3px) scale(.985,1.02)}}
-@keyframes gWave{0%,100%{transform:rotate(-125deg)}50%{transform:rotate(-165deg)}}
-@keyframes gWave2{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-8deg)}}
-@keyframes gTalk{from{transform:scaleY(.3)}to{transform:scaleY(1.1)}}
-@keyframes gBlink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
-@keyframes gNod{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(3deg)}}
-@media(min-width:701px){.guru-c{width:78px}.guru-b{font-size:.9rem;max-width:230px;margin-bottom:42px}.guru{bottom:62px}}
-
-
-/* ===== tur penjelasan per butir ===== */
-.tour-on .slide.active .tour-it{transition:opacity .45s ease,filter .45s ease,transform .5s cubic-bezier(.22,1,.36,1),box-shadow .45s ease;cursor:pointer;pointer-events:auto}
-.tour-on .slide.active .tour-it:not(.hl){opacity:.5;filter:saturate(.7)}
-.slide.active .tour-it.hl{transform:scale(1.035);box-shadow:0 0 0 3px #fff,0 8px 22px rgba(0,0,0,.45);position:relative;z-index:2}
-.slide.active .tour-it.hl svg{animation:itPop .9s ease-in-out infinite alternate}
-@keyframes itPop{from{transform:scale(1)}to{transform:scale(1.18) rotate(-4deg)}}
-.guru-b.chg{animation:bIn .45s cubic-bezier(.22,1,.36,1)}
-@keyframes bIn{from{opacity:0;transform:translateY(8px) scale(.92)}to{opacity:1;transform:none}}
-.card-ic.person svg{overflow:visible}.card-ic.person,.card-ic.person *{animation:none}
-@media(max-width:700px){.slide[data-i="7"] .wrap>div:last-child>.pop:first-child svg{max-width:105px!important}.slide[data-i="7"] .wrap>.pop{margin-bottom:.3rem!important}}
-.eng .slide.active .toc-item{animation:none;opacity:1}
-.guru-no{display:inline-block;background:var(--yellow);border-radius:999px;padding:0 .55em;margin-right:.4em;font-size:.85em}
-
-
-/* ===== tampilan 3D: ekstrusi kartu, bola & matahari bervolume ===== */
-.slide .mm-n:not(.scene),.slide .member,.slide .pop[style*="border-radius"]{box-shadow:0 5px 0 rgba(0,0,0,.28)}
-.slide .pop[style*="border-radius: 999px"],.slide .blob{box-shadow:0 5px 0 rgba(0,0,0,.25)}
-.sun{background:radial-gradient(circle at 35% 30%,#fff7b0,var(--yellow) 52%,#d8b400)!important}
-
-
-/* ===================== VERSI LAPTOP / DESKTOP ===================== */
-@media (min-width:900px){
-  html{font-size:clamp(18px,1.45vw,26px)}
-  .slide{padding:2rem 3rem 5.2rem}
-  .slide:not([data-i="0"]){padding-bottom:9.8rem}
-  .wrap{max-width:min(1240px,92vw)!important}
-  .member{width:12.5rem;padding:1.2rem 1rem}
-  .avatar{width:5.6rem;height:5.6rem;font-size:2.2rem}
-  .member .name{font-size:1.05rem}.member .role{font-size:.8rem}
-  .toc-num{width:4rem;height:4rem;font-size:1.15rem}
-  .toc-item div{font-size:.8rem!important}
-  .h1{font-size:4.2rem!important}.h2{font-size:inherit}
-  /* ilustrasi besar mengisi ruang */
-  .slide .pop svg[viewBox][style*="max-width"]{max-width:min(100%,500px)!important;max-height:36vh}
-  /* orang kecil di poin → lebih besar */
-  .card-ic.person{width:3.3rem!important;height:3.7rem!important}
-  .slide[data-i="7"] .pop > .card-ic{width:4rem!important;height:4.5rem!important}
-  .slide[data-i="9"] .card-ic{width:5.2rem!important;height:5.8rem!important}
-  .slide[data-i="4"] li > .card-ic{width:3.4rem!important;height:3.9rem!important}
-  .slide[data-i="4"] li{font-size:1.1rem!important}
-  .card-ic.big{width:5rem;height:5rem}
-  .slide .mm-n.leaf .card-ic.person{width:2.7em!important;height:3.05em!important}
-  .slide .mm-n{font-size:clamp(.7rem,2.05cqw,1.1rem)}
-  .slide .mm-n.mm-root{font-size:clamp(1rem,3.3cqw,2rem)}
-  .slide[data-i="7"]{padding-bottom:11.5rem}
-  .slide[data-i="7"] .pop > .card-ic{width:2.9rem!important;height:3.3rem!important}
-  .slide[data-i="7"] .pop[style*="border-radius"]{padding:.35rem 1rem!important}
-  .slide[data-i="7"] .wrap{max-width:min(880px,90vw)!important}
-  /* mind map: sisakan ruang untuk karakter */
-  .mm{width:min(100%,1100px,calc((100dvh - 14.5rem)*1.6))!important}
-  /* karakter pelatih lebih besar */
-  .guru{bottom:5.4rem;gap:.5rem;max-width:calc(100% - 12rem)}
-  .guru.L{left:2rem}.guru.R{right:2rem}
-  .guru-c{width:6.2rem}
-  .guru-b{font-size:.92rem;max-width:21rem;margin-bottom:2.8rem;padding:.6em 1em;border-radius:16px}
-  .deco.planet{width:9rem!important}
-  .nav{padding:.8rem 2rem}
-  .btn{font-size:1rem;padding:.6rem 1.5rem}
-  .counter,.toc-btn{font-size:.85rem}
-  .kbd-hint{position:absolute;left:50%;bottom:5.2rem;translate:-50% 0;z-index:60;background:rgba(18,18,18,.92);color:#fff;font-family:'Fredoka',sans-serif;font-size:.85rem;padding:.55rem 1.1rem;border-radius:999px;border:2px solid #4a4a4a;pointer-events:none;transition:opacity .6s}
-  .kbd-hint b{background:var(--yellow);color:#1a1a1a;border-radius:6px;padding:0 .45em;margin:0 .15em}
-  .fs-btn{position:absolute;top:.65rem;right:5.4rem;z-index:40;font-family:'Fredoka',sans-serif;font-size:.8rem;background:#4a4a4a;color:#fff;border:none;padding:.3rem .8rem;border-radius:999px;cursor:pointer}
-  .fs-btn:hover{background:#666}
-}
-
-/* ===== konsep video: planet, bulan, mind map ===== */
-.deco.planet,.deco.moon{opacity:1}
-.deco.planet svg,.deco.moon svg{width:100%;height:auto}
-.ic-planet{transform-origin:50% 50%;animation:spin 60s linear infinite}
-.slide.active [data-vt=pl]{--vtn:vt-pl}
-.slide.active [data-vt=mo]{--vtn:vt-mo}
-.slide.active [data-vt=yb]{--vtn:vt-yb}
-::view-transition-group(vt-pl),::view-transition-group(vt-mo),::view-transition-group(vt-yb){animation-duration:.7s;animation-timing-function:cubic-bezier(.65,0,.2,1)}
-::view-transition-old(vt-pl),::view-transition-new(vt-pl),::view-transition-old(vt-mo),::view-transition-new(vt-mo),::view-transition-old(vt-yb),::view-transition-new(vt-yb){height:100%;width:100%;object-fit:contain;mix-blend-mode:normal}
-
-.mm{position:relative;width:min(100%,940px,calc((100vh - 8rem)*1.6));aspect-ratio:16/10;container-type:inline-size;margin:0 auto}
-@supports (height:100dvh){.mm{width:min(100%,940px,calc((100dvh - 8rem)*1.6))}}
-.mm-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:0}
-.mm-line{fill:none;stroke:#d6d6d6;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
-.slide.active .mm-line{animation:draw .9s ease .35s forwards}
-.vting .slide.active .mm-line{animation:none}
-@keyframes draw{to{stroke-dashoffset:0}}
-.mm-n{position:absolute;z-index:1;left:calc(var(--x)*1%);top:calc(var(--y)*1%);translate:-50% -50%;
-  width:max-content;max-width:var(--w,30cqw);padding:.55em .95em;border-radius:1.1em 1.5em 1.2em 1.4em;
-  font-family:'Fredoka',sans-serif;font-size:clamp(.62rem,1.9cqw,1.02rem);line-height:1.15;color:#1a1a1a;text-align:center;
-  display:flex;align-items:center;justify-content:center;gap:.55em}
-.mm-n.leaf{width:var(--w);justify-content:flex-start;text-align:left}
-.mm-n.scene{width:var(--w);padding:0;background:none;border-radius:0}
-.mm-n.scene svg{width:100%;max-width:none;height:auto}
-.mm-root{font-size:clamp(.95rem,3.4cqw,1.8rem);background:var(--yellow);padding:.8em 1em;line-height:1.1}
-@media(max-width:700px){
-  .mm{aspect-ratio:3/5;width:min(100%,calc((100vh - 8rem)*.6))}
-  @supports (height:100dvh){.mm{width:min(100%,calc((100dvh - 8rem)*.6))}}
-  .mm-n{left:calc(var(--mx)*1%);top:calc(var(--my)*1%);max-width:var(--mw,44cqw);font-size:clamp(.66rem,3.3cqw,.92rem)}
-  .mm-n.leaf,.mm-n.scene{width:var(--mw)}
-  .mm-root{font-size:clamp(.95rem,5.2cqw,1.4rem)}
-  .nolm .mm-lines{display:none}
-}
-
-/* ===== MESIN TRANSISI MORPH LIAR ===== */
-.eng .slide .pop{opacity:1;transform:none;transition:transform .25s ease;will-change:auto}
-.eng .slide.active .pop{will-change:transform,opacity}
-.eng .slide.active .pop[style*="border-radius"]:hover,.eng .slide.active .member:hover{transform:translateY(-6px) scale(1.04) rotate(-1deg)}
+.slide{position:absolute;inset:0;display:flex;overflow-y:auto;padding:2.9rem 1rem 5.2rem;opacity:0;visibility:hidden;pointer-events:none;z-index:4}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:5}
 .slide.leaving{visibility:visible;opacity:1;z-index:4;pointer-events:none}
-.eng .slide.active{animation:none}
-.slide.leaving .letter,.slide.leaving .toc-item{opacity:1}
-.slide.leaving .mm-line{stroke-dashoffset:0}
-.slabs{position:absolute;inset:0;z-index:46;pointer-events:none;overflow:hidden}
-.slabs i{position:absolute;top:-35%;height:170%;width:15%;left:-30%;opacity:0;transform-origin:50% 50%}
-.slabs i:nth-child(1){background:var(--yellow)}
-.slabs i:nth-child(2){background:#f5f0e1;width:6%}
-.slabs i:nth-child(3){background:var(--purple);width:3%}
+.wrap{width:100%;max-width:66rem;margin:auto}
+.center{text-align:center}
+
+.rule{border-top:1.5px solid var(--ink);margin:.45rem 0}
+.rule.dbl{border-top:4px double var(--ink)}
+.big{font:900 clamp(2.2rem,10vw,6rem)/.95 var(--hd);text-transform:uppercase;text-align:center;margin:.35rem 0;color:#262626;text-shadow:3px 3px 0 #8d8d8d}
+.blackbar{background:var(--ink);color:#dcdcdc;display:flex;justify-content:space-between;gap:.5rem;padding:.25rem .8rem;font:italic .68rem var(--bd);margin:.3rem 0}
+.navline{text-align:center;font:700 .6rem var(--hd);letter-spacing:.14em;text-transform:uppercase;padding:.4rem 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.subt{display:flex;align-items:center;gap:.8rem;margin:.6rem 0}
+.subt i{flex:1;border-top:1.5px solid var(--ink)}
+.subt span{font:400 clamp(.85rem,2.4vw,1.2rem) var(--hd);letter-spacing:.06em;text-transform:uppercase}
+.sechead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:.2rem 0 .8rem}
+.hl{font:800 clamp(1.3rem,4.6vw,2.4rem)/1.05 var(--hd);text-transform:uppercase}
+.sec{font:italic .68rem var(--bd);color:var(--mid);white-space:nowrap}
+.body{font-size:clamp(.74rem,1.9vw,.95rem);line-height:1.55;text-align:justify;hyphens:auto}
+.dropcap::first-letter{font:900 3.1em/.8 var(--hd);float:left;padding:.06em .08em 0 0}
+.quote{font:italic 400 clamp(.95rem,2.6vw,1.35rem)/1.45 var(--hd);text-align:justify}
+.quote::first-letter{font:900 2.6em/.8 var(--hd);float:left;padding:.05em .08em 0 0;font-style:normal}
+
+.photo{position:relative;border:1px solid var(--ink);background:radial-gradient(circle,rgba(0,0,0,.28) .8px,transparent 1.2px) 0 0/4px 4px,#d9d9d9;overflow:hidden;display:block;margin:0}
+.photo svg{display:block;width:100%;height:auto;max-height:34vh}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+.photo.tall{aspect-ratio:4/5}
+.photo.tall svg{height:100%;max-height:none}
+.photo.sm{width:3.4rem;flex:none;aspect-ratio:1}
+.photo.sm svg{max-height:none;height:100%}
+.cap{font:700 .78rem var(--hd);text-align:center;margin-top:.35rem}
+.cap small{display:block;font:400 .64rem var(--bd);color:var(--mid);margin-top:.1rem}
+.tag{font:700 .55rem var(--hd);letter-spacing:.12em;text-transform:uppercase;color:var(--red);text-align:center;margin-top:.3rem}
+
+.g2{display:grid;grid-template-columns:1fr 1.3fr;gap:1.1rem;align-items:start}
+.vr{border-left:1px solid var(--ink);padding-left:1.1rem}
+@media(max-width:640px){.g2{grid-template-columns:1fr}.vr{border-left:0;padding-left:0;border-top:1px solid var(--ink);padding-top:.7rem}}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.toc{display:grid;grid-template-columns:repeat(2,1fr);gap:.1rem 2rem}
+.toc-row{display:flex;align-items:baseline;gap:.5rem;padding:.55rem .3rem;background:none;border:0;border-bottom:1px solid rgba(0,0,0,.5);font:400 .9rem var(--hd);cursor:pointer;text-align:left;color:var(--ink);transition:background .2s,color .2s}
+.toc-row .no{font:900 1.3rem var(--hd)}
+.toc-row i{flex:1;border-bottom:2px dotted var(--ink);transform:translateY(-.25em)}
+.toc-row span:last-child{font:italic .7rem var(--bd)}
+.toc-row:hover{background:var(--ink);color:var(--paper)}
+.toc-row:hover i{border-color:var(--paper)}
+@media(max-width:640px){.toc{grid-template-columns:1fr}}
+.goals{list-style:none;display:flex;flex-direction:column}
+.goals li{display:flex;gap:.8rem;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--ink);font-size:clamp(.8rem,2vw,1rem);line-height:1.35}
+.goals b{font:900 2.2rem/1 var(--hd);width:2rem;text-align:center;flex:none}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:.9rem;max-width:520px;margin-left:auto;margin-right:auto}
+.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:.8rem}
+.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem}
+.barw{height:clamp(110px,27vh,230px);display:flex;align-items:flex-end;border-bottom:3px solid var(--ink)}
+.bar{width:min(62%,46px);margin:0 auto;background:var(--ink);position:relative;border-radius:50% 50% 0 0/9px 9px 0 0}
+.bar::before{content:'';position:absolute;top:0;left:0;right:0;height:26%;background:#6a6a6a;border-radius:inherit}
+.chart .cap{font-size:.74rem}
+.tips{display:grid;grid-template-columns:repeat(2,1fr);gap:.2rem 1.6rem}
+.tip{display:flex;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid var(--ink);font-size:clamp(.78rem,1.9vw,.95rem);line-height:1.35}
+@media(max-width:640px){.tips{grid-template-columns:1fr}}
+.steps{display:flex;align-items:center;justify-content:center;gap:.8rem;margin-top:1rem}
+.steps>div{flex:1;max-width:190px}
+.arr{font-size:1.6rem;animation:arrow 1.2s ease-in-out infinite}
+@keyframes arrow{50%{transform:translateX(6px)}}
+.stamp{display:inline-block;margin:1rem auto;border:4px solid var(--red);color:var(--red);font:900 1.4rem var(--hd);letter-spacing:.2em;padding:.25rem 1rem;transform:rotate(-12deg)}
+.note{margin-top:1rem;border:1px solid var(--ink);padding:.4rem .7rem;font:italic .72rem var(--bd);background:rgba(255,255,255,.18)}
+.note b{font:700 .6rem var(--hd);letter-spacing:.12em;text-transform:uppercase;margin-right:.5rem;font-style:normal}
+
+/* animasi masuk untuk elemen yang TIDAK punya pasangan morph */
+.slide.active .rv{animation:var(--a,ink) .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--b) + var(--n,0)*.1s)}
+@keyframes ink{from{opacity:0;filter:blur(7px);transform:translateY(10px) scale(1.04)}}
+@keyframes rule{from{transform:scaleX(0)}}
+@keyframes photo{from{clip-path:inset(0 0 100% 0);filter:blur(5px)}}
+@keyframes bar{from{transform:scaleY(0)}}
+@keyframes press{from{opacity:0;transform:scale(1.9);filter:blur(10px)}}
+@keyframes stamp{0%{opacity:0;transform:rotate(-12deg) scale(3)}60%{opacity:1;transform:rotate(-12deg) scale(.9)}100%{transform:rotate(-12deg) scale(1)}}
+.rv-rule{--a:rule;transform-origin:left}
+.rv-photo{--a:photo}
+.rv-bar{--a:bar;transform-origin:bottom}
+.rv-stamp{--a:stamp}
+.lt{display:inline-block}
+.slide.active .lt{animation:press .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--b) + var(--i)*.055s)}
+/* elemen yang sedang di-morph: matikan animasi masuk biasa */
+.slide .mo,.slide .mo .lt{animation:none!important}
+
+.f-run{animation:bob .5s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-4px)}}
+.f-spin{transform-origin:50px 50px;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.f-wave{animation:wave 1.6s linear infinite}
+@keyframes wave{to{transform:translateX(-50px)}}
+.speed{animation:speed .7s linear infinite}
+@keyframes speed{from{transform:translateX(14px);opacity:0}40%{opacity:1}to{transform:translateX(-14px);opacity:0}}
+.flag{animation:flag 1.2s ease-in-out infinite alternate;transform-origin:60px 14px}
+@keyframes flag{to{transform:skewY(-12deg)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="stage" id="stage">
-  <div class="stars" id="stars"></div>
-  <div class="progress" id="progress"></div>
-  <canvas class="confetti" id="confetti"></canvas>
-  
-  <button class="toc-btn" onclick="go(2)">☰ Daftar Isi</button>
-  <div class="counter"><span id="cur">1</span> / <span id="tot">10</span></div>
-
-  <!-- slides di-render oleh JS dari DATA -->
+  <div class="top">
+    <span><button onclick="go(2)">☰ Daftar Isi</button> <button onclick="fsToggle()">⛶ Layar Penuh (F)</button></span>
+    <span class="dt" id="date"></span>
+    <span>Hal. <b id="cur">1</b>/<span id="tot">11</span></span>
+  </div>
   <div id="slides-root"></div>
-
+  <div class="ticker"><b>Terkini</b><div id="tk"></div></div>
   <div class="nav">
-    <button class="btn btn-prev" id="prev" onclick="goDir(-1)">← Prev</button>
+    <button class="btn" id="prev" onclick="goDir(-1)">‹ Kembali</button>
     <div class="dots" id="dots"></div>
-    <button class="btn btn-next" id="next" onclick="goDir(1)">Lanjut →</button>
+    <button class="btn btn-next" id="next" onclick="goDir(1)">Lanjut ›</button>
   </div>
 </div>
 
 <script>
-/* =========================================================
-   ✏️  EDIT ISI DI SINI SAJA
-   ========================================================= */
 const DATA = {
-  // --- COVER ---
   tema: "OLAHRAGA",
   kelompok: "KELOMPOK 1",
   judul: "TUGAS\nSEKOLAH",
-
-  // --- ANGGOTA (ganti nama + foto) ---
-  // foto: kosongkan "" untuk pakai emoji, atau isi URL gambar
-  // contoh foto: "https://i.pravatar.cc/150?img=12"
   anggota: [
-    {
-      nama: "Nama Kamu",
-      jabatan: "Ketua",
-      deskripsi: "Pembawa materi",
-      foto: "",          // ← URL foto atau biarkan kosong
-      emoji: "👤",
-      warna: "linear-gradient(135deg,#a9c8ee,#7b7fd6)"
-    },
-    {
-      nama: "Nama Teman 1",
-      jabatan: "Moderator",
-      deskripsi: "Pengarah",
-      foto: "",
-      emoji: "👤",
-      warna: "linear-gradient(135deg,#c5e384,#2f7d3a)"
-    },
-    {
-      nama: "Nama Teman 2",
-      jabatan: "Notulen",
-      deskripsi: "Pencatat",
-      foto: "",
-      emoji: "👤",
-      warna: "linear-gradient(135deg,#e8903a,#c45a20)"
-    }
+    { nama: "Nama Kamu",    jabatan: "Ketua",     deskripsi: "Pembawa materi", foto: "" },
+    { nama: "Nama Teman 1", jabatan: "Moderator", deskripsi: "Pengarah",       foto: "" },
+    { nama: "Nama Teman 2", jabatan: "Notulen",   deskripsi: "Pencatat",       foto: "" }
   ],
-
-  // --- DAFTAR ISI ---
   daftarIsi: [
     { no: "01", label: "Latar Belakang", slide: 3 },
     { no: "02", label: "Tujuan",         slide: 4 },
@@ -515,490 +168,213 @@ const DATA = {
     { no: "07", label: "Kesimpulan",     slide: 9 },
     { no: "08", label: "Penutup",        slide: 10 }
   ],
-
-  // --- TUJUAN PRESENTASI ---
   tujuan: [
     "Mengetahui pengertian olahraga",
     "Mengetahui jenis-jenis olahraga",
     "Mengetahui manfaat olahraga bagi tubuh dan mental",
     "Mengetahui cara mencegah cedera saat berolahraga"
   ],
-
-  // --- LATAR BELAKANG ---
   latarBelakang: [
     "Olahraga penting dilakukan sejak dini untuk menjaga kesehatan tubuh dan meningkatkan kebugaran jasmani sehari-hari.",
     "Dengan berolahraga secara teratur, tubuh menjadi lebih kuat, mental lebih stabil, dan risiko penyakit menurun."
   ],
-
-  // --- PENGERTIAN ---
   pengertian: "Olahraga adalah aktivitas fisik yang dilakukan secara terencana dan berulang untuk menjaga kesehatan, meningkatkan kebugaran tubuh, serta melatih keterampilan gerak.",
-
-  // --- JENIS OLAHRAGA ---
   jenis: [
-    { judul: "Permainan Bola",  contoh: "sepak bola · basket · voli",   warna: "blob-g" },
-    { judul: "Atletik",         contoh: "lari · lompat · tolak",        warna: "blob-y" },
-    { judul: "Bela Diri",       contoh: "silat · karate · taekwondo",   warna: "blob-b" },
-    { judul: "Renang",          contoh: "gaya bebas · dada",            warna: "blob-o" },
-    { judul: "Senam & Kebugaran", contoh: "senam · yoga · sepeda",      warna: "blob-p" }
+    { judul: "Permainan Bola",    contoh: "sepak bola · basket · voli",  grup: "Beregu" },
+    { judul: "Atletik",           contoh: "lari · lompat · tolak",       grup: "Perorangan" },
+    { judul: "Bela Diri",         contoh: "silat · karate · taekwondo",  grup: "Perorangan" },
+    { judul: "Renang",            contoh: "gaya bebas · dada",           grup: "Perorangan" },
+    { judul: "Senam & Kebugaran", contoh: "senam · yoga · sepeda",       grup: "Perorangan" }
   ],
-
-  // --- MANFAAT ---
   manfaat: [
-    { no: 1, judul: "Jantung Sehat",  desc: "Melatih jantung & paru-paru",  bg: "var(--purple)", color: "#fff" },
-    { no: 2, judul: "Otot Kuat",      desc: "Membangun kekuatan tubuh",     bg: "var(--yellow)", color: "#1a1a1a" },
-    { no: 3, judul: "Daya Tahan",     desc: "Stamina lebih baik",           bg: "var(--lime)",   color: "#1a1a1a" },
-    { no: 4, judul: "Mental Baik",    desc: "Kurangi stres & cemas",        bg: "var(--orange)", color: "#fff" },
-    { no: 5, judul: "Sportivitas",    desc: "Melatih kerja sama & fair play", bg: "#3f3f3f", color: "#eee", border: "2px solid var(--blue)" }
+    { no: 1, judul: "Jantung Sehat", desc: "Melatih jantung & paru-paru" },
+    { no: 2, judul: "Otot Kuat",     desc: "Membangun kekuatan tubuh" },
+    { no: 3, judul: "Daya Tahan",    desc: "Stamina lebih baik" },
+    { no: 4, judul: "Mental Baik",   desc: "Kurangi stres & cemas" },
+    { no: 5, judul: "Sportivitas",   desc: "Melatih kerja sama & fair play" }
   ],
-
-  // --- CEDERA ---
   cedera: [
-    { teks: "Keseleo & kram — pemanasan dulu",     bg: "var(--lime)",   color: "#1a1a1a" },
-    { teks: "Gunakan sepatu & alat yang sesuai",   bg: "var(--blue)",   color: "#1a1a1a" },
-    { teks: "Jaga teknik gerakan yang benar",      bg: "var(--orange)", color: "#fff" },
-    { teks: "Minum air cukup (hidrasi)",           bg: "var(--purple)", color: "#fff" },
-    { teks: "Berhenti jika sakit atau sangat lelah", bg: "#3f3f3f", color: "#eee", border: "2px solid var(--yellow)" }
+    { teks: "Keseleo & kram — pemanasan dulu" },
+    { teks: "Gunakan sepatu & alat yang sesuai" },
+    { teks: "Jaga teknik gerakan yang benar" },
+    { teks: "Minum air cukup (hidrasi)" },
+    { teks: "Berhenti jika sakit atau sangat lelah" }
   ],
-
-  // --- KESIMPULAN ---
   kesimpulan: "Olahraga sangat penting untuk kesehatan tubuh dan mental. Lakukan secara teratur dengan urutan: pemanasan → kegiatan inti → pendinginan. Jaga keselamatan, minum cukup, dan istirahat yang cukup agar tubuh tetap bugar.",
-
-  // --- PENUTUP ---
   penutup: "Ada Pertanyaan?"
 };
 
-/* =========================================================
-   SVG IKON (jangan diubah kecuali mau ganti ilustrasi)
-   ========================================================= */
-const SVG = {
-  bumi: `<svg width="70" height="70" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="#4a9fd8"/><ellipse cx="28" cy="32" rx="14" ry="10" fill="#5cb85c"/><ellipse cx="52" cy="48" rx="12" ry="9" fill="#5cb85c"/><path d="M18 50 Q30 42 40 52 Q50 60 62 48" stroke="#3d8b3d" fill="none" stroke-width="3"/></svg>`,
-  bola: `<svg width="52" height="52" viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#222" stroke-width="2"/><polygon points="30,12 38,20 34,30 26,30 22,20" fill="#222"/><path d="M22 20 L12 28 L18 38 L26 30" fill="none" stroke="#222" stroke-width="2"/><path d="M38 20 L48 28 L42 38 L34 30" fill="none" stroke="#222" stroke-width="2"/></svg>`,
-  basket: `<svg width="48" height="48" viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#e8903a" stroke="#b36a20" stroke-width="2"/><path d="M30 2 Q20 30 30 58 M30 2 Q40 30 30 58 M2 30 H58" fill="none" stroke="#b36a20" stroke-width="2"/></svg>`,
-  piala: `<svg width="46" height="54" viewBox="0 0 50 60"><path d="M10 8 H40 V22 Q40 38 25 42 Q10 38 10 22 Z" fill="#f4e04d" stroke="#c4b020" stroke-width="1.5"/><path d="M10 12 Q0 12 0 22 Q0 28 10 28" fill="none" stroke="#c4b020" stroke-width="2"/><path d="M40 12 Q50 12 50 22 Q50 28 40 28" fill="none" stroke="#c4b020" stroke-width="2"/><rect x="20" y="42" width="10" height="8" fill="#c4b020"/><rect x="14" y="50" width="22" height="6" rx="2" fill="#c4b020"/></svg>`,
-  sepatu: `<svg width="48" height="40" viewBox="0 0 60 50"><path d="M8 40 Q15 10 30 18 Q45 10 52 40" fill="#333"/><ellipse cx="15" cy="42" rx="12" ry="6" fill="#e8903a"/><ellipse cx="45" cy="42" rx="12" ry="6" fill="#e8903a"/></svg>`,
-  pelari: `<svg width="88" height="88" viewBox="0 0 100 100"><circle cx="55" cy="18" r="10" fill="#f4c48a"/><path d="M45 30 Q55 28 60 40 L70 55" stroke="#3a7bd5" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M48 42 L35 55 M60 40 L50 60 M50 60 L42 85 M50 60 L62 85" stroke="#2a2a2a" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="38" cy="88" rx="12" ry="5" fill="#333"/><ellipse cx="65" cy="88" rx="12" ry="5" fill="#333"/></svg>`
+const NOTES = [
+  "",
+  "Halo! Kami Kelompok 1 akan menjelaskan tentang olahraga.",
+  "Ini daftar materinya. Klik salah satu baris untuk langsung loncat!",
+  "Olahraga bikin badan sehat dan bugar setiap hari!",
+  "Ada 4 hal yang akan kita pelajari hari ini.",
+  "Olahraga = gerak tubuh yang terencana dan berulang.",
+  "Ada olahraga beregu dan perorangan, lho!",
+  "Rutin olahraga: jantung, otot, dan mental ikut kuat!",
+  "Pemanasan dulu ya, biar tidak cedera!",
+  "Ingat urutannya: pemanasan, inti, pendinginan.",
+  "Terima kasih! Ada pertanyaan?"
+];
+
+const K = 'stroke="#111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+const GROUND = '<path d="M8 93H94" stroke="#111" stroke-width="3"/>';
+const RUN_IN = `<g class="f-run"><circle cx="60" cy="20" r="9" fill="#111"/><g ${K}><path d="M57 32L48 58"/><path d="M56 37L72 47L82 41"/><path d="M56 37L42 45L34 57"/><path d="M48 58L64 70L60 89"/><path d="M48 58L36 75L20 77"/></g></g>`;
+const ILL = {
+  hero: `<svg viewBox="0 0 160 100"><defs><pattern id="hd" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#111"/></pattern></defs><circle cx="118" cy="32" r="24" fill="url(#hd)" stroke="#111" stroke-width="2"/><g class="speed" stroke="#111" stroke-width="3" stroke-linecap="round"><path d="M14 40H44"/><path d="M8 56H36"/><path d="M18 72H46"/></g><g transform="translate(34 -2)">${RUN_IN}</g><path d="M0 92H160" stroke="#111" stroke-width="4"/></svg>`,
+  run: `<svg viewBox="0 0 100 100">${RUN_IN}${GROUND}</svg>`,
+  ball: `<svg viewBox="0 0 100 100"><g class="f-spin"><circle cx="50" cy="50" r="32" fill="#eee" stroke="#111" stroke-width="4"/><polygon points="50,36 63,45 58,60 42,60 37,45" fill="#111"/><path d="M50 36V19M63 45L80 39M58 60L69 76M42 60L31 76M37 45L20 39" stroke="#111" stroke-width="4" stroke-linecap="round"/></g></svg>`,
+  kick: `<svg viewBox="0 0 100 100"><g class="f-run"><circle cx="38" cy="20" r="9" fill="#111"/><g ${K}><path d="M40 32L42 58"/><path d="M40 38L60 34"/><path d="M40 38L24 46"/><path d="M42 58L82 50"/><path d="M42 58L36 88"/></g></g>${GROUND}</svg>`,
+  swim: `<svg viewBox="0 0 100 100"><circle cx="28" cy="46" r="8" fill="#111"/><g ${K}><path d="M36 54L70 56"/><path d="M34 50Q42 24 62 34"/><path d="M72 56L88 50"/></g><g class="f-wave"><path d="M-50 64q12.5 -8 25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0" stroke="#111" stroke-width="4" fill="none"/><path d="M-50 78q12.5 -8 25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0" stroke="#555" stroke-width="4" fill="none"/></g></svg>`,
+  senam: `<svg viewBox="0 0 100 100"><g class="f-run"><circle cx="50" cy="20" r="9" fill="#111"/><g ${K}><path d="M50 32V58"/><path d="M50 36L28 14"/><path d="M50 36L72 14"/><path d="M50 58L32 88"/><path d="M50 58L68 88"/></g></g></svg>`,
+  stadium: `<svg viewBox="0 0 120 90"><path d="M10 82V30M110 82V30" stroke="#111" stroke-width="4"/><rect x="2" y="18" width="16" height="11" fill="#111"/><rect x="102" y="18" width="16" height="11" fill="#111"/><path d="M18 80V46Q60 16 102 46V80Z" fill="#eee" stroke="#111" stroke-width="3"/><path d="M18 56H102M18 66H102" stroke="#111" stroke-width="2"/><g fill="#111"><rect x="30" y="58" width="9" height="22"/><rect x="48" y="58" width="9" height="22"/><rect x="66" y="58" width="9" height="22"/><rect x="84" y="58" width="9" height="22"/></g><path d="M60 30V8" stroke="#111" stroke-width="3"/><path class="flag" d="M60 8L82 14L60 20Z" fill="#111"/></svg>`,
+  person: `<svg viewBox="0 0 100 120"><circle cx="50" cy="42" r="20" fill="#111"/><path d="M10 120Q12 78 50 76Q88 78 90 120Z" fill="#111"/></svg>`,
+  trophy: `<svg viewBox="0 0 100 100"><path d="M28 16H72V40Q72 62 50 66Q28 62 28 40Z" fill="#111"/><path d="M28 22Q10 22 12 40Q14 50 30 50M72 22Q90 22 88 40Q86 50 70 50" stroke="#111" stroke-width="5" fill="none"/><rect x="44" y="66" width="12" height="12" fill="#111"/><rect x="32" y="78" width="36" height="9" fill="#111"/></svg>`,
+  shoe: `<svg viewBox="0 0 100 100"><path d="M12 62V38Q36 42 44 24L56 42Q82 44 90 62V70H12Z" fill="#eee" stroke="#111" stroke-width="4" stroke-linejoin="round"/><rect x="12" y="68" width="78" height="10" fill="#111"/><path d="M40 34L46 44M48 30L54 40" stroke="#111" stroke-width="3"/></svg>`,
+  plester: `<svg viewBox="0 0 100 100"><g transform="rotate(-35 50 50)"><rect x="10" y="36" width="80" height="28" rx="14" fill="#eee" stroke="#111" stroke-width="4"/><rect x="38" y="36" width="24" height="28" fill="#999" stroke="#111" stroke-width="3"/></g></svg>`,
+  check: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="34" fill="#eee" stroke="#111" stroke-width="5"/><path d="M32 52L45 65L70 36" stroke="#111" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`,
+  bottle: `<svg viewBox="0 0 100 100"><rect x="40" y="8" width="20" height="12" fill="#111"/><path d="M34 28Q34 20 42 20H58Q66 20 66 28V88H34Z" fill="#eee" stroke="#111" stroke-width="4"/><path d="M34 54Q42 48 50 54T66 54V88H34Z" fill="#777"/></svg>`,
+  stop: `<svg viewBox="0 0 100 100"><polygon points="32,8 68,8 92,32 92,68 68,92 32,92 8,68 8,32" fill="#111"/><text x="50" y="58" text-anchor="middle" font-size="22" font-weight="900" fill="#eee" font-family="Playfair Display,serif">STOP</text></svg>`
 };
+const JI = ['ball', 'run', 'kick', 'swim', 'senam'];
+const CI = ['plester', 'shoe', 'check', 'bottle', 'stop'];
 
-/* =========================================================
-   RENDER SLIDES
-   ========================================================= */
-
-const S = 'stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"';
-const NEWSVG = {
-  lari: `<svg viewBox="0 0 64 64"><circle cx="38" cy="11" r="6.5" fill="#f4c48a" stroke="#1a1a1a" stroke-width="2.5"/><path d="M35 21 L30 37" stroke="#3a7bd5" stroke-width="9" stroke-linecap="round"/><g ${S}><path d="M34 24 L45 30"/><path d="M34 24 L23 28"/><path d="M30 38 L40 46 L38 57"/><path d="M30 38 L21 49 L10 50"/></g><path d="M4 61 H60" stroke="#e8903a" stroke-width="4" stroke-linecap="round"/></svg>`,
-  beladiri: `<svg viewBox="0 0 64 64"><circle cx="30" cy="11" r="6.5" fill="#f4c48a" stroke="#1a1a1a" stroke-width="2.5"/><path d="M30 21 L30 37" stroke="#f5f0e1" stroke-width="10" stroke-linecap="round"/><g ${S}><path d="M30 24 L46 20"/><path d="M30 24 L16 30"/><path d="M30 38 L57 34"/><path d="M30 38 L24 58"/></g><path d="M25 33 H35" stroke="#e85a5a" stroke-width="4" stroke-linecap="round"/><path d="M4 61 H60" stroke="#7b7fd6" stroke-width="4" stroke-linecap="round"/></svg>`,
-  renang: `<svg viewBox="0 0 64 64"><circle cx="18" cy="26" r="6.5" fill="#f4c48a" stroke="#1a1a1a" stroke-width="2.5"/><path d="M25 34 L47 36" stroke="#e8903a" stroke-width="8" stroke-linecap="round"/><g ${S}><path d="M24 32 Q30 12 43 19"/><path d="M48 36 L58 31"/><path d="M48 37 L60 41"/></g><rect x="0" y="41" width="64" height="23" fill="#4a9fd8" opacity=".4"/><path d="M0 41 Q8 34 16 41 T32 41 T48 41 T64 41" stroke="#4a9fd8" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M0 51 Q8 45 16 51 T32 51 T48 51 T64 51" stroke="#a9c8ee" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
-  senam: `<svg viewBox="0 0 64 64"><circle cx="32" cy="12" r="6.5" fill="#f4c48a" stroke="#1a1a1a" stroke-width="2.5"/><path d="M32 21 L32 38" stroke="#c5e384" stroke-width="10" stroke-linecap="round"/><g ${S}><path d="M32 23 Q17 17 30 3"/><path d="M32 23 Q47 17 34 3"/><path d="M32 38 L32 57"/><path d="M32 38 L45 46 L33 49"/></g><rect x="10" y="58" width="44" height="4" rx="2" fill="#7b7fd6"/></svg>`,
-  hati: `<svg viewBox="0 0 64 64"><path d="M32 56 C4 37 9 10 26 14 C30 15 32 20 32 20 C32 20 34 15 38 14 C55 10 60 37 32 56Z" fill="#e85a6a" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/><path d="M11 33 H23 L28 24 L35 42 L40 33 H53" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  dumbbell: `<svg viewBox="0 0 64 64"><g stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"><rect x="5" y="19" width="9" height="26" rx="3" fill="#7b7fd6"/><rect x="14" y="25" width="6" height="14" rx="2" fill="#a9a9ea"/><rect x="20" y="30" width="24" height="4" fill="#ddd"/><rect x="44" y="25" width="6" height="14" rx="2" fill="#a9a9ea"/><rect x="50" y="19" width="9" height="26" rx="3" fill="#7b7fd6"/></g></svg>`,
-  bolt: `<svg viewBox="0 0 64 64"><polygon points="37,3 13,36 29,36 25,61 51,25 35,25" fill="#f4e04d" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/></svg>`,
-  smile: `<svg viewBox="0 0 64 64"><circle cx="30" cy="34" r="23" fill="#f4e04d" stroke="#1a1a1a" stroke-width="3"/><circle cx="22" cy="29" r="3" fill="#1a1a1a"/><circle cx="38" cy="29" r="3" fill="#1a1a1a"/><path d="M19 40 Q30 53 41 40" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M54 6 V16 M49 11 H59" stroke="#f5f0e1" stroke-width="3" stroke-linecap="round"/></svg>`,
-  medal: `<svg viewBox="0 0 64 64"><polygon points="16,3 30,3 35,28 24,30" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/><polygon points="48,3 34,3 29,28 40,30" fill="#e85a5a" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="43" r="15" fill="#f4e04d" stroke="#1a1a1a" stroke-width="3"/><text x="32" y="50" text-anchor="middle" font-size="20" fill="#c49a10" font-family="Fredoka,sans-serif">★</text></svg>`,
-  plester: `<svg viewBox="0 0 64 64"><g transform="rotate(-30 32 32)"><rect x="5" y="21" width="54" height="22" rx="11" fill="#f5d6a8" stroke="#1a1a1a" stroke-width="3"/><rect x="22" y="21" width="20" height="22" fill="#e8c48a" stroke="#1a1a1a" stroke-width="3"/><circle cx="13" cy="32" r="1.8" fill="#b88a50"/><circle cx="51" cy="32" r="1.8" fill="#b88a50"/></g></svg>`,
-  sepatu2: `<svg viewBox="0 0 64 64"><path d="M6 44 L6 26 Q20 28 26 17 L34 28 Q50 30 58 44 V48 H6 Z" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/><rect x="6" y="46" width="52" height="9" rx="3" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="3"/><path d="M24 23 L28 30 M31 21 L34 28" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>`,
-  teknik: `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#c5e384" stroke="#1a1a1a" stroke-width="3"/><path d="M18 33 L28 43 L47 21" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 33 L28 43 L47 21" stroke="#2f7d3a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  botol: `<svg viewBox="0 0 64 64"><rect x="26" y="3" width="12" height="9" rx="2" fill="#e8903a" stroke="#1a1a1a" stroke-width="3"/><path d="M22 34 Q27 30 32 34 T42 34 V55 Q42 60 37 60 H27 Q22 60 22 55Z" fill="#a9c8ee"/><path d="M22 18 Q22 12 28 12 H36 Q42 12 42 18 V55 Q42 60 37 60 H27 Q22 60 22 55Z" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/><path d="M50 14 Q54 21 50 24 Q46 21 50 14Z" fill="#a9c8ee" stroke="#1a1a1a" stroke-width="2"/></svg>`,
-  stop: `<svg viewBox="0 0 64 64"><polygon points="21,5 43,5 59,21 59,43 43,59 21,59 5,43 5,21" fill="#e85a5a" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/><text x="32" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="#fff" font-family="Fredoka,sans-serif">STOP</text></svg>`,
-
-  sceneSenam: `<svg viewBox="0 0 240 170" style="width:100%;max-width:290px;height:auto"><circle cx="205" cy="30" r="14" fill="#f4e04d"/><ellipse cx="120" cy="158" rx="88" ry="8" fill="#000" opacity=".28"/><path d="M28 156 L40 156 L34 128Z" fill="#e8903a" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/>
-  <g class="jj-ball"><circle cx="202" cy="140" r="13" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/><path d="M196 134 L202 130 L208 134 L206 142 L198 142Z" fill="#1a1a1a"/></g>
-  <g class="jj-body">
-   <g class="jj-armL"><path d="M106 64 L106 102" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M106 64 L106 102" stroke="#f4c48a" stroke-width="9" stroke-linecap="round"/></g>
-   <g class="jj-armR"><path d="M134 64 L134 102" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M134 64 L134 102" stroke="#f4c48a" stroke-width="9" stroke-linecap="round"/></g>
-   <g class="jj-legL"><path d="M112 108 L112 146" stroke="#1a1a1a" stroke-width="14" stroke-linecap="round"/><path d="M112 108 L112 146" stroke="#f4c48a" stroke-width="10" stroke-linecap="round"/><ellipse cx="108" cy="150" rx="12" ry="6" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/></g>
-   <g class="jj-legR"><path d="M128 108 L128 146" stroke="#1a1a1a" stroke-width="14" stroke-linecap="round"/><path d="M128 108 L128 146" stroke="#f4c48a" stroke-width="10" stroke-linecap="round"/><ellipse cx="132" cy="150" rx="12" ry="6" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/></g>
-   <rect x="103" y="96" width="34" height="20" rx="8" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="3"/>
-   <rect x="103" y="56" width="34" height="48" rx="15" fill="#e8903a" stroke="#1a1a1a" stroke-width="3"/>
-   <circle cx="120" cy="36" r="17" fill="#f4c48a" stroke="#1a1a1a" stroke-width="3"/>
-   <path d="M103 33 Q105 15 120 15 Q135 15 137 33 Q128 25 103 33Z" fill="#3a2a1a"/>
-   <rect x="103" y="27" width="34" height="5" rx="2" fill="#e85a5a"/>
-   <circle cx="113" cy="40" r="2.2" fill="#1a1a1a"/><circle cx="127" cy="40" r="2.2" fill="#1a1a1a"/>
-   <path d="M113 47 Q120 53 127 47" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  </g></svg>`,
-
-  sceneLari: `<svg viewBox="0 0 260 165" style="width:100%;max-width:300px;height:auto"><circle cx="40" cy="28" r="13" fill="#f4e04d"/>
-  <rect x="0" y="140" width="260" height="25" rx="6" fill="#e8903a"/><path d="M0 153 H260" stroke="#fff" stroke-width="2.5" stroke-dasharray="16 12" class="track-line"/>
-  <g class="speed" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".55"><path d="M18 70 H64"/><path d="M34 92 H78"/><path d="M12 112 H56"/></g>
-  <g class="run-body">
-   <g class="rn-b"><path d="M138 60 L120 80 L104 70" stroke="#1a1a1a" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M138 60 L120 80 L104 70" stroke="#f4c48a" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
-   <g class="rn-d"><path d="M128 96 L108 116 L90 128" stroke="#1a1a1a" stroke-width="15" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 96 L108 116 L90 128" stroke="#f4c48a" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="86" cy="131" rx="12" ry="5.5" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/></g>
-   <path d="M139 56 L128 96" stroke="#1a1a1a" stroke-width="24" stroke-linecap="round"/><path d="M139 56 L128 96" stroke="#3a7bd5" stroke-width="19" stroke-linecap="round"/>
-   <g class="rn-c"><path d="M128 96 L150 114 L148 134" stroke="#1a1a1a" stroke-width="15" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 96 L150 114 L148 134" stroke="#f4c48a" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="154" cy="137" rx="12" ry="5.5" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/></g>
-   <circle cx="146" cy="38" r="15" fill="#f4c48a" stroke="#1a1a1a" stroke-width="3"/>
-   <path d="M131 36 Q133 19 148 20 Q161 21 161 33 Q150 26 131 36Z" fill="#3a2a1a"/>
-   <circle cx="152" cy="40" r="2.2" fill="#1a1a1a"/><path d="M150 46 Q156 50 160 45" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-   <g class="rn-a"><path d="M138 60 L158 78 L172 68" stroke="#1a1a1a" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M138 60 L158 78 L172 68" stroke="#f4c48a" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
-  </g>
-  <g class="heart-p"><path d="M214 56 C196 44 199 28 209 31 C212 32 214 35 214 35 C214 35 216 32 219 31 C229 28 232 44 214 56Z" fill="#e85a6a" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/></g></svg>`
-};
-Object.assign(SVG, NEWSVG);
-const SP = 'calcMode="spline" keyTimes="0;.5;1" keySplines=".45 0 .55 1;.45 0 .55 1" repeatCount="indefinite"';
-SVG.bolaK = SVG.bola;
-SVG.planet = `<svg viewBox="0 0 100 100"><defs><radialGradient id="pg" cx=".34" cy=".3" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></radialGradient></defs><circle cx="50" cy="50" r="47" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="3"/><g fill="#2a2a2a" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"><polygon points="50,35 64.3,45.4 58.8,62.1 41.2,62.1 35.7,45.4"/><circle cx="50" cy="12" r="6"/><circle cx="88" cy="38.5" r="6"/><circle cx="73.5" cy="84" r="6"/><circle cx="26.5" cy="84" r="6"/><circle cx="12" cy="38.5" r="6"/></g><g stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"><path d="M50 35 V18"/><path d="M64.3 45.4 L82 40"/><path d="M58.8 62.1 L69 78"/><path d="M41.2 62.1 L31 78"/><path d="M35.7 45.4 L18 40"/></g><circle cx="50" cy="50" r="47" fill="url(#pg)"/></svg>`;
-SVG.moon = `<svg viewBox="0 0 60 60"><path d="M40 6 A26 26 0 1 0 40 54 A20 20 0 1 1 40 6Z" fill="#a9c8ee" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/></svg>`;
-SVG.sceneIsland = `<svg viewBox="0 0 260 232" style="width:100%;max-width:330px;height:auto">
-  <ellipse cx="130" cy="226" rx="56" ry="5" fill="#000" opacity=".28"/>
-  <g><animateTransform attributeName="transform" type="translate" values="0 0;0 -9;0 0" dur="4.2s" ${SP}/>
-   <path d="M18 122 Q24 150 60 168 Q90 182 112 212 Q130 230 148 212 Q170 182 200 168 Q236 150 242 122Z" fill="#7a5a3c" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/>
-   <path d="M40 140 Q70 150 90 146 M62 160 Q100 168 130 160 M112 190 Q130 198 150 190" stroke="#5a3f28" stroke-width="3" fill="none" stroke-linecap="round"/>
-   <ellipse cx="130" cy="122" rx="112" ry="28" fill="#7ecb5f" stroke="#1a1a1a" stroke-width="3"/>
-   <path d="M50 108 V54 M210 108 V54" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-   <rect x="40" y="42" width="20" height="13" rx="3" fill="#f4e04d" stroke="#1a1a1a" stroke-width="2.5"><animate attributeName="opacity" values=".55;1;.55" dur="1.6s" repeatCount="indefinite"/></rect>
-   <rect x="200" y="42" width="20" height="13" rx="3" fill="#f4e04d" stroke="#1a1a1a" stroke-width="2.5"><animate attributeName="opacity" values="1;.55;1" dur="1.6s" repeatCount="indefinite"/></rect>
-   <polygon points="60,108 72,68 188,68 200,108" fill="#e85a5a" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/>
-   <rect x="74" y="78" width="112" height="9" fill="#f5f0e1"/>
-   <g fill="#f4e04d"><circle cx="84" cy="82.5" r="2.4"/><circle cx="100" cy="82.5" r="2.4" fill="#7b7fd6"/><circle cx="116" cy="82.5" r="2.4"/><circle cx="132" cy="82.5" r="2.4" fill="#7b7fd6"/><circle cx="148" cy="82.5" r="2.4"/><circle cx="164" cy="82.5" r="2.4" fill="#7b7fd6"/><circle cx="178" cy="82.5" r="2.4"/></g>
-   <path d="M68 68 Q130 44 192 68" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
-   <path d="M130 52 V22" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
-   <path d="M130 22 L152 29 L130 36Z" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"><animate attributeName="d" values="M130 22 L152 29 L130 36Z;M130 22 L150 25 L130 36Z;M130 22 L152 29 L130 36Z" dur="1.2s" repeatCount="indefinite"/></path>
-   <g fill="#2a2a2a"><rect x="88" y="92" width="11" height="16" rx="5.5"/><rect x="108" y="92" width="11" height="16" rx="5.5"/><rect x="128" y="92" width="11" height="16" rx="5.5"/><rect x="148" y="92" width="11" height="16" rx="5.5"/><rect x="168" y="92" width="11" height="16" rx="5.5"/></g>
-   <ellipse cx="130" cy="124" rx="86" ry="19" fill="#5cb85c" stroke="#fff" stroke-width="2.5"/>
-   <path d="M130 105 V143" stroke="#fff" stroke-width="2.2"/><ellipse cx="130" cy="124" rx="15" ry="5.5" fill="none" stroke="#fff" stroke-width="2.2"/>
-   <g><animateTransform attributeName="transform" type="translate" values="0 0;0 -30;0 0" dur="1.3s" calcMode="spline" keyTimes="0;.5;1" keySplines=".3 .6 .5 1;.6 0 .8 .4" repeatCount="indefinite"/>
-    <circle cx="150" cy="122" r="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/><polygon points="150,117 154,120 152.5,125 147.5,125 146,120" fill="#1a1a1a"/></g>
-  </g></svg>`;
-SVG.sceneStadium = `<svg viewBox="0 0 220 150" style="width:100%;max-width:270px;height:auto">
-  <ellipse cx="110" cy="143" rx="102" ry="6" fill="#000" opacity=".28"/>
-  <path d="M16 140 V50 M204 140 V50" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <rect x="6" y="34" width="22" height="15" rx="3" fill="#f4e04d" stroke="#1a1a1a" stroke-width="2.5"><animate attributeName="opacity" values=".5;1;.5" dur="1.6s" repeatCount="indefinite"/></rect>
-  <rect x="192" y="34" width="22" height="15" rx="3" fill="#f4e04d" stroke="#1a1a1a" stroke-width="2.5"><animate attributeName="opacity" values="1;.5;1" dur="1.6s" repeatCount="indefinite"/></rect>
-  <rect x="34" y="64" width="152" height="76" rx="8" fill="#e85a5a" stroke="#1a1a1a" stroke-width="3"/>
-  <path d="M30 64 Q110 28 190 64 L186 72 H34Z" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/>
-  <rect x="46" y="80" width="128" height="7" fill="#f4e04d"/><rect x="46" y="91" width="128" height="7" fill="#a9c8ee"/><rect x="46" y="102" width="128" height="7" fill="#c5e384"/>
-  <g fill="#2a2a2a"><rect x="50" y="114" width="14" height="26" rx="7"/><rect x="76" y="114" width="14" height="26" rx="7"/><rect x="103" y="114" width="14" height="26" rx="7"/><rect x="130" y="114" width="14" height="26" rx="7"/><rect x="156" y="114" width="14" height="26" rx="7"/></g>
-  <path d="M110 44 V12" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
-  <path d="M110 12 L134 20 L110 28Z" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"><animate attributeName="d" values="M110 12 L134 20 L110 28Z;M110 12 L132 15 L110 28Z;M110 12 L134 20 L110 28Z" dur="1.2s" repeatCount="indefinite"/></path>
-  </svg>`;
-
-SVG.sceneAngkat = `<svg viewBox="0 0 240 170" style="width:100%;max-width:230px;height:auto">
-  <ellipse cx="120" cy="158" rx="80" ry="8" fill="#000" opacity=".28"/>
-  <g stroke="#1a1a1a" stroke-width="14" stroke-linecap="round"><path d="M112 108 L108 146"/><path d="M128 108 L132 146"/></g>
-  <g stroke="#f4c48a" stroke-width="10" stroke-linecap="round"><path d="M112 108 L108 146"/><path d="M128 108 L132 146"/></g>
-  <ellipse cx="104" cy="150" rx="12" ry="6" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/><ellipse cx="136" cy="150" rx="12" ry="6" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/>
-  <rect x="103" y="96" width="34" height="20" rx="8" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="3"/>
-  <rect x="103" y="56" width="34" height="48" rx="15" fill="#3a7bd5" stroke="#1a1a1a" stroke-width="3"/>
-  <path d="M106 64 L80 76" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round" fill="none"><animate attributeName="d" values="M106 64 L80 76;M106 64 L80 18;M106 64 L80 76" dur="1.8s" ${SP}/></path>
-  <path d="M134 64 L160 76" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round" fill="none"><animate attributeName="d" values="M134 64 L160 76;M134 64 L160 18;M134 64 L160 76" dur="1.8s" ${SP}/></path>
-  <path d="M106 64 L80 76" stroke="#f4c48a" stroke-width="9" stroke-linecap="round" fill="none"><animate attributeName="d" values="M106 64 L80 76;M106 64 L80 18;M106 64 L80 76" dur="1.8s" ${SP}/></path>
-  <path d="M134 64 L160 76" stroke="#f4c48a" stroke-width="9" stroke-linecap="round" fill="none"><animate attributeName="d" values="M134 64 L160 76;M134 64 L160 18;M134 64 L160 76" dur="1.8s" ${SP}/></path>
-  <circle cx="120" cy="36" r="17" fill="#f4c48a" stroke="#1a1a1a" stroke-width="3"/>
-  <path d="M103 33 Q105 15 120 15 Q135 15 137 33 Q128 25 103 33Z" fill="#3a2a1a"/><rect x="103" y="27" width="34" height="5" rx="2" fill="#e85a5a"/>
-  <circle cx="113" cy="40" r="2.2" fill="#1a1a1a"/><circle cx="127" cy="40" r="2.2" fill="#1a1a1a"/>
-  <ellipse cx="120" cy="49" rx="5" ry="3.5" fill="#1a1a1a"><animate attributeName="ry" values="1.5;4.5;1.5" dur="1.8s" ${SP}/></ellipse>
-  <g><animateTransform attributeName="transform" type="translate" values="0 0;0 -58;0 0" dur="1.8s" ${SP}/>
-   <path d="M46 76 H194" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round"/><path d="M46 76 H194" stroke="#d8d8d8" stroke-width="4" stroke-linecap="round"/>
-   <rect x="38" y="56" width="11" height="40" rx="3" fill="#e85a5a" stroke="#1a1a1a" stroke-width="2.5"/><rect x="49" y="62" width="8" height="28" rx="2" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="2.5"/>
-   <rect x="191" y="56" width="11" height="40" rx="3" fill="#e85a5a" stroke="#1a1a1a" stroke-width="2.5"/><rect x="183" y="62" width="8" height="28" rx="2" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="2.5"/>
-   <circle cx="80" cy="76" r="7" fill="#f4c48a" stroke="#1a1a1a" stroke-width="2.5"/><circle cx="160" cy="76" r="7" fill="#f4c48a" stroke="#1a1a1a" stroke-width="2.5"/>
-  </g></svg>`;
-SVG.sceneStretch = `<svg viewBox="0 0 240 170" style="width:100%;max-width:230px;height:auto">
-  <ellipse cx="120" cy="158" rx="84" ry="8" fill="#000" opacity=".28"/>
-  <g transform="translate(192 112)"><rect x="0" y="9" width="22" height="40" rx="7" fill="#a9c8ee" stroke="#1a1a1a" stroke-width="2.5"/><rect x="5" y="0" width="12" height="10" rx="2" fill="#e8903a" stroke="#1a1a1a" stroke-width="2.5"/><path d="M0 30 Q5 26 11 30 T22 30 V42 Q22 49 15 49 H7 Q0 49 0 42Z" fill="#4a9fd8" opacity=".7"/></g>
-  <g stroke="#1a1a1a" stroke-width="14" stroke-linecap="round"><path d="M113 108 L97 146"/><path d="M127 108 L143 146"/></g>
-  <g stroke="#f4c48a" stroke-width="10" stroke-linecap="round"><path d="M113 108 L97 146"/><path d="M127 108 L143 146"/></g>
-  <ellipse cx="91" cy="150" rx="12" ry="6" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/><ellipse cx="149" cy="150" rx="12" ry="6" fill="#f5f0e1" stroke="#1a1a1a" stroke-width="2.5"/>
-  <g>
-   <animateTransform attributeName="transform" type="rotate" values="-15 120 106;15 120 106;-15 120 106" dur="2.4s" ${SP}/>
-   <path d="M106 64 Q88 32 119 5" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round" fill="none"/><path d="M134 64 Q152 32 121 5" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round" fill="none"/>
-   <path d="M106 64 Q88 32 119 5" stroke="#f4c48a" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M134 64 Q152 32 121 5" stroke="#f4c48a" stroke-width="9" stroke-linecap="round" fill="none"/>
-   <rect x="103" y="56" width="34" height="50" rx="15" fill="#c5e384" stroke="#1a1a1a" stroke-width="3"/>
-   <circle cx="120" cy="36" r="17" fill="#f4c48a" stroke="#1a1a1a" stroke-width="3"/>
-   <path d="M103 33 Q105 15 120 15 Q135 15 137 33 Q128 25 103 33Z" fill="#3a2a1a"/><rect x="103" y="27" width="34" height="5" rx="2" fill="#e85a5a"/>
-   <circle cx="113" cy="40" r="2.2" fill="#1a1a1a"/><circle cx="127" cy="40" r="2.2" fill="#1a1a1a"/>
-   <path d="M113 47 Q120 53 127 47" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  </g>
-  <rect x="103" y="96" width="34" height="20" rx="8" fill="#7b7fd6" stroke="#1a1a1a" stroke-width="3"/>
-  <path d="M170 40 Q174 48 170 52 Q166 48 170 40Z" fill="#a9c8ee" stroke="#1a1a1a" stroke-width="1.5"><animateTransform attributeName="transform" type="translate" values="0 -6;0 26" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite"/></path>
-  <path d="M68 52 Q72 60 68 64 Q64 60 68 52Z" fill="#a9c8ee" stroke="#1a1a1a" stroke-width="1.5"><animateTransform attributeName="transform" type="translate" values="0 -6;0 26" dur="1.2s" begin=".5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="1.2s" begin=".5s" repeatCount="indefinite"/></path>
-  </svg>`;
-
-const JI = ['bolaK', 'lari', 'beladiri', 'renang', 'senam'];
-const MI = ['hati', 'dumbbell', 'bolt', 'smile', 'medal'];
-const CI = ['plester', 'sepatu2', 'teknik', 'botol', 'stop'];
-function step(cls, bg, icon, label) {
-  return `<div class="pop ${cls}" style="background:${bg};border-radius:18px;padding:.6rem .8rem;text-align:center;width:104px;color:#1a1a1a">
-    <span class="card-ic big" style="margin:0 auto .25rem">${SVG[icon]}</span>
-    <div style="font-family:'Fredoka';font-size:.8rem;line-height:1.15">${label}</div></div>`;
-}
-const arrow = cls => `<span class="pop ${cls} arrow" style="font-size:1.6rem;color:var(--cream)">➜</span>`;
-Object.keys(SVG).forEach(k => { SVG[k] = SVG[k].replace('<svg ', '<svg class="ic ic-' + k + '" '); });
-
-function letters(t) {
-  let k = 0;
-  return t.split('\n').map(line => [...line].map(ch =>
-    ch === ' ' ? ' ' : `<span class="letter" style="--i:${k++}">${ch}</span>`).join('')).join('<br>');
-}
-
-
-const GURU_SVG = `<svg viewBox="0 0 80 104"><ellipse cx="40" cy="100" rx="22" ry="3.5" fill="#000" opacity=".25"/>
-<g class="g-body">
-<rect x="29" y="74" width="9" height="24" rx="4" fill="#3b4aa0"/><rect x="42" y="74" width="9" height="24" rx="4" fill="#3b4aa0"/>
-<ellipse cx="32" cy="98" rx="8" ry="3.5" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/><ellipse cx="48" cy="98" rx="8" ry="3.5" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
-<g class="g-arm2"><rect x="16" y="54" width="8" height="22" rx="4" fill="#f1c49b" stroke="#1a1a1a" stroke-width="1.5" transform="rotate(8 20 54)"/></g>
-<rect x="24" y="48" width="32" height="32" rx="10" fill="#e8903a" stroke="#1a1a1a" stroke-width="2"/>
-<text x="40" y="69" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="700" font-size="11" fill="#fff">PJOK</text>
-<g class="g-arm"><rect x="54" y="50" width="8" height="24" rx="4" fill="#f1c49b" stroke="#1a1a1a" stroke-width="1.5"/><circle cx="58" cy="76" r="5" fill="#f1c49b" stroke="#1a1a1a" stroke-width="1.5"/></g>
-<g class="g-head"><rect x="35" y="40" width="10" height="9" fill="#f1c49b"/>
-<circle cx="40" cy="28" r="17" fill="#f1c49b" stroke="#1a1a1a" stroke-width="2"/>
-<path d="M23 25 Q24 8 40 9 Q56 8 57 25 Q48 15 40 17 Q30 15 23 25Z" fill="#2a2a2a"/>
-<rect x="23" y="20" width="34" height="5" rx="2.5" fill="#e0453a" stroke="#1a1a1a" stroke-width="1.2"/>
-<ellipse class="g-eye" cx="33" cy="30" rx="2" ry="2.6" fill="#1a1a1a"/><ellipse class="g-eye" cx="47" cy="30" rx="2" ry="2.6" fill="#1a1a1a"/>
-<circle cx="29" cy="36" r="3" fill="#f08a7a" opacity=".6"/><circle cx="51" cy="36" r="3" fill="#f08a7a" opacity=".6"/>
-<ellipse class="g-mouth" cx="40" cy="37" rx="4" ry="3" fill="#7a2a2a"/></g>
-</g></svg>`;
-const GURU_TXT = {
-  1: ["L", "Halo! Kami Kelompok 1 akan menjelaskan tentang olahraga 👋"],
-  2: ["R", "Ini daftar materinya. Ketuk nomor untuk langsung loncat!"],
-  3: ["L", "Olahraga bikin badan sehat dan bugar setiap hari!"],
-  4: ["R", "Ada 4 hal yang akan kita pelajari hari ini."],
-  5: ["L", "Olahraga = gerak tubuh yang terencana dan berulang."],
-  6: ["L", "Ada olahraga beregu dan perorangan, lho!"],
-  7: ["L", "Rutin olahraga: jantung, otot, dan mental ikut kuat!"],
-  8: ["L", "Pemanasan dulu ya, biar tidak cedera!"],
-  9: ["R", "Ingat urutannya: pemanasan, inti, pendinginan."],
-  10: ["L", "Terima kasih! Ada pertanyaan? 🙋"]
-};
-const guru = n => { const g = GURU_TXT[n]; return g ? `<div class="guru pop p7 ${g[0]}" data-vt="guru"><div class="guru-c">${GURU_SVG}</div><div class="guru-b">${g[1]}</div></div>` : ''; };
+const R = (n, c = '', x = '') => `class="rv ${c}" style="--n:${n};${x}"`;
+let li = 0;
+const letters = t => { li = 0; return [...t].map(ch => ch === ' ' ? ' ' : `<span class="lt" style="--i:${li++}">${ch}</span>`).join(''); };
+const head = (t, s, n = 0) => `<div ${R(n, 'rule dbl rv-rule')}></div><div class="sechead"><h2 ${R(n + 1, 'hl')}>${t}</h2><span ${R(n + 2, 'sec')}>${s}</span></div>`;
+const note = n => NOTES[n] ? `<div ${R(11, 'note')}><b>Catatan Redaksi</b>${NOTES[n]}</div>` : '';
+const slide = (k, inner) => `<section class="slide${k === 0 ? ' active' : ''}" data-i="${k}"><div class="wrap">${inner}${note(k)}</div></section>`;
 
 function renderSlides() {
-  const root = document.getElementById('slides-root');
-  const d = DATA;
-
-  root.innerHTML = `
-  <!-- 1 COVER -->
-  <section class="slide active" data-i="0">${guru(0)}
-    <div class="deco sun" style="top:7%;right:7%"></div>
-    <div class="deco cloud" style="top:13%;left:5%;animation:float 6s ease-in-out infinite"></div>
-    <div class="deco cloud" style="bottom:24%;right:8%;scale:.7;animation:float 7s ease-in-out infinite .5s"></div>
-    <div class="deco moon" style="top:11%;right:29%;width:30px">${SVG.moon}</div>
-    <div class="wrap" style="display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;justify-content:center">
-      <div style="flex:1 1 250px;display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;padding-left:3%">
-        <div class="pop p1" style="display:flex;align-items:center;gap:.6rem">
-          <span class="card-ic big" style="width:56px;height:56px">${SVG.planet}</span>
-          <div>
-            <div style="background:var(--purple);color:#fff;font-family:'Fredoka';font-size:.85rem;padding:.35rem 1rem;border-radius:12px 16px 14px 10px;display:inline-block">TEMA: ${d.tema}</div>
-            <div style="background:var(--yellow);color:#1a1a1a;font-family:'Fredoka';font-size:.75rem;padding:.25rem .9rem;border-radius:8px 12px 10px 8px;display:inline-block;margin-top:.3rem">${d.kelompok}</div>
-          </div>
-        </div>
-        <div class="pop p2 h1" style="font-size:clamp(2.3rem,6vw,3.8rem);color:#f5f0e1;text-shadow:3px 3px 0 #1a1a1a">${letters(d.judul)}</div>
+  const d = DATA, S = [];
+  S.push(slide(0, `
+    <div ${R(0, 'rule dbl rv-rule')}></div>
+    <h1 class="big">${letters(d.judul.replace('\n', ' '))}</h1>
+    <div ${R(3, 'blackbar')}><span>Edisi PJOK</span><span>${d.kelompok}</span><span class="today"></span></div>
+    <div ${R(4, 'navline')}>${d.daftarIsi.map(x => x.label).join(' ◆ ')}</div>
+    <div ${R(5, 'subt')}><i></i><span>Presentasi · ${d.tema}</span><i></i></div>
+    <div class="g2">
+      <figure ${R(6, 'photo rv-photo')}>${ILL.hero}</figure>
+      <div class="vr">
+        <h3 ${R(7, 'hl')} style="--n:7;font-size:clamp(1.2rem,3.6vw,1.9rem)">${d.tema}: Gerak Sehat, Tubuh Kuat</h3>
+        <p ${R(8, 'body dropcap')} style="--n:8;margin-top:.6rem">${d.latarBelakang[0]}</p>
       </div>
-      <div class="pop p3" style="flex:1 1 250px;text-align:center">${SVG.sceneIsland}</div>
+    </div>`));
+  S.push(slide(1, head('DISUSUN OLEH', 'Tim Penyusun') + `
+    <div class="people">${d.anggota.map((a, k) => `
+      <div>
+        <figure ${R(3 + k, 'photo tall rv-photo')}>${a.foto ? `<img src="${a.foto}" alt="${a.nama}">` : ILL.person}</figure>
+        <div ${R(4 + k, 'cap')}>${a.nama}<small>${a.jabatan} · ${a.deskripsi}</small></div>
+      </div>`).join('')}
+    </div>`));
+  S.push(slide(2, head('DALAM EDISI INI', 'Daftar Isi') + `
+    <div class="toc">${d.daftarIsi.map((x, k) => `
+      <button ${R(3 + k, 'toc-row')} onclick="go(${x.slide})"><span class="no">${x.no}</span><span>${x.label}</span><i></i><span>hal. ${x.slide + 1}</span></button>`).join('')}
+    </div>`));
+  S.push(slide(3, head('LATAR BELAKANG', 'Sorotan Utama') + `
+    <div class="g2">
+      <div>
+        <figure ${R(3, 'photo rv-photo')}>${ILL.stadium}</figure>
+        <div ${R(4, 'cap')}>Olahraga dimulai dari kebiasaan kecil<small>Ilustrasi: stadion</small></div>
+      </div>
+      <div class="vr">
+        <p ${R(4, 'body dropcap')}>${d.latarBelakang[0]}</p>
+        <p ${R(5, 'body')} style="--n:5;margin-top:.7rem">${d.latarBelakang[1]}</p>
+      </div>
+    </div>`));
+  S.push(slide(4, head('TUJUAN PRESENTASI', 'Agenda') + `
+    <div class="g2">
+      <ol class="goals">${d.tujuan.map((t, k) => `<li ${R(3 + k)}><b>${k + 1}</b><span>${t}</span></li>`).join('')}</ol>
+      <div>
+        <figure ${R(4, 'photo rv-photo')}>${ILL.run}</figure>
+        <div ${R(5, 'cap')}>Empat hal yang akan dipelajari<small>Ilustrasi: pelari</small></div>
+      </div>
+    </div>`));
+  S.push(slide(5, head('PENGERTIAN OLAHRAGA', 'Definisi') + `
+    <div class="g2">
+      <figure ${R(3, 'photo rv-photo')}>${ILL.senam}</figure>
+      <div class="vr"><p ${R(4, 'quote')}>“${d.pengertian}”</p></div>
     </div>
-  </section>
-
-  <!-- 2 ANGGOTA -->
-  <section class="slide" data-i="1">${guru(1)}
-    <div class="deco planet" style="bottom:38px;right:-30px;width:120px">${SVG.planet}</div>
-    <div class="deco sun" style="top:6%;left:5%;scale:.65"></div>
-    <div class="deco cloud" style="top:10%;right:8%"></div>
-    <div class="wrap" style="text-align:center">
-      <div class="pop p1 h2" style="font-size:clamp(1.5rem,4vw,2.1rem);color:var(--cream);margin-bottom:1.4rem">DISUSUN OLEH:</div>
-      <div style="display:flex;gap:1.1rem;justify-content:center;flex-wrap:wrap">
-        ${d.anggota.map((a, idx) => `
-          <div class="member pop p${idx + 2}">
-            <div class="avatar" style="background:${a.foto ? `url('${a.foto}') center/cover` : a.warna}">
-              ${a.foto ? '' : a.emoji}
-            </div>
-            <div class="name">${a.nama}</div>
-            <div class="role">${a.jabatan} · ${a.deskripsi}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 3 DAFTAR ISI -->
-  <section class="slide" data-i="2">${guru(2)}
-    <div class="deco planet" style="bottom:38px;left:-30px;width:120px">${SVG.planet}</div>
-    <div class="deco cloud" style="top:8%;left:5%"></div>
-    <div class="deco cloud" style="top:12%;right:10%;scale:.75"></div>
-    <div class="wrap" style="text-align:center;max-width:640px">
-      <div class="pop p1" style="display:inline-block;background:var(--green);color:#fff;font-family:'Fredoka';font-size:1.25rem;padding:.48rem 1.7rem;border-radius:999px;margin-bottom:1.2rem">DAFTAR ISI</div>
-      <div class="pop p2 blob blob-y" style="border-radius:40px 50px 45px 55px;padding:1.5rem 1rem;max-width:600px;margin:0 auto">
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem .5rem;justify-items:center">
-          ${d.daftarIsi.map((item, idx) => `
-            <div class="toc-item" style="--i:${idx};text-align:center">
-              <button class="toc-num" onclick="go(${item.slide})">${item.no}</button>
-              <div style="font-size:.66rem;margin-top:.25rem;color:#333;font-family:'Fredoka';line-height:1.1">${item.label}</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4 LATAR BELAKANG -->
-  <section class="slide" data-i="3">${guru(3)}
-    <div class="deco planet" style="bottom:38px;right:-34px;width:120px">${SVG.planet}</div>
-    <div class="deco sun" style="top:6%;right:6%;scale:.6"></div>
-    <div class="deco cloud" style="top:16%;left:4%;scale:.75"></div>
-    <div class="wrap" style="display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;max-width:960px">
-      <div class="pop p1" style="flex:1 1 240px;text-align:center">
-        <div class="h2" style="font-size:clamp(1.4rem,3.5vw,1.9rem);color:var(--cream);margin-bottom:.5rem">LATAR<br>BELAKANG</div>
-        ${SVG.sceneStadium}
-      </div>
-      <div style="flex:1.3 1 260px;display:flex;flex-direction:column;gap:.75rem">
-        <div class="pop p2 blob blob-y" style="padding:1.1rem 1.4rem;border-radius:34px 46px 38px 50px">
-          <p class="body" style="font-size:.9rem">${d.latarBelakang[0]}</p>
-        </div>
-        <div class="pop p3 blob blob-g" style="padding:1.1rem 1.4rem;border-radius:46px 36px 50px 38px">
-          <p class="body" style="font-size:.9rem">${d.latarBelakang[1]}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 TUJUAN -->
-  <section class="slide" data-i="4">${guru(4)}
-    <div class="deco planet" style="bottom:38px;left:-26px;width:120px">${SVG.planet}</div>
-    <div class="deco sun" style="top:6%;left:5%;scale:.55"></div>
-    <div class="deco cloud" style="top:12%;right:6%"></div>
-    <div class="wrap" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;max-width:920px">
-      <div style="flex:1.2 1 280px">
-        <div class="pop p1 blob blob-y" style="display:inline-block;padding:.8rem 1.5rem;border-radius:30% 70% 60% 40%/50% 40% 60% 50%;margin-bottom:.9rem">
-          <span class="h2" style="font-size:clamp(1.2rem,3.4vw,1.8rem)">TUJUAN<br>PRESENTASI</span>
-        </div>
-        <div class="pop p2" style="background:#3f3f3f;border-radius:20px;padding:1rem 1.2rem;border:2px solid #555">
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem">
-            ${d.tujuan.map(t => `<li class="body" style="color:#eee;font-size:.95rem;display:flex;gap:.6rem;align-items:flex-start"><span style="color:var(--yellow);font-family:'Fredoka'">★</span><span>${t}</span></li>`).join('')}
-          </ul>
-        </div>
-      </div>
-      <div class="pop p3" style="flex:1 1 230px;text-align:center">${SVG.sceneLari}</div>
-    </div>
-  </section>
-
-  <!-- 5 PENGERTIAN -->
-  <section class="slide" data-i="5">${guru(5)}
-    <div class="deco planet" style="bottom:38px;right:-30px;width:120px">${SVG.planet}</div>
-    <div class="deco cloud" style="top:12%;right:8%"></div>
-    <div class="wrap" style="max-width:860px">
-      <div style="text-align:center">
-        <div class="pop p1 blob blob-g" style="display:inline-block;padding:.5rem 1.5rem;border-radius:30px 40px 35px 25px;margin-bottom:1rem">
-          <span class="h2" style="font-size:clamp(1.15rem,3vw,1.5rem)">PENGERTIAN OLAHRAGA</span>
-        </div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:1.1rem;align-items:center;justify-content:center">
-        <div class="pop p2" style="flex:1;min-width:210px;text-align:center">${SVG.sceneSenam}</div>
-        <div style="flex:1.3;min-width:250px">
-          <div class="pop p3" style="background:#3f3f3f;border-radius:22px;padding:1.2rem 1.4rem;border:2px solid #555">
-            <p class="body" style="color:#eee;font-size:.98rem;text-align:left">${d.pengertian}</p>
-          </div>
-          <div class="pop p4" style="margin-top:.9rem;display:flex;gap:1.1rem;justify-content:center;align-items:flex-end">
-            ${SVG.bola}<span class="card-ic big">${SVG.sepatu2}</span>${SVG.piala}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6 JENIS (mind map) -->
-  <section class="slide" data-i="6">${guru(6)}
-    <div class="deco planet" style="bottom:38px;left:-30px;width:120px">${SVG.planet}</div>
-    <div class="deco cloud" style="top:6%;right:5%"></div>
-    <div class="wrap" style="display:flex;justify-content:center">
-      <div class="mm">
-        <svg class="mm-lines"></svg>
-        <div class="pop p1 mm-n mm-root blob blob-y" data-id="r" style="--x:17;--y:50;--mx:50;--my:8;--w:26cqw;--mw:72cqw">JENIS-JENIS<br>OLAHRAGA</div>
-        <div class="pop p2 mm-n blob blob-b" data-id="a" data-parent="r" style="--x:47;--y:18;--mx:30;--my:22;--w:20cqw;--mw:36cqw">Olahraga<br>Beregu</div>
-        <div class="pop p3 mm-n blob blob-g" data-id="b" data-parent="r" style="--x:47;--y:64;--mx:30;--my:63;--w:20cqw;--mw:36cqw">Olahraga<br>Perorangan</div>
-        ${[[0, 'a', 18, 22], [1, 'b', 40, 42], [2, 'b', 56, 56], [3, 'b', 72, 70], [4, 'b', 88, 84]].map(([idx, par, y, my], k) => { const j = d.jenis[idx]; return `
-          <div class="pop p${Math.min(k + 3, 7)} mm-n leaf blob ${j.warna}" data-id="j${idx}" data-parent="${par}" style="--x:80;--y:${y};--mx:76;--my:${my};--w:30cqw;--mw:46cqw;color:${j.warna === 'blob-p' ? '#fff' : '#1a1a1a'}">
-            <span class="card-ic" style="width:2.2em;height:2.2em">${SVG[JI[idx]]}</span>
-            <span><b style="font-weight:600">${j.judul}</b><br><small style="font-size:.78em;opacity:.85">${j.contoh}</small></span>
-          </div>`; }).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 7 MANFAAT -->
-  <section class="slide" data-i="7">${guru(7)}
-    <div class="deco planet" style="bottom:38px;right:-28px;width:120px">${SVG.planet}</div>
-    <div class="deco sun" style="top:5%;right:5%;scale:.5"></div>
-    <div class="wrap" style="max-width:860px">
-      <div class="pop p1 h2" style="font-size:clamp(1.25rem,3vw,1.65rem);color:var(--cream);margin-bottom:.8rem;text-align:center">MANFAAT OLAHRAGA</div>
-      <div style="display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:center">
-        <div class="pop p2" style="flex:0 1 230px;text-align:center">${SVG.sceneAngkat}</div>
-        <div style="flex:1 1 280px;display:flex;flex-direction:column;gap:.5rem">
-          ${d.manfaat.map((m, idx) => `
-            <div class="pop p${idx + 3}" style="background:${m.bg};border-radius:16px;padding:.5rem .9rem;color:${m.color};display:flex;align-items:center;gap:.8rem;${m.border ? 'border:' + m.border + ';' : ''}">
-              <span class="card-ic" style="width:40px;height:40px">${SVG[MI[idx]]}</span>
-              <div>
-                <div style="font-family:'Fredoka';font-size:1rem;margin-bottom:.1rem">${m.no} · ${m.judul}</div>
-                <div style="font-size:.76rem;opacity:.9">${m.desc}</div>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 8 CEDERA (mind map) -->
-  <section class="slide" data-i="8">${guru(8)}
-    <div class="deco planet" style="bottom:38px;right:-30px;width:120px">${SVG.planet}</div>
-    <div class="deco cloud" style="top:8%;left:6%"></div>
-    <div class="wrap" style="display:flex;justify-content:center">
-      <div class="mm nolm">
-        <svg class="mm-lines"></svg>
-        <div class="pop p1 mm-n mm-root blob blob-y" data-id="r" style="--x:21;--y:24;--mx:30;--my:7;--w:30cqw;--mw:52cqw">CEDERA &amp;<br>PENCEGAHAN</div>
-        <div class="pop p2 mm-n scene" style="--x:21;--y:68;--mx:80;--my:12;--w:34cqw;--mw:40cqw">${SVG.sceneStretch}</div>
-        ${d.cedera.map((c, idx) => `
-          <div class="pop p${Math.min(idx + 3, 7)} mm-n leaf" data-id="l${idx}" data-parent="r" style="--x:72;--y:${18 + idx * 16};--mx:50;--my:${27 + idx * 14};--w:44cqw;--mw:92cqw;background:${c.bg};color:${c.color};${c.border ? 'border:' + c.border + ';' : ''}">
-            <span class="card-ic" style="width:2.2em;height:2.2em">${SVG[CI[idx]]}</span><span>${c.teks}</span>
-          </div>`).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 9 KESIMPULAN -->
-  <section class="slide" data-i="9">${guru(9)}
-    <div class="deco planet" style="bottom:38px;left:-30px;width:120px">${SVG.planet}</div>
-    <div class="deco sun" style="top:8%;right:7%;scale:.55"></div>
-    <div class="deco cloud" style="bottom:22%;left:5%"></div>
-    <div class="wrap" style="text-align:center;max-width:680px">
-      <div class="pop p1" style="display:inline-block;background:var(--lime);color:#1a1a1a;font-family:'Fredoka';font-size:1.15rem;padding:.48rem 1.5rem;border-radius:999px;margin-bottom:1rem">KESIMPULAN</div>
-      <div class="pop p2" style="background:#3f3f3f;border-radius:20px;padding:1.1rem 1.3rem;border:2px solid #555">
-        <p class="body" style="color:#eee;font-size:.93rem;text-align:left">${d.kesimpulan}</p>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1rem;flex-wrap:wrap">
-        ${step('p3', 'var(--lime)', 'senam', '1. Pemanasan')}${arrow('p4')}
-        ${step('p5', 'var(--yellow)', 'lari', '2. Kegiatan Inti')}${arrow('p6')}
-        ${step('p6', 'var(--blue)', 'botol', '3. Pendinginan')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 10 TERIMA KASIH -->
-  <section class="slide" data-i="10">${guru(10)}
-    <div class="deco planet" style="bottom:38px;right:-36px;width:150px">${SVG.planet}</div>
-    <div class="deco moon" style="top:36%;left:4%;width:34px">${SVG.moon}</div>
-    <div class="deco sun" style="top:10%;left:8%;scale:.65"></div>
-    <div class="deco cloud" style="top:12%;right:10%"></div>
-    <div class="deco cloud" style="bottom:24%;left:12%;scale:.75"></div>
-    <div class="wrap" style="text-align:center">
-      <div class="pop p1 blob blob-c" style="display:inline-block;padding:1.1rem 2rem;border-radius:40% 60% 50% 50%/55% 45% 55% 45%;margin-bottom:.9rem">
-        <div class="h1" style="font-size:clamp(1.7rem,5vw,2.6rem);color:#1a1a1a">TERIMA KASIH</div>
-      </div>
-      <div class="pop p2" style="display:inline-block;background:var(--lime);color:#1a1a1a;font-family:'Fredoka';font-size:1rem;padding:.42rem 1.3rem;border-radius:999px;margin-bottom:1.3rem">${d.penutup}</div>
-      <div class="pop p3" style="display:flex;gap:1.4rem;justify-content:center;align-items:center">
-        ${SVG.piala}${SVG.bola}
-      </div>
-    </div>
-  </section>
-  `;
+    <div class="strip">
+      <div><figure ${R(5, 'photo rv-photo')}>${ILL.ball}</figure><div ${R(6, 'cap')}>Bola</div></div>
+      <div><figure ${R(6, 'photo rv-photo')}>${ILL.shoe}</figure><div ${R(7, 'cap')}>Sepatu</div></div>
+      <div><figure ${R(7, 'photo rv-photo')}>${ILL.trophy}</figure><div ${R(8, 'cap')}>Piala</div></div>
+    </div>`));
+  S.push(slide(6, head('JENIS-JENIS OLAHRAGA', 'Klasifikasi') + `
+    <div class="kinds">${d.jenis.map((j, k) => `
+      <div>
+        <figure ${R(3 + k, 'photo rv-photo')}>${ILL[JI[k]]}</figure>
+        <div ${R(4 + k, 'tag')}>${j.grup}</div>
+        <div ${R(4 + k, 'cap')}>${j.judul}<small>${j.contoh}</small></div>
+      </div>`).join('')}
+    </div>`));
+  S.push(slide(7, head('MANFAAT OLAHRAGA', 'Grafik Manfaat') + `
+    <div class="chart">${d.manfaat.map((m, k) => `
+      <div>
+        <div class="barw"><div ${R(3 + k, 'bar rv-bar', `height:${38 + k * 15}%`)}></div></div>
+        <div ${R(5 + k, 'cap')}>${m.no}. ${m.judul}<small>${m.desc}</small></div>
+      </div>`).join('')}
+    </div>`));
+  S.push(slide(8, head('CEDERA &amp; PENCEGAHAN', 'Keselamatan') + `
+    <div class="tips">${d.cedera.map((c, k) => `
+      <div ${R(3 + k, 'tip')}><figure class="photo sm">${ILL[CI[k]]}</figure><div><b>${k + 1}.</b> ${c.teks}</div></div>`).join('')}
+    </div>`));
+  S.push(slide(9, head('KESIMPULAN', 'Ringkasan') + `
+    <p ${R(3, 'body dropcap')}>${d.kesimpulan}</p>
+    <div class="steps">
+      <div><figure ${R(4, 'photo rv-photo')}>${ILL.senam}</figure><div ${R(5, 'cap')}>1. Pemanasan</div></div>
+      <span ${R(5, 'arr')}>➜</span>
+      <div><figure ${R(6, 'photo rv-photo')}>${ILL.run}</figure><div ${R(7, 'cap')}>2. Kegiatan Inti</div></div>
+      <span ${R(7, 'arr')}>➜</span>
+      <div><figure ${R(8, 'photo rv-photo')}>${ILL.bottle}</figure><div ${R(9, 'cap')}>3. Pendinginan</div></div>
+    </div>`));
+  S.push(`<section class="slide" data-i="10"><div class="wrap center">
+    <div ${R(0, 'rule dbl rv-rule')}></div>
+    <div ${R(1, 'subt')}><i></i><span>Presentasi ${d.tema}</span><i></i></div>
+    <h1 class="big">${letters('TERIMA KASIH')}</h1>
+    <div ${R(8, 'subt')}><i></i><span>${d.penutup}</span><i></i></div>
+    <div ${R(9, 'stamp rv-stamp')}>SELESAI</div>
+    <p ${R(10, 'sec')} style="--n:10;display:block;white-space:normal">${d.kelompok} · Edisi PJOK</p>
+    ${note(10)}
+  </div></section>`);
+  document.getElementById('slides-root').innerHTML = S.join('');
 }
 
 /* =========================================================
-   NAVIGASI
+   TRANSISI MORPH (ala PowerPoint)
+   Elemen sejenis di slide lama & baru dipasangkan berdasarkan
+   urutan, lalu "terbang" dari posisi/ukuran lama ke yang baru.
+   Elemen tanpa pasangan muncul dengan animasi tinta.
+   Jenis: t = text (skala ikut ukuran font), box (skala ikut kotak), move (geser saja)
+   f = 1 → ikut cross-fade, f = 0 → bentuk sama persis (tanpa fade)
    ========================================================= */
-let slides = [];
-let i = 0;
+const CATS = [
+  ['.rule', 'box', 0],
+  ['.big', 'text', 1],
+  ['.hl', 'text', 1],
+  ['.sec', 'text', 1],
+  ['.blackbar,.subt', 'box', 0],
+  ['.photo:not(.sm)', 'box', 1],
+  ['.cap', 'text', 1],
+  ['.tag', 'text', 1],
+  ['.body,.quote', 'text', 1],
+  ['.toc-row,.goals li,.tip', 'move', 1],
+  ['.bar', 'box', 0],
+  ['.note', 'move', 1]
+];
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const fs = e => parseFloat(getComputedStyle(e).fontSize) || 16;
+
+let slides = [], i = 0, busy = false, queued = null;
 const total = 11;
 
-function renderDots() {
-  const el = document.getElementById('dots');
-  el.innerHTML = '';
+function ui() {
+  document.getElementById('cur').textContent = i + 1;
+  document.getElementById('prev').disabled = i === 0;
+  document.getElementById('next').textContent = i === total - 1 ? 'Selesai ✓' : 'Lanjut ›';
+  const el = document.getElementById('dots'); el.innerHTML = '';
   for (let n = 0; n < total; n++) {
     const b = document.createElement('button');
     b.className = 'dot' + (n === i ? ' on' : '');
@@ -1006,415 +382,60 @@ function renderDots() {
     el.appendChild(b);
   }
 }
-
-function layoutMM(mm) {
-  const svg = mm.querySelector('.mm-lines'); if (!svg) return;
-  const W = mm.offsetWidth, H = mm.offsetHeight; if (!W) return;
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  const nodes = {}; mm.querySelectorAll('.mm-n[data-id]').forEach(n => nodes[n.dataset.id] = n);
-  let out = '';
-  mm.querySelectorAll('.mm-n[data-parent]').forEach(c => {
-    const a = nodes[c.dataset.parent]; if (!a) return;
-    const ax = a.offsetLeft, ay = a.offsetTop, aw = a.offsetWidth, ah = a.offsetHeight;
-    const bx = c.offsetLeft, by = c.offsetTop, bw = c.offsetWidth, bh = c.offsetHeight;
-    const dx = bx - ax, dy = by - ay; let d;
-    if (Math.abs(dy) > Math.abs(dx) * 0.8) {
-      const sg = Math.sign(dy) || 1, y1 = ay + sg * ah / 2, y2 = by - sg * bh / 2, m = (y1 + y2) / 2;
-      d = `M${ax} ${y1} C${ax} ${m} ${bx} ${m} ${bx} ${y2}`;
-    } else {
-      const sg = Math.sign(dx) || 1, x1 = ax + sg * aw / 2, x2 = bx - sg * bw / 2, m = (x1 + x2) / 2;
-      d = `M${x1} ${ay} C${m} ${ay} ${m} ${by} ${x2} ${by}`;
-    }
-    out += `<path class="mm-line" pathLength="1" d="${d}"/>`;
-  });
-  svg.innerHTML = out;
-}
-const layoutAll = () => document.querySelectorAll('.mm').forEach(layoutMM);
-
-let busy = false, queued = null, settleT = 0, confettiId = 0;
-
-
-/* ===== tur: karakter menjelaskan tiap butir (soal/poin) satu per satu ===== */
-const TOUR = {
-  4: { sel: 'li', t: [
-    "Pertama: kita pahami dulu apa itu olahraga.",
-    "Kedua: mengenal macam-macam olahraga, dari bola sampai renang.",
-    "Ketiga: tahu manfaatnya untuk badan dan pikiran.",
-    "Keempat: belajar cara mencegah cedera supaya aman." ] },
-  6: { sel: '.mm-n.leaf', t: [
-    "Permainan bola dimainkan bersama tim, misalnya sepak bola, basket, dan voli.",
-    "Atletik itu lari, lompat, dan lempar. Dasar dari banyak olahraga!",
-    "Bela diri melatih kekuatan, fokus, dan disiplin, contohnya silat dan karate.",
-    "Renang melatih seluruh otot tubuh dan baik untuk pernapasan.",
-    "Senam dan kebugaran melatih kelenturan, keseimbangan, dan stamina." ] },
-  7: { sel: '.pop[style*="border-radius: 16px"]', t: [
-    "Jantung dan paru-paru jadi lebih kuat saat rutin bergerak.",
-    "Otot terbentuk dan tubuh jadi lebih kuat.",
-    "Stamina naik, jadi tidak gampang lelah.",
-    "Olahraga membuat hati senang dan mengurangi stres.",
-    "Dari olahraga tim kita belajar kerja sama dan bermain jujur." ] },
-  8: { sel: '.mm-n.leaf', t: [
-    "Pemanasan melenturkan otot supaya tidak keram atau keseleo.",
-    "Sepatu dan alat yang pas melindungi kaki dan badan.",
-    "Gerakan yang benar mencegah cedera otot dan sendi.",
-    "Minum air cukup supaya tubuh tidak dehidrasi.",
-    "Kalau sakit atau sangat lelah, berhenti dan istirahat." ] },
-  9: { sel: '.wrap > div:last-child > .pop', f: e => /^\d\./.test(e.textContent.trim()), t: [
-    "Mulai dengan pemanasan untuk menyiapkan otot dan sendi.",
-    "Lalu kegiatan inti: olahraga yang kamu pilih.",
-    "Terakhir pendinginan supaya detak jantung turun pelan-pelan." ] }
-};
-let tourT = 0, tourS = 0;
-function tourStop() {
-  clearTimeout(tourT); tourS++;
-  document.documentElement.classList.remove('tour-on');
-  document.querySelectorAll('.tour-it.hl').forEach(e => e.classList.remove('hl'));
-}
-function tourSay(sl, html) {
-  const b = sl.querySelector('.guru-b'); if (!b) return;
-  b.innerHTML = html; b.classList.remove('chg'); void b.offsetWidth; b.classList.add('chg');
-}
-function tourStart(n) {
-  tourStop();
-  return; /* tur per-butir dimatikan: poin dibiarkan statis */
-  const cfg = TOUR[n], sl = slides[n];
-  if (!cfg) return;
-  let its = [...sl.querySelectorAll(cfg.sel)];
-  if (cfg.f) its = its.filter(cfg.f);
-  its = its.slice(0, cfg.t.length);
-  if (!its.length) return;
-  its.forEach((e, k) => { e.classList.add('tour-it'); e.onclick = () => { if (tourOn(n)) tourShow(n, its, cfg, k, true); }; });
-  const id = tourS;
-  const run = k => {
-    if (id !== tourS) return;
-    tourShow(n, its, cfg, k % its.length, false);
-    tourT = setTimeout(() => run(k + 1), 4200);
-  };
-  tourT = setTimeout(() => run(0), 2600);
-}
-const tourOn = n => i === n && !busy;
-function tourShow(n, its, cfg, k, manual) {
-  const sl = slides[n];
-  document.documentElement.classList.add('tour-on');
-  its.forEach((e, j) => e.classList.toggle('hl', j === k));
-  tourSay(sl, `<span class="guru-no">${k + 1}</span>${cfg.t[k]}`);
-  if (manual) {                       // klik manual: jeda otomatis lalu lanjut dari butir berikutnya
-    clearTimeout(tourT); const id = ++tourS;
-    const run = j => { if (id !== tourS) return; tourShow(n, its, cfg, j % its.length, false); tourT = setTimeout(() => run(j + 1), 4200); };
-    tourT = setTimeout(() => run(k + 1), 5200);
-  }
-}
-
-
-/* ===== orang animasi per poin (SMIL, kerangka sendi) ===== */
-const FIG = (() => {
-  const SKIN = '#f1c49b', SHIRT = '#e8903a', PANT = '#3b4aa0', INK = '#1a1a1a';
-  const KS = '.45 0 .55 1';
-  const arr = v => Array.isArray(v) ? v : [v];
-  const anim = (type, vals, dur, ph) => {
-    const n = vals.length, kt = vals.map((_, k) => (k / (n - 1)).toFixed(3)).join(';');
-    return `<animateTransform attributeName="transform" type="${type}" values="${vals.join(';')}" keyTimes="${kt}" dur="${dur}s" begin="${-ph}s" repeatCount="indefinite" calcMode="spline" keySplines="${Array.from({ length: n - 1 }, (_, k) => type === 'translate' ? (k % 2 ? '.6 0 .8 .4' : '.2 .6 .4 1') : KS).join(';')}"/>`;
-  };
-  const rot = (cx, cy, v, dur, ph = 0) => {
-    v = arr(v);
-    if (v.length === 1) return v[0] ? `transform="rotate(${v[0]} ${cx} ${cy})"` : '';
-    return '>' + anim('rotate', v.map(a => `${a} ${cx} ${cy}`), dur, ph) + '<!--';
-  };
-  // grup berputar di sekitar (cx,cy); isi = konten; v = sudut (angka atau array)
-  const grp = (cx, cy, v, dur, ph, inner) => {
-    v = arr(v);
-    if (v.length === 1) return `<g ${v[0] ? `transform="rotate(${v[0]} ${cx} ${cy})"` : ''}>${inner}</g>`;
-    return `<g>${anim('rotate', v.map(a => `${a} ${cx} ${cy}`), dur, ph)}${inner}</g>`;
-  };
-  const scl = (cx, cy, vals, dur, ph, inner) => `<g transform="translate(${cx} ${cy})"><g>${anim('scale', vals, dur, ph)}<g transform="translate(${-cx} ${-cy})">${inner}</g></g></g>`;
-  const limb = (sx, sy, l1, l2, col, w, U, F, dur, ph, extra = '', foot = false) => {
-    const ex = sy + l1;
-    const lower = `<line x1="${sx}" y1="${ex}" x2="${sx}" y2="${ex + l2}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>` +
-      (foot ? `<ellipse cx="${sx + 2}" cy="${ex + l2 + 1}" rx="4.2" ry="2.3" fill="#fff" stroke="${INK}" stroke-width="1"/>` : `<circle cx="${sx}" cy="${ex + l2}" r="2.8" fill="${SKIN}"/>`) + (extra ? `<g transform="translate(${sx} ${ex + l2})">${extra}</g>` : '');
-    const inner = `<line x1="${sx}" y1="${sy}" x2="${sx}" y2="${ex}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>` + grp(sx, ex, F, dur, ph + dur * .9, lower);
-    return grp(sx, sy, U, dur, ph, inner);
-  };
-  function fig(p) {
-    const d = p.dur || 1.2, ph = p.ph || 0, ph2 = p.ph2 === undefined ? ph : p.ph2;
-    const A = (k, def) => p[k] || def;
-    const aL = A('aL', [0, 0]), aR = A('aR', [0, 0]), lL = A('lL', [0, 0]), lR = A('lR', [0, 0]);
-    const legL = limb(28, 42, 12, 12, PANT, 6, lL[0], lL[1], d, ph, '', true);
-    const legR = limb(36, 42, 12, 12, PANT, 6, lR[0], lR[1], d, ph2, '', true);
-    const armL = limb(25, 22, 10, 9, SKIN, 4.4, aL[0], aL[1], d, ph, aL[2] || '');
-    const armR = limb(39, 22, 10, 9, SKIN, 4.4, aR[0], aR[1], d, ph2, aR[2] || '');
-    const hasH = p.head !== undefined;
-    const head = grp(32, 19, hasH ? p.head : [-2.5, 2.5, -2.5], hasH ? d : d * 1.7, hasH ? ph + d * .88 : ph,
-      `<rect x="29" y="17" width="6" height="5" fill="${SKIN}"/><circle cx="32" cy="11" r="8.5" fill="${SKIN}" stroke="${INK}" stroke-width="1.6"/>
-       <path d="M23.6 10 Q24 2 32 2.4 Q40 2 40.4 10 Q36 6 32 6.6 Q28 6 23.6 10Z" fill="#2a2a2a"/>
-       <rect x="23.4" y="7.2" width="17.2" height="2.8" rx="1.4" fill="#e0453a"/>
-       <ellipse cx="28.6" cy="13" rx="1.15" ry="1.3" fill="${INK}"><animate attributeName="ry" values="1.3;1.3;.15;1.3" keyTimes="0;.92;.96;1" dur="3.7s" begin="-${(ph * 7 % 3).toFixed(2)}s" repeatCount="indefinite"/></ellipse><ellipse cx="35.4" cy="13" rx="1.15" ry="1.3" fill="${INK}"><animate attributeName="ry" values="1.3;1.3;.15;1.3" keyTimes="0;.92;.96;1" dur="3.7s" begin="-${(ph * 7 % 3).toFixed(2)}s" repeatCount="indefinite"/></ellipse><path d="M23.6 8.6 q-5 .6 -7.5 -1.4 q4 3.6 7.5 3.2Z" fill="#e0453a" stroke="${INK}" stroke-width=".6"><animateTransform attributeName="transform" type="rotate" values="-8 23.6 8.6;12 23.6 8.6;-8 23.6 8.6" dur=".9s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines=".45 0 .55 1;.45 0 .55 1"/></path>
-       <path d="M28.8 16 Q32 18.6 35.2 16" stroke="#7a2a2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>`);
-    const torso = grp(32, 42, A('torso', 0), d, ph,
-      scl(32, 42, ['1 1', '1.025 1.035', '1 1'], 2.6, ph, `<rect x="23.5" y="19" width="17" height="24" rx="6" fill="${SHIRT}" stroke="${INK}" stroke-width="1.6"/>${A('chest', '')}${armL}${armR}${head}`));
-    const body = `${legL}${legR}${torso}`;
-    const bob = A('bob', 0);
-    const bb = arr(bob);
-    const jumpy = bb.length > 1 && Math.min(...bb) < 0;
-    const sq = jumpy ? bb.map(y => y < -.5 ? '.97 1.04' : '1.05 .95') : null;
-    const root0 = bob ? (bb.length === 1 ? `<g transform="translate(0 ${bb[0]})">${body}</g>` : `<g>${anim('translate', bb.map(y => `0 ${y}`), p.bobDur || d, ph)}${body}</g>`) : body;
-    const root = jumpy ? scl(32, 70, sq, p.bobDur || d, ph, root0) : root0;
-    return `<svg viewBox="0 0 64 72" overflow="visible"><ellipse cx="32" cy="70" rx="14" ry="2.2" fill="#000" opacity=".25"/>${root}${A('prop', '')}</svg>`;
-  }
-  // properti
-  const heart = `<g transform="translate(53 10)"><g><animateTransform attributeName="transform" type="scale" values="1;1.35;1" dur=".6s" repeatCount="indefinite"/><path d="M0 4 C-9 -3 -5 -10 0 -5 C5 -10 9 -3 0 4Z" fill="#e0453a"/></g></g>`;
-  const bolt = `<g transform="translate(52 12)"><g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur=".5s" repeatCount="indefinite"/><path d="M2 -9 L-5 2 L0 2 L-2 9 L6 -2 L1 -2Z" fill="#f4e04d" stroke="${INK}" stroke-width="1"/></g></g>`;
-  const check = `<g transform="translate(53 12)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.35;.5;.9;1" dur="2.2s" repeatCount="indefinite"/><circle r="7" fill="#7ad37a" stroke="${INK}" stroke-width="1.2"/><path d="M-3.5 0 L-1 3 L4 -3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></g>`;
-  const sparkle = (x, y, dur = 1.1) => `<path transform="translate(${x} ${y})" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3Z" fill="#f4e04d"><animateTransform attributeName="transform" type="scale" additive="sum" values="0.4;1.2;0.4" dur="${dur}s" repeatCount="indefinite"/></path>`;
-  const sweat = `<g fill="#7ec8ff"><path d="M46 12 q-2.5 4 0 5.5 q2.5 -1.5 0 -5.5Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 12" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.2s" repeatCount="indefinite"/></path><path d="M18 10 q-2 3.5 0 5 q2 -1.5 0 -5Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 12" dur="1.2s" begin="-.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.2s" begin="-.6s" repeatCount="indefinite"/></path></g>`;
-  const bottle = `<g><rect x="-2.8" y="-2" width="5.6" height="10" rx="1.8" fill="#a9d4ff" stroke="${INK}" stroke-width="1"/><rect x="-1.5" y="8" width="3" height="2.6" fill="#e0453a" stroke="${INK}" stroke-width=".6"/><rect x="-2.8" y="3" width="5.6" height="5" fill="#5aaef0" opacity=".8"/></g>`;
-  const stopSign = `<g transform="translate(0 -1)"><circle r="5.8" fill="#e0453a" stroke="${INK}" stroke-width="1"/><rect x="-3.5" y="-.9" width="7" height="1.8" fill="#fff"/></g>`;
-  const shoe = `<g transform="translate(0 2)"><path d="M-6 3 L-6 -3 Q-2 -4 0 -1 L5 1 Q7 2 6.5 4 Z" fill="#7b7fd6" stroke="${INK}" stroke-width="1.1" stroke-linejoin="round"/><rect x="-6" y="3" width="12.5" height="1.8" rx=".9" fill="#fff" stroke="${INK}" stroke-width=".8"/></g>`;
-  const bulb = `<g transform="translate(51 9)"><circle r="5" fill="#f4e04d" stroke="${INK}" stroke-width="1"><animate attributeName="opacity" values="1;.45;1" dur="1s" repeatCount="indefinite"/></circle><rect x="-2" y="4.5" width="4" height="3" fill="#888"/></g>`;
-  const ball = `<g><circle r="3.6" fill="#f5f0e1" stroke="${INK}" stroke-width="1"><animateTransform attributeName="transform" type="translate" values="48 66;60 52;48 66" dur="1.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines=".2 .6 .4 1;.6 0 .8 .4"/></circle></g>`;
-  const wave = `<path d="M-2 62 q4 -4 8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0" stroke="#7ec8ff" stroke-width="2.4" fill="none" stroke-linecap="round"><animateTransform attributeName="transform" type="translate" values="0 0;-8 0" dur=".9s" repeatCount="indefinite"/></path>`;
-  const medal = `<g transform="translate(32 33)"><path d="M-4 -9 L0 -2 L4 -9" stroke="#e0453a" stroke-width="2.4" fill="none"/><circle r="4.6" fill="#f4e04d" stroke="${INK}" stroke-width="1.2"/></g>`;
-  const impact = `<path d="M51 22 l6 -3 M52 27 l7 0 M51 32 l6 3" stroke="#f4e04d" stroke-width="2" stroke-linecap="round"><animate attributeName="opacity" values="0;1;0" dur=".7s" repeatCount="indefinite"/></path>`;
-  const run = (extra = {}) => Object.assign({ dur: .6, bobDur: .3, bob: [0, -3, 0, -3, 0], torso: 5,
-    aL: [[-55, 55, -55], [-80, -30, -80]], aR: [[55, -55, 55], [-30, -80, -30]],
-    lL: [[-40, 40, -40], [4, 60, 4]], lR: [[40, -40, 40], [60, 4, 60]] }, extra);
-  const jack = (extra = {}) => Object.assign({ dur: 1, bob: [0, -4, 0], aL: [[0, 150, 0], 0], aR: [[0, -150, 0], 0], lL: [[0, 16, 0], 0], lR: [[0, -16, 0], 0] }, extra);
-  const P = {
-    warm: jack({ prop: sparkle(52, 14) }),
-    shoe: { dur: 2.8, bob: [0, 0, 0, 0], torso: [0, -3, 3, 0], head: [0, 8, 8, 0], aR: [[0, -62, -62, 0], [0, -75, -75, 0], shoe], lR: [[0, -50, -50, 0], [0, 78, 78, 0]], lL: [0, 0], prop: sparkle(50, 60, 1.4) },
-    squat: { dur: 2.4, bob: [0, 5, 5, 0], torso: [0, 0, 0, 0], head: [0, 0, 0, 0], aL: [[0, 82, 82, 0], 0], aR: [[0, -82, -82, 0], 0], lL: [[0, 48, 48, 0], [0, -48, -48, 0]], lR: [[0, -48, -48, 0], [0, 48, 48, 0]], prop: check },
-    drink: { dur: 3, head: [0, -10, -10, 0], aR: [[0, -100, -100, 0], [0, -150, -150, 0], bottle], prop: '<g fill="#7ec8ff"><circle cx="46" cy="14" r="1.3"><animate attributeName="cy" values="14;30" keyTimes="0;1" dur="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite"/></circle></g>' },
-    stop: { dur: 1.8, torso: [0, 4, 0], head: [0, 6, 0], aL: [[8, 14, 8], [0, 0, 0]], aR: [[-150, -160, -150], [-6, 16, -6], stopSign], prop: sweat },
-    heart: run({ dur: .8, bobDur: .4, prop: heart }),
-    flex: { dur: 1.4, bob: [0, -2, 0], aL: [90, [60, 118, 60]], aR: [-90, [-60, -118, -60]], lL: [8, 0], lR: [-8, 0], prop: sparkle(8, 12) + sparkle(56, 14, 1.4) },
-    bolt: run({ dur: .9, bobDur: .45, prop: bolt }),
-    relax: { dur: 3.2, torso: 0, head: [-4, 4, -4], aL: [[0, 150, 0], 0], aR: [[0, -150, 0], 0], bob: [0, -2, 0], prop: sparkle(12, 10, 1.6) + sparkle(54, 12, 2) },
-    cheer: { dur: .8, bob: [0, -5, 0], aL: [150, [-14, 14, -14]], aR: [-150, [14, -14, 14]], chest: medal, prop: sparkle(8, 10, .8) + sparkle(56, 10, .8) },
-    think: { dur: 2, head: [-6, 6, -6], aR: [-28, -138], aL: [4, 0], prop: bulb },
-    kick: { dur: 1.2, bob: [0, 0, 0], torso: [-4, -10, -4], aL: [[-40, 50, -40], 0], aR: [[40, -50, 40], 0], lR: [[18, -88, 18], [30, 4, 30]], lL: [0, 0], prop: ball },
-    run: run(),
-    punch: { dur: .9, torso: 6, aR: [-90, [90, 0, 90]], aL: [-50, -105], lL: [26, 0], lR: [-20, 0], prop: impact },
-    swim: { dur: 1.4, torso: 76, head: -18, bob: 9, aL: [[0, 120, 240, 360], 0], aR: [[180, 300, 420, 540], 0], lL: [[66, 82, 66], [0, 10, 0]], lR: [[82, 66, 82], [10, 0, 10]], prop: wave },
-    stretch: { dur: 2.2, torso: [-16, 16, -16], aL: [150, 0], aR: [-150, 0], lL: [12, 0], lR: [-12, 0] }
-  };
-  return (name, extra) => fig(P[name]);
-})();
-
-function swap(n) {
-  slides.forEach((s, idx) => { s.classList.toggle('active', idx === n); s.classList.remove('settled'); });
-  i = n;
-  slides.forEach((sl, idx) => sl.querySelectorAll('svg').forEach(v => { if (idx !== n || busy) v.pauseAnimations && v.pauseAnimations(); else v.unpauseAnimations && v.unpauseAnimations(); }));
-  const cur = document.getElementById('cur');
-  cur.textContent = i + 1;
-  cur.animate && cur.animate([{ transform: 'translateY(-9px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 380, easing: 'ease-out' });
-  document.getElementById('prev').disabled = i === 0;
-  document.getElementById('next').textContent = i === total - 1 ? 'Selesai ✓' : 'Lanjut →';
-  document.getElementById('progress').style.setProperty('--p', ((i + 1) / total * 100).toFixed(1));
-  renderDots();
-  slides[n].querySelectorAll('.mm').forEach(layoutMM);
-  tourStart(n);
-  clearTimeout(settleT);
-  settleT = setTimeout(() => slides[i].classList.add('settled'), 2300);
-  confettiId++;
-  clearConfetti();
-  if (i === total - 1) { const id = confettiId; setTimeout(() => burst(id), 800); }
-}
-
-const rnd = x => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
-const SPIN = ['sun', 'pl', 'mo', 'c1', 'c2'];
-
-function sweep(dir, W) {
-  document.querySelectorAll('#slabs i').forEach((b, k) => {
-    b.getAnimations().forEach(a => a.cancel());
-    b.style.left = dir > 0 ? '-30%' : '130%';
-    b.animate([
-      { transform: 'translateX(0) skewX(-18deg)', opacity: 1 },
-      { transform: `translateX(${dir * W * 1.9}px) skewX(-18deg)`, opacity: 1 }
-    ], { duration: 760, delay: k * 85, easing: 'cubic-bezier(.7,0,.25,1)', fill: 'both' });
-  });
-}
-
-/* beri identitas morph ke objek sejenis (kartu/node) berdasarkan urutan, seperti "nama objek" di PowerPoint */
-function tagMorph() {
-  slides.forEach(sl => {
-    let k = 0;
-    sl.querySelectorAll('.pop').forEach(e => {
-      if (e.dataset.vt) return;
-      const isCard = e.classList.contains('mm-n') || e.classList.contains('member') || /border-radius/.test(e.getAttribute('style') || '');
-      if (isCard && !e.classList.contains('scene') && k < 8) e.dataset.vt = 'k' + (k++);
-    });
-    const root = sl.querySelector('.mm-root');
-    if (root && !sl.querySelector('[data-vt="title"]')) root.dataset.vt = 'title';
-  });
-}
-const EASE = 'cubic-bezier(.45,0,.2,1)', EASE_OUT = 'cubic-bezier(.22,1,.36,1)';
-/* ===== 3D: semua elemen berputar/bergerak di ruang 3D dengan perspektif ===== */
-const T3 = (x, y, z, rx, ry, sc = 1, p = 900) => `perspective(${p}px) translate3d(${x}px,${y}px,${z}px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${sc})`;
-const T3_0 = T3(0, 0, 0, 0, 0);
-
-/* ===== koreografi khusus per slide (2–6) supaya tiap transisi punya karakter sendiri ===== */
-function choreo(n, slide, dir, base, done) {
-  const $ = sel => [...slide.querySelectorAll(sel)];
-  const A = (el, kf, o) => { if (!el) return; done.add(el); el.animate(kf, Object.assign({ duration: 1000, easing: EASE_OUT, fill: 'backwards' }, o)); };
-  const W = innerWidth, H = innerHeight;
-  if (n === 1) {                                   // DISUSUN OLEH: judul jatuh, kartu anggota dibalik satu per satu
-    A($('.wrap > .pop.p1')[0], [{ opacity: 0, transform: T3(0, -90, -200, -70, 0) }, { opacity: 1, offset: .4 }, { opacity: 1, transform: T3_0 }], { delay: base });
-    $('.member').forEach((m, k) => {
-      A(m, [{ opacity: 0, transform: T3(0, 40, -240, 0, 180, .8, 1100) }, { opacity: 1, offset: .45 }, { opacity: 1, transform: T3(0, 0, 0, 0, 0, 1, 1100) }], { delay: base + 260 + k * 170, duration: 1100 });
-      const av = m.querySelector('.avatar');
-      if (av) av.animate([{ transform: 'scale(.2) rotate(-200deg)', opacity: 0 }, { transform: 'scale(1.12) rotate(8deg)', opacity: 1, offset: .7 }, { transform: 'none', opacity: 1 }], { duration: 800, delay: base + 700 + k * 170, easing: EASE_OUT, fill: 'backwards' });
-    });
-  } else if (n === 2) {                            // DAFTAR ISI: panel membuka, koin nomor "dibagikan" berputar
-    A($('.wrap > .pop.p1')[0], [{ opacity: 0, transform: T3(0, -30, -300, -80, 0, .5) }, { opacity: 1, offset: .4 }, { opacity: 1, transform: T3_0 }], { delay: base });
-    const panel = $('.wrap > .pop.p2')[0];
-    A(panel, [{ opacity: 0, transform: `perspective(900px) rotateX(-85deg) scale(.9)`, transformOrigin: '50% 100%' }, { opacity: 1, offset: .35 }, { opacity: 1, transform: `perspective(900px) rotateX(0deg) scale(1)` }], { delay: base + 150, duration: 950 });
-    const pr = panel ? panel.getBoundingClientRect() : { left: W / 2, width: 0, top: H / 2, height: 0 };
-    $('.toc-item').forEach((t, k) => {
-      const r = t.getBoundingClientRect();
-      const dx = pr.left + pr.width / 2 - (r.left + r.width / 2), dy = pr.top + pr.height + 60 - (r.top + r.height / 2);
-      A(t, [{ opacity: 0, transform: `perspective(800px) translate3d(${dx}px,${dy}px,0) rotateY(${dir * 540}deg) scale(.2)` }, { opacity: 1, offset: .25 }, { opacity: 1, transform: 'perspective(800px) translate3d(0,0,0) rotateY(0deg) scale(1)' }], { delay: base + 420 + k * 75, duration: 1000 });
-    });
-  } else if (n === 3) {                            // LATAR BELAKANG: stadion terbangun dari lantai, dua blob meluncur dari sisi berlawanan
-    const st = $('.wrap .pop.p1')[0];
-    A(st, [{ opacity: 0, transform: `perspective(900px) rotateX(-88deg) scale(.7)`, transformOrigin: '50% 100%' }, { opacity: 1, offset: .35 }, { opacity: 1, transform: 'perspective(900px) rotateX(0deg) scale(1)' }], { delay: base, duration: 1100 });
-    $('.pop.blob').forEach((b, k) => A(b, [{ opacity: 0, transform: T3((k ? 1 : -1) * W * .5, 0, -150, 0, (k ? -1 : 1) * 60, .8) }, { opacity: 1, offset: .35 }, { opacity: 1, transform: T3_0 }], { delay: base + 300 + k * 220, duration: 1100 }));
-  } else if (n === 4) {                            // TUJUAN: judul goyang, poin berputar seperti rolodex, pelari berlari masuk
-    A($('.pop.p1')[0], [{ opacity: 0, transform: `perspective(900px) translate3d(0,-60px,-150px) rotateZ(${-dir * 18}deg) scale(.6)` }, { opacity: 1, offset: .4 }, { opacity: 1, transform: 'perspective(900px) translate3d(0,0,0) rotateZ(0deg) scale(1)' }], { delay: base });
-    A($('.pop.p2')[0], [{ opacity: 0 }, { opacity: 1 }], { delay: base + 150, duration: 500 });
-    $('li').forEach((li, k) => A(li, [{ opacity: 0, transform: 'perspective(700px) rotateX(-90deg)', transformOrigin: '50% 0%' }, { opacity: 1, offset: .4 }, { opacity: 1, transform: 'perspective(700px) rotateX(0deg)' }], { delay: base + 420 + k * 170, duration: 800 }));
-    A($('.pop.p3')[0], [{ opacity: 0, transform: `translate3d(${dir * W * .7}px,0,0) skewX(${-dir * 14}deg)` }, { opacity: 1, offset: .3 }, { opacity: 1, transform: 'translate3d(0,0,0) skewX(0deg)' }], { delay: base + 250, duration: 1000 });
-  } else if (n === 5) {                            // PENGERTIAN: atlet terjun dari atas, teks tersingkap, ikon berputar masuk
-    A($('.pop.p1')[0], [{ opacity: 0, transform: T3(0, 0, -250, 0, 0, .3) }, { opacity: 1, offset: .5 }, { opacity: 1, transform: T3_0 }], { delay: base, duration: 900 });
-    A($('.pop.p2')[0], [{ opacity: 0, transform: `translate3d(0,${-H * .6}px,0) rotate(${dir * 14}deg) scale(1.1)` }, { opacity: 1, offset: .3 }, { opacity: 1, transform: 'translate3d(0,6px,0) rotate(0deg) scale(1,.94)', offset: .72 }, { opacity: 1, transform: 'translate3d(0,0,0) rotate(0deg) scale(1)' }], { delay: base + 150, duration: 950, easing: 'cubic-bezier(.4,0,.3,1)' });
-    A($('.pop.p3')[0], [{ opacity: 1, clipPath: 'inset(0 100% 0 0 round 22px)' }, { opacity: 1, clipPath: 'inset(0 0% 0 0 round 22px)' }], { delay: base + 500, duration: 900, easing: 'cubic-bezier(.6,0,.2,1)' });
-    const ic = $('.pop.p4')[0];
-    if (ic) { done.add(ic); ic.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: base + 900, fill: 'backwards' });
-      [...ic.children].forEach((c, k) => c.animate([{ transform: 'perspective(600px) rotateY(540deg) scale(0)', opacity: 0 }, { opacity: 1, offset: .3 }, { transform: 'perspective(600px) rotateY(0deg) scale(1)', opacity: 1 }], { duration: 900, delay: base + 900 + k * 140, easing: EASE_OUT, fill: 'backwards' })); }
-  }
-}
-
-function enterEls(slide, shared, dir, base) {
-  const done = new Set();
-  choreo(+slide.dataset.i, slide, dir, base, done);
-  [...slide.querySelectorAll('.pop, .deco')].filter(e => !done.has(e) && !(e.dataset.vt && shared.includes(e.dataset.vt))).forEach((el, k) => {
-    const d = base + Math.min(k * 50, 320);
-    if (el.classList.contains('deco')) {
-      el.animate([{ opacity: 0, transform: T3(0, 0, -260, 0, -dir * 200, .4, 700) }, { opacity: 1, offset: .4 }, { opacity: 1, transform: T3(0, 0, 0, 0, 0, 1, 700) }],
-        { duration: 900, delay: d, easing: EASE_OUT, fill: 'backwards' });
-      return;
-    }
-    const ry = -dir * (k % 2 ? 32 : 70), rx = k % 2 ? 48 : 0;
-    el.animate([
-      { opacity: 0, transform: T3(dir * 70, 24, -420, rx, ry, .9) },
-      { opacity: 1, offset: .35 },
-      { opacity: 1, transform: T3_0 }
-    ], { duration: 950, delay: d, easing: EASE_OUT, fill: 'backwards' });
-  });
-}
-
-function show(n, dir) {
-  if (dir === undefined) { swap(n); return; }
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !Element.prototype.animate) { swap(n); busy = false; return; }
-  busy = true;
-  const old = slides[i], nw = slides[n];
-  const om = {}, nm = {};
-  old.querySelectorAll('[data-vt]').forEach(e => om[e.dataset.vt] = e);
-  nw.querySelectorAll('[data-vt]').forEach(e => nm[e.dataset.vt] = e);
-  const keys = Object.keys(om).filter(k => nm[k]);
-  const oR = {}; keys.forEach(k => oR[k] = om[k].getBoundingClientRect());
-  const isShared = e => e.dataset.vt && keys.includes(e.dataset.vt);
-
-  // kamera: seluruh panggung berputar sedikit di sumbu Y lalu kembali
-  document.getElementById('slides-root').animate([
-    { transform: 'perspective(1500px) rotateY(0deg) rotateX(0deg) scale(1)' },
-    { transform: ({ 2: `perspective(1500px) rotateZ(${-dir * 3}deg) rotateY(${-dir * 5}deg) scale(1.05)`, 3: `perspective(1500px) rotateY(${-dir * 15}deg) scale(.93)`, 4: `perspective(1500px) rotateX(8deg) rotateZ(${dir * 2}deg) scale(.95)`, 5: `perspective(1500px) rotateY(${dir * 10}deg) rotateX(-4deg) scale(1.04)` })[n] || `perspective(1500px) rotateY(${-dir * 9}deg) rotateX(3deg) scale(.96)`, offset: .42 },
-    { transform: 'perspective(1500px) rotateY(0deg) rotateX(0deg) scale(1)' }
-  ], { duration: 1100, easing: 'cubic-bezier(.45,0,.25,1)' });
-
-  const exits = [];
-  [...old.querySelectorAll('.pop, .deco')].filter(e => !isShared(e)).forEach((el, k) => {
-    const deco = el.classList.contains('deco');
-    const to = deco ? T3(0, 0, -300, 0, dir * 160, .5, 700) : T3(-dir * 80, -12, -460, k % 2 ? -40 : 0, dir * (k % 2 ? 30 : 75), .9);
-    exits.push(el.animate([{ opacity: 1, transform: T3_0 }, { opacity: 1, offset: .3 }, { opacity: 0, transform: to }],
-      { duration: 620, delay: Math.min(k * 16, 110), easing: 'cubic-bezier(.45,0,.75,.5)', fill: 'forwards' }));
-  });
-
-  old.classList.add('leaving');
-  swap(n);
-  keys.forEach(k => {
-    const el = nm[k], r1 = el.getBoundingClientRect(), r0 = oR[k];
-    const dx = (r0.left + r0.width / 2) - (r1.left + r1.width / 2), dy = (r0.top + r0.height / 2) - (r1.top + r1.height / 2);
-    const SPN = SPIN.includes(k);
-    const sc = SPN ? Math.max(.3, Math.min(3, r0.width / (r1.width || 1))) : Math.max(.5, Math.min(2, Math.min(r0.width / (r1.width || 1), r0.height / (r1.height || 1))));
-    const rot = SPN ? dir * 360 : 0, tilt = SPN ? 0 : -dir * 16;
-    el.animate([
-      { transform: T3(dx, dy, 0, 0, 0, sc, 1000), opacity: SPN ? 1 : 0, offset: 0 },
-      { transform: T3(dx * .5, dy * .5, 170, 0, SPN ? rot * .5 : tilt, (sc + 1) / 2, 1000), opacity: 1, offset: .5 },
-      { transform: T3(0, 0, 0, 0, rot, 1, 1000), opacity: 1, offset: 1 }
-    ], { duration: 1050, easing: EASE, fill: 'backwards' });
-    if (SPN) { om[k].style.visibility = 'hidden'; }
-    else {
-      exits.push(om[k].animate([
-        { transform: T3(0, 0, 0, 0, 0, 1, 1000), opacity: 1 },
-        { opacity: 0, offset: .55 },
-        { transform: T3(-dx * .6, -dy * .6, -240, 0, -tilt * 2, 1 / sc, 1000), opacity: 0 }
-      ], { duration: 1000, easing: EASE, fill: 'forwards' }));
-    }
-  });
-  enterEls(nw, keys, dir, 120);
-  setTimeout(() => {
-    exits.forEach(a => a.cancel());
-    old.classList.remove('leaving');
-    keys.forEach(k => { om[k].style.visibility = ''; });
-  }, 1080);
-  setTimeout(() => { slides[i].querySelectorAll('svg').forEach(v => v.unpauseAnimations && v.unpauseAnimations()); busy = false; if (queued !== null) { const q = queued; queued = null; if (q !== i) go(q); } }, 1100);
-}
-
-function playWipe(dir) {
-  const w = document.getElementById('wipe');
-  w.innerHTML = '<i></i><i></i>';
-  w.style.setProperty('--ox', dir > 0 ? '100%' : '0%');
-  w.style.setProperty('--oy', '100%');
-  w.classList.remove('go'); void w.offsetWidth; w.classList.add('go');
-  setTimeout(() => { w.classList.remove('go'); w.innerHTML = ''; }, 900);
-}
+function swap(n) { slides.forEach((s, k) => s.classList.toggle('active', k === n)); i = n; ui(); }
 
 function go(n) {
-  if (n < 0 || n >= total) return;
+  if (n < 0 || n >= total || n === i) return;
   if (busy) { queued = n; return; }
-  if (n === i) return;
-  show(n, n > i ? 1 : -1);
+  const old = slides[i], nw = slides[n];
+  if (!old.animate || matchMedia('(prefers-reduced-motion:reduce)').matches) { swap(n); return; }
+  busy = true;
+  nw.scrollTop = 0;
+
+  /* 1. ukur posisi lama & baru, lalu pasangkan */
+  const pairs = [];
+  CATS.forEach(([sel, type, fade]) => {
+    const A = [...old.querySelectorAll(sel)], B = [...nw.querySelectorAll(sel)];
+    for (let j = 0; j < Math.min(A.length, B.length); j++) {
+      const ra = A[j].getBoundingClientRect(), rb = B[j].getBoundingClientRect();
+      if (!rb.width || !ra.width) continue;
+      let sx = 1, sy = 1;
+      if (type === 'text') sx = sy = clamp(fs(A[j]) / fs(B[j]), .3, 4);
+      else if (type === 'box') { sx = clamp(ra.width / rb.width, .05, 12); sy = clamp(ra.height / Math.max(rb.height, 1), .05, 12); }
+      pairs.push({ a: A[j], b: B[j], dx: ra.left - rb.left, dy: ra.top - rb.top, sx, sy, fade });
+    }
+  });
+
+  /* 2. siapkan: matikan animasi masuk untuk yang di-morph */
+  document.documentElement.style.setProperty('--b', '.5s');
+  old.classList.add('leaving');
+  pairs.forEach(p => { p.b.classList.add('mo'); if (!p.fade) p.a.style.visibility = 'hidden'; });
+  swap(n);
+
+  /* 3. jalankan morph */
+  const D = 850;
+  pairs.forEach(p => {
+    p.b.style.transformOrigin = '0 0';
+    const from = `translate(${p.dx}px,${p.dy}px) scale(${p.sx},${p.sy})`;
+    p.b.animate([
+      { transform: from, opacity: p.fade ? 0 : 1 },
+      { opacity: 1, offset: .5 },
+      { transform: 'none', opacity: 1 }
+    ], { duration: D, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'backwards' })
+      .onfinish = () => { p.b.style.transformOrigin = ''; };
+  });
+  const fo = old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, easing: 'ease-in', fill: 'forwards' });
+
+  setTimeout(() => {
+    fo.cancel();
+    old.classList.remove('leaving');
+    pairs.forEach(p => { p.a.style.visibility = ''; p.a.classList.remove('mo'); });
+    old.querySelectorAll('.mo').forEach(e => e.classList.remove('mo'));
+    busy = false;
+    if (queued !== null) { const q = queued; queued = null; go(q); }
+  }, D + 80);
 }
 function goDir(d) { go((queued !== null ? queued : i) + d); }
-
-/* confetti di slide terakhir */
-const cv = document.getElementById('confetti');
-function clearConfetti() { const c = cv.getContext('2d'); c.clearRect(0, 0, cv.width, cv.height); }
-function burst(id) {
-  const dpr = window.devicePixelRatio || 1;
-  cv.width = cv.clientWidth * dpr; cv.height = cv.clientHeight * dpr;
-  const ctx = cv.getContext('2d');
-  const cols = ['#f4e04d', '#c5e384', '#7b7fd6', '#e8903a', '#a9c8ee', '#ffffff'];
-  const ps = Array.from({ length: 150 }, () => ({
-    x: cv.width / 2, y: cv.height * 0.58,
-    vx: (Math.random() - .5) * 20 * dpr, vy: (-Math.random() * 17 - 7) * dpr,
-    s: (Math.random() * 7 + 5) * dpr, r: Math.random() * 6, vr: (Math.random() - .5) * .5,
-    c: cols[Math.floor(Math.random() * cols.length)], round: Math.random() < .35
-  }));
-  let t = 0;
-  (function step() {
-    if (id !== confettiId) return;
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    ps.forEach(p => {
-      p.vy += .42 * dpr; p.vx *= .992; p.x += p.vx; p.y += p.vy; p.r += p.vr;
-      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c;
-      if (p.round) { ctx.beginPath(); ctx.arc(0, 0, p.s / 2, 0, 7); ctx.fill(); }
-      else ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2);
-      ctx.restore();
-    });
-    if (++t < 230) requestAnimationFrame(step); else ctx.clearRect(0, 0, cv.width, cv.height);
-  })();
-}
 
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goDir(1); }
@@ -1422,115 +443,35 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'Home') go(0);
   else if (e.key === 'End') go(total - 1);
   else if (e.key === 'f' || e.key === 'F') {
-    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
-    else document.exitFullscreen?.();
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.();
   }
 });
-
+function fsToggle() { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
 let tx = 0;
-document.getElementById('stage').addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, { passive: true });
-document.getElementById('stage').addEventListener('touchend', e => {
+const stage = document.getElementById('stage');
+stage.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, { passive: true });
+stage.addEventListener('touchend', e => {
   const dx = e.changedTouches[0].screenX - tx;
-  if (Math.abs(dx) > 50) goDir(dx < 0 ? 1 : -1);
+  if (Math.abs(dx) > 60) goDir(dx < 0 ? 1 : -1);
 }, { passive: true });
-
-// stars
-(function () {
-  const box = document.getElementById('stars');
-  for (let s = 0; s < 28; s++) {
-    const el = document.createElement('div');
-    el.className = 'star';
-    el.style.left = Math.random() * 100 + '%';
-    el.style.top = Math.random() * 100 + '%';
-    el.style.animationDelay = Math.random() * 3 + 's';
-    const sz = (Math.random() * 2 + 2) + 'px';
-    el.style.width = el.style.height = sz;
-    box.appendChild(el);
-  }
-})();
-
-document.getElementById('tot').textContent = total;
-
-/* ganti ikon poin dengan orang beranimasi yang memeragakan isi poin */
-function peopleIcons() {
-  const set = (sl, sel, names, w, h) => {
-    const els = [...slides[sl].querySelectorAll(sel)];
-    els.forEach((e, k) => { if (!names[k]) return; e.innerHTML = FIG(names[k]); e.style.width = w; e.style.height = h; e.classList.add('person'); e.style.animation = 'none'; });
-  };
-  set(8, '.mm-n.leaf .card-ic', ['warm', 'shoe', 'squat', 'drink', 'stop'], '4.6em', '5.2em');
-  set(7, '.pop > .card-ic', ['heart', 'flex', 'bolt', 'relax', 'cheer'], '44px', '50px');
-  set(6, '.mm-n.leaf .card-ic', ['kick', 'run', 'punch', 'swim', 'stretch'], '4em', '4.5em');
-  set(9, '.card-ic', ['warm', 'run', 'drink'], '60px', '68px');
-  // tujuan: ganti bintang
-  [...slides[4].querySelectorAll('li > span:first-child')].forEach((e, k) => {
-    const n = ['think', 'run', 'flex', 'warm'][k]; if (!n) return;
-    e.className = 'card-ic person'; e.style.cssText = 'width:38px;height:43px;flex:0 0 auto'; e.innerHTML = FIG(n);
-  });
-}
-
-renderSlides();
-slides = [...document.querySelectorAll('.slide')];
-peopleIcons();
-slides.forEach(sl => {
-  const sun = sl.querySelector('.sun'); if (sun) sun.dataset.vt = 'sun';
-  const ti = sl.querySelector('.pop.p1.h2, .pop.p1.blob, .pop.p1[style*="inline-block"]'); if (ti) ti.dataset.vt = 'title';
-  const cl = sl.querySelectorAll('.cloud'); if (cl[0]) cl[0].dataset.vt = 'c1'; if (cl[1]) cl[1].dataset.vt = 'c2';
-  const pl = sl.querySelector('.planet'); if (pl) pl.dataset.vt = 'pl';
-  const mo = sl.querySelector('.moon'); if (mo) mo.dataset.vt = 'mo';
-  const yb = sl.querySelector('.pop.blob-y'); if (yb && !yb.dataset.vt) yb.dataset.vt = 'yb';
-});
-const FROM = ['translateY(34px) scale(.85)', 'translateX(-46px) rotate(-5deg) scale(.9)', 'translateX(46px) rotate(5deg) scale(.9)', 'scale(.4) rotate(-10deg)'];
-slides.forEach(s => s.querySelectorAll('.pop').forEach((el, k) => el.style.setProperty('--from', FROM[k % FROM.length])));
-document.querySelectorAll('.blob').forEach(b => b.style.setProperty('--md', (-Math.random() * 8).toFixed(2) + 's'));
-(function () { const sh = document.createElement('div'); sh.className = 'shoot'; document.getElementById('stars').appendChild(sh); })();
-
-// parallax mouse
-const stageEl = document.getElementById('stage');
-stageEl.addEventListener('mousemove', e => {
-  stageEl.style.setProperty('--mx', (e.clientX / innerWidth - .5).toFixed(3));
-  stageEl.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(3));
-});
-// scroll mouse / trackpad
 let wheelAt = 0;
-stageEl.addEventListener('wheel', e => {
+stage.addEventListener('wheel', e => {
   const now = Date.now();
-  if (now - wheelAt < 1100 || Math.abs(e.deltaY) < 30) return;
+  if (now - wheelAt < 1200 || Math.abs(e.deltaY) < 40) return;
+  const s = e.target.closest('.slide');
+  if (s && s.scrollHeight > s.clientHeight + 4) return;
   wheelAt = now; goDir(e.deltaY > 0 ? 1 : -1);
 }, { passive: true });
 
-tagMorph(); layoutAll();
-addEventListener('resize', layoutAll);
-document.fonts && document.fonts.ready.then(layoutAll);
-swap(0);
-
-/* ===== khusus laptop: tilt 3D mengikuti mouse, tombol layar penuh, petunjuk keyboard ===== */
-(function () {
-  if (!matchMedia('(min-width:900px) and (hover:hover)').matches) return;
-  const stage = document.getElementById('stage');
-  const fs = document.createElement('button');
-  fs.className = 'fs-btn'; fs.textContent = '⛶ Layar penuh';
-  fs.onclick = () => { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); };
-  stage.appendChild(fs);
-  document.addEventListener('fullscreenchange', () => { fs.textContent = document.fullscreenElement ? '⛶ Keluar' : '⛶ Layar penuh'; });
-  const hint = document.createElement('div');
-  hint.className = 'kbd-hint';
-  hint.innerHTML = 'Tekan <b>→</b> / <b>Spasi</b> lanjut · <b>←</b> kembali · <b>F</b> layar penuh';
-  stage.appendChild(hint);
-  setTimeout(() => { hint.style.opacity = 0; setTimeout(() => hint.remove(), 700); }, 5200);
-  // tilt 3D halus mengikuti pointer (hanya konten aktif, tidak mengganggu animasi transisi)
-  let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
-  addEventListener('pointermove', e => { tx = (e.clientX / innerWidth - .5) * 2; ty = (e.clientY / innerHeight - .5) * 2; if (!raf) raf = requestAnimationFrame(loop); }, { passive: true });
-  function loop() {
-    cx += (tx - cx) * .08; cy += (ty - cy) * .08;
-    const w = slides[i] && slides[i].querySelector('.wrap');
-    if (w && !busy) w.style.transform = `perspective(1400px) rotateY(${(cx * 3.2).toFixed(2)}deg) rotateX(${(-cy * 2.4).toFixed(2)}deg)`;
-    const decos = slides[i] ? slides[i].querySelectorAll('.deco') : [];
-    raf = (Math.abs(tx - cx) > .002 || Math.abs(ty - cy) > .002) ? requestAnimationFrame(loop) : 0;
-  }
-})();
-
-document.documentElement.classList.add('eng');
-enterEls(slides[0], [], 1, 250);
+renderSlides();
+slides = [...document.querySelectorAll('.slide')];
+const today = new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+document.getElementById('date').textContent = 'Harian Olahraga · ' + today;
+document.querySelectorAll('.today').forEach(e => e.textContent = today);
+const tk = ['Olahraga menjaga kesehatan tubuh dan mental', ...DATA.tujuan, 'Urutan aman: pemanasan → kegiatan inti → pendinginan', 'Minum air cukup dan istirahat yang cukup'].join('  ◆  ');
+document.getElementById('tk').textContent = tk + '  ◆  ' + tk + '  ◆  ';
+document.getElementById('tot').textContent = total;
+ui();
 </script>
 </body>
 </html>
