@@ -159,7 +159,7 @@ h2{font-size:calc(2.2em*var(--ts,1))}
 .slide.col .li{gap:.8em;margin-top:.4em}
 .slide.col .li li{flex-direction:column;align-items:stretch;text-align:center}
 .slide.col .li li::before{width:auto;height:.35em;background:repeating-linear-gradient(90deg,#ff7a59 0 .7em,#fff 0 1.4em)}
-.slide.col .th{width:100%}}
+.slide.col .th{width:min(100%,13em);align-self:center}}
 .slide.bt .wrap{display:flex;flex-direction:column}
 .slide.bt .wrap>.cards,.slide.bt .wrap>.li{order:1;margin-top:3em}
 .slide.bt .wrap>h2{order:2;margin:.6em 0 0}
@@ -210,7 +210,7 @@ h2{font-size:calc(2.2em*var(--ts,1))}
 /* ============ PENGATURAN MORPH (terpusat) ============
    dur/ease global; per:{indexSlide:{dur,ease}} untuk durasi per slide;
    stagger = jeda maksimum antar item (ms), selesai tetap serempak di akhir. */
-const CFG={dur:1300,ease:'cubic-bezier(0.5,0,0.1,1)',stagger:0,per:{}};
+const CFG={dur:1500,ease:'cubic-bezier(0.45,0.05,0.25,1)',stagger:0,per:{}};
 
 const SK='#f2b88a',CO='#ff7a59';
 const ln=(d,c=SK,w=5)=>`<path d="${d}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" fill="none"/>`;
@@ -286,7 +286,7 @@ const RAD=[.9,.7,1.5,.3,1.2,.5,1.4,.9,.2,1.3,.6,.9],BW=[1,1,2,1,3,1,2,1,3,1,2,1]
 const BC=['','rgba(255,255,255,.3)','#a8e4ff','#7fe6ff','rgba(255,255,255,.4)','#9fd8ff','#c8f0ff','#9cc4ff','#cfeeff','#8ff0e6','#b5e6ff',''];
 const SHD=['','0 .2em .8em rgba(0,0,0,.15)','0 .4em 1.2em rgba(0,0,0,.28)','0 .1em .3em rgba(0,0,0,.2)','0 .5em 1.4em rgba(0,0,0,.3)','0 .2em .6em rgba(0,0,0,.16)','0 .35em 1em rgba(0,0,0,.25)','0 .15em .5em rgba(0,0,0,.2)','0 .45em 1.3em rgba(0,0,0,.3)','0 .1em .4em rgba(0,0,0,.18)','0 .3em .9em rgba(0,0,0,.24)',''];
 const TC=['#fff','#fff','#e6f8ff','#bff0ff','#fff','#d6f3ff','#fff','#d0e6ff','#e6f8ff','#c9fff6','#fff','#fff'];
-const TS=[1,1.5,.8,1.8,.9,1.6,.7,1.2,1.4,1.2,1.9,1],LC=[1,1,1,1,4,1,1,2,1,1,1,1],LY=['','sp','','','col','sr','bt','col','sp','bt','sr',''],NS=[12,20,16,24,18,22,16,24,18,20,16,12],NX=['58%','-6%','54%','-3%','40%','56%','-5%','45%','55%','-2%','50%','25%'],NY=['62%','50%','58%','48%','54%','46%','56%','50%','58%','46%','52%','45%'],TW=[6.2,9,6.2,6.2,5,7,12,5,5,6.2,4.2,6.2],CW=[9,9,16,9,9,9,9,9,9,13,9,9],HW=[1,1.3,.8,1.2,1,1.3,.8,1.2,1.3,1,1.2,1];
+const TS=[1,1.5,.8,1.8,.9,1.6,.7,1.2,1.4,1.2,1.9,1],LC=[1,1,1,1,4,1,1,2,1,1,1,1],LY=['','sp','','','col','sr','bt','col','sp','bt','sr',''],NS=[12,20,16,24,18,22,16,24,18,20,16,12],NX=['58%','-6%','54%','-3%','40%','56%','-5%','45%','55%','-2%','50%','25%'],NY=['62%','50%','58%','48%','54%','46%','56%','50%','58%','46%','52%','45%'],TW=[6.2,9,6.2,6.2,5,7,12,5,5,6.2,4.2,6.2],CW=[9,9,12,9,9,9,9,9,9,13,9,9],HW=[1,1.3,.8,1.2,1,1.3,.8,1.2,1.3,1,1.2,1];
 const HS=['free','breast','free','back','free','breast','back','fly','free','free','back','fly'];
 const HR=[0,-3,0,3,-2,2,-3,0,2,-2,3,0];
 
@@ -325,6 +325,9 @@ function fit(){const vw=innerWidth,vh=innerHeight,por=vw/vh<1;let w,h;
 fit();
 root.innerHTML=S.map((h,k)=>`<section class="slide${k?'':' active'}${LY[k]?' '+LY[k]:''}" style="--ac:${ACC[k]||'rgba(255,255,255,.14)'};--r:${RAD[k]}em;--bw:${BW[k]}px;--bc:${BC[k]||'rgba(255,255,255,.3)'};--sh:${SHD[k]||'0 .2em .8em rgba(0,0,0,.15)'};--tc:${TC[k]};--ts:${TS[k]};--lc:${LC[k]};--tw:${TW[k]}em;--cw:${CW[k]}em"><b class="num" data-morph-id="num" style="left:${NX[k]};top:${NY[k]};font-size:${NS[k]}em">${k==0?'GO':k==11?'FIN':String(k).padStart(2,'0')}</b>${h}</section>`).join('');
 const sl=[...root.children];
+/* muat-satu-layar: konten tiap slide otomatis diperkecil bila lebih tinggi dari layar (laptop/HP), tanpa perlu scroll */
+function fitAll(){sl.forEach(s=>{const w=s.querySelector('.wrap'),cs=getComputedStyle(s),av=s.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-parseFloat(cs.fontSize)*1.3;w.style.fontSize='';let f=1;for(let n=0;n<16&&w.offsetHeight>av&&f>.4;n++){f-=.05;w.style.fontSize=f+'em'}})}
+fitAll();
 function ui(){document.querySelector('.nav').style.setProperty('--p',i/(T-1));pg.textContent=(i+1)+'/'+T;pv.disabled=i==0;nx.textContent=i==T-1?'Selesai ✓':'Lanjut ›';nx.disabled=i==T-1;
  dots.innerHTML=sl.map((_,k)=>`<button class="dot${k==i?' on':''}" onclick="go(${k})"></button>`).join('')}
 
@@ -339,7 +342,7 @@ function env2(n){shp.forEach((s,k)=>{const a=Math.sin(n*1.3+k*2.1),c=Math.cos(n*
 const hf=p=>`translate(${p.x+p.w/2-50}px,${p.y+p.w/4-25}px) scale(${p.w/100}) rotate(${p.r}deg)`;
 function hTarget(n){const a=sl[n].querySelector('.ha'),r0=cv.getBoundingClientRect(),u=parseFloat(cv.style.fontSize);
  if(a){const r=a.getBoundingClientRect();return{x:r.left,y:r.top,w:r.width,r:HR[n]}}
- const w=Math.min(5.5*u,r0.width*.28)*HW[n];return{x:r0.right-w-u,y:r0.top+2.7*u,w,r:HR[n]}}
+ const w=Math.min(7.2*u,r0.width*.28)*HW[n];return{x:r0.right-w-u,y:r0.top+2.7*u,w,r:HR[n]}}
 function heroTo(n){const t=hTarget(n);hero.firstChild.setAttribute('class','sw '+HS[n]);hero.style.transform=hf(t);hp=t}
 function env(n){env2(n);st.style.setProperty('--hue',HUE[n]);
  bls.forEach((b,k)=>{const a=Math.sin(n*1.7+k*2.3),c=Math.cos(n*1.3+k*1.9);b.style.transform=`translate(${(a*.5+.3)*70}vw,${(c*.5+.3)*70}vh) scale(${.5+((n+k)%3)*.45})`})}
@@ -368,22 +371,23 @@ function morph(old,nw,n,cur){
  const dl=()=>Math.min(ord++*CFG.stagger/4,CFG.stagger);
 
  const fly=(a,b,ra,rb,uni,de)=>{
-  const s=uni?rb.width/ra.width:1,s0=uni?ra.width/rb.width:1,c=a.cloneNode(true),du=D-de;
+  const TT=uni==='t',ta=TT?fz(a):1,tb=TT?fz(b):1,s=TT?tb/ta:uni?rb.width/ra.width:1,s0=TT?ta/tb:uni?ra.width/rb.width:1,c=a.cloneNode(true),du=D-de;
   c.removeAttribute('data-morph-id');
-  Object.assign(c.style,{position:'absolute',left:0,top:0,margin:0,width:ra.width+'px',height:uni?ra.height+'px':'auto',whiteSpace:'nowrap',transformOrigin:'0 0'});
+  Object.assign(c.style,{position:'absolute',left:0,top:0,margin:0,width:ra.width+'px',height:uni===true?ra.height+'px':'auto',whiteSpace:TT?'normal':'nowrap',transformOrigin:'0 0'});
+  if(TT){const q=getComputedStyle(a);['fontFamily','fontWeight','lineHeight','letterSpacing','textTransform','textShadow','textAlign','color','paddingRight','fontSize'].forEach(p=>c.style[p]=q[p])}
   fx.appendChild(c);X.nodes.push(c);
-  const fx_=rb.left-ra.left,fy_=rb.top-ra.top,fa=Math.min(80,Math.hypot(fx_,fy_)*.22)+16,fr=(fx_>=0?1:-1)*6;
-  A(c,[{transform:`translate(${ra.left}px,${ra.top}px) scale(1)`,opacity:1},{opacity:1,offset:.2},{transform:`translate(${(ra.left+rb.left)/2}px,${(ra.top+rb.top)/2-fa}px) scale(${(1+s)/2*1.08}) rotate(${fr}deg)`,offset:.5},{opacity:0,offset:.65},{transform:`translate(${rb.left}px,${rb.top}px) scale(${s})`,opacity:0}],{delay:de,duration:du});
+  const fx_=rb.left-ra.left,fy_=rb.top-ra.top,fa=0,fr=0;
+  A(c,[{transform:`translate(${ra.left}px,${ra.top}px) scale(1)`,opacity:1},{opacity:1,offset:.2},{transform:`translate(${(ra.left+rb.left)/2}px,${(ra.top+rb.top)/2-fa}px) scale(${(1+s)/2}) rotate(${fr}deg)`,offset:.5},{opacity:0,offset:.65},{transform:`translate(${rb.left}px,${rb.top}px) scale(${s})`,opacity:0}],{delay:de,duration:du});
   b.style.transformOrigin='0 0';U(()=>b.style.transformOrigin='');
-  A(b,[{transform:`translate(${ra.left-rb.left}px,${ra.top-rb.top}px) scale(${s0})`,opacity:0},{opacity:0,offset:.2},{transform:`translate(${(ra.left-rb.left)/2}px,${(ra.top-rb.top)/2-fa}px) scale(${(s0+1)/2*1.08}) rotate(${fr}deg)`,offset:.5},{opacity:1,offset:.65},{transform:'none',opacity:1}],{delay:de,duration:du});
+  A(b,[{transform:`translate(${ra.left-rb.left}px,${ra.top-rb.top}px) scale(${s0})`,opacity:0},{opacity:0,offset:.2},{transform:`translate(${(ra.left-rb.left)/2}px,${(ra.top-rb.top)/2-fa}px) scale(${(s0+1)/2}) rotate(${fr}deg)`,offset:.5},{opacity:1,offset:.65},{transform:'none',opacity:1}],{delay:de,duration:du});
   a.style.visibility='hidden';U(()=>a.style.visibility='');
  };
  const item=(a,b,ra,rb,de)=>{
   const cs=getComputedStyle(a),cb=getComputedStyle(b),du=D-de;
   const g=document.createElement('div');g.className='ghost';nw.prepend(g);X.nodes.push(g);
   const sh=(r,c)=>({width:r.width+'px',height:r.height+'px',borderRadius:c.borderTopLeftRadius,backgroundColor:c.backgroundColor,borderColor:c.borderTopColor,borderWidth:c.borderTopWidth,boxShadow:c.boxShadow});
-  const ax=rb.left-ra.left,ay=rb.top-ra.top,ar=Math.min(80,Math.hypot(ax,ay)*.22)+14;
-  A(g,[Object.assign({transform:`translate(${ra.left}px,${ra.top}px)`},sh(ra,cs)),{transform:`translate(${(ra.left+rb.left)/2}px,${(ra.top+rb.top)/2-ar}px) rotate(${(ax>=0?1:-1)*4}deg)`,offset:.5},Object.assign({transform:`translate(${rb.left}px,${rb.top}px)`},sh(rb,cb))],{delay:de,duration:du});
+  const ax=rb.left-ra.left,ay=rb.top-ra.top,ar=0;
+  A(g,[Object.assign({transform:`translate(${ra.left}px,${ra.top}px)`},sh(ra,cs)),{transform:`translate(${(ra.left+rb.left)/2}px,${(ra.top+rb.top)/2-ar}px) rotate(0deg)`,offset:.5},Object.assign({transform:`translate(${rb.left}px,${rb.top}px)`},sh(rb,cb))],{delay:de,duration:du});
   A(g,[{opacity:1},{opacity:1,offset:.6},{opacity:0}]);
   A(g,[{filter:'brightness(1)'},{filter:'brightness(1.4) saturate(1.3)',offset:.5},{filter:'brightness(1)'}],{delay:de,duration:D-de});
   a.classList.add('gh');U(()=>a.classList.remove('gh'));
@@ -407,7 +411,7 @@ function morph(old,nw,n,cur){
   if(!a){if(!(id.startsWith('pool-')&&!MO.has('item-'+id.slice(5))))fadeIn(b);continue}
   const ra=RO.get(id);
   if(!ra.width||!rb.width)continue;
-  if(id=='title')title(a,b);
+  if(id=='title')fly(a,b,ra,rb,'t',0);
   else if(id.startsWith('item-'))item(a,b,ra,rb,dl());
   else if(id.startsWith('pool-'))fly(a,b,ra,rb,true,Math.min(+id.slice(5)*CFG.stagger/4,CFG.stagger)||0);
   else fly(a,b,ra,rb,false,0);
@@ -416,9 +420,9 @@ function morph(old,nw,n,cur){
 
  const t=hTarget(n);hero.firstChild.setAttribute('class','sw '+HS[n]);
  const dir=n>i?1:-1,cw=Math.min(innerWidth*.5,innerHeight*1.05),hm=hf({x:(innerWidth-cw)/2,y:(innerHeight-cw/2)/2,w:cw,r:-dir*9});
- const wv=document.createElement('div');Object.assign(wv.style,{position:'absolute',left:0,top:0,width:'70vw',height:'100vh',transformOrigin:'0 0',background:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0H9Q17 10 9 20T9 40H0Z' fill='white' fill-opacity='.55'/%3E%3C/svg%3E") right center/7vw 34vh repeat-y,linear-gradient(90deg,transparent,rgba(255,255,255,.2) 60%,rgba(255,255,255,.38))`});fx.appendChild(wv);X.nodes.push(wv);
- A(wv,[{transform:`translateX(${dir>0?-70:170}vw) scaleX(${dir})`},{transform:`translateX(${dir>0?100:0}vw) scaleX(${dir})`}]);
- A(hero,[{transform:cur||hf(hp)},{transform:hm,offset:.5},{transform:hf(t)}]);
+ const wv=document.createElement('div');Object.assign(wv.style,{position:'absolute',left:0,top:0,width:'70vw',height:'100vh',transformOrigin:'0 0',background:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0H9Q17 10 9 20T9 40H0Z' fill='white' fill-opacity='.55'/%3E%3C/svg%3E") right center/7vw 34vh repeat-y,linear-gradient(90deg,transparent,rgba(255,255,255,.2) 60%,rgba(255,255,255,.38))`});
+ 
+ A(hero,[{transform:cur||hf(hp)},{transform:hf(t)}]);
  const ring=document.createElement('div');Object.assign(ring.style,{position:'absolute',left:(t.x+t.w*-.1)+'px',top:(t.y+t.w/4-t.w*.6)+'px',width:t.w*1.2+'px',height:t.w*1.2+'px',border:'3px solid rgba(255,255,255,.85)',borderRadius:'50%'});fx.appendChild(ring);X.nodes.push(ring);A(ring,[{transform:'scale(.3)',opacity:.9},{transform:'scale(2.6)',opacity:0}],{delay:D*.45,duration:D*.55});hero.style.transform=hf(t);hp=t;
 
  old.classList.add('leaving');U(()=>old.classList.remove('leaving'));
@@ -459,8 +463,8 @@ function fs(){document.fullscreenElement?document.exitFullscreen():document.docu
 document.addEventListener('keydown',e=>{if(e.key=='ArrowRight'||e.key==' '){e.preventDefault();goDir(1)}else if(e.key=='ArrowLeft')goDir(-1);else if(e.key=='p'||e.key=='P')tog();else if(e.key=='r'||e.key=='R')rep();else if(e.key=='Home')go(0);else if(e.key=='End')go(T-1);else if(e.key=='f'||e.key=='F')fs()});
 let tx0=0;st.addEventListener('touchstart',e=>{tx0=e.changedTouches[0].screenX},{passive:true});
 st.addEventListener('touchend',e=>{const d=e.changedTouches[0].screenX-tx0;if(Math.abs(d)>60)goDir(d<0?1:-1)},{passive:true});
-addEventListener('resize',()=>{cancelTr();fit();heroTo(i)});
-document.fonts&&document.fonts.ready.then(()=>{if(!tr)heroTo(i)});
+addEventListener('resize',()=>{cancelTr();fit();fitAll();heroTo(i)});
+document.fonts&&document.fonts.ready.then(()=>{fitAll();if(!tr)heroTo(i)});
 env(0);heroTo(0);ui();
 </script>
 </body>
