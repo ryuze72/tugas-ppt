@@ -2,476 +2,466 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>Harian Olahraga — Tugas Sekolah</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Olahraga Renang — Tugas PJOK</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
+@property --hue{syntax:'<number>';inherits:true;initial-value:205}
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#111;--paper:#bcbcbc;--mid:#454545;--red:#b3261e;--b:.15s;
-  --hd:'Playfair Display','Times New Roman',serif;--bd:'Libre Baskerville',Georgia,serif}
-html,body{height:100%;overflow:hidden;background:#7d7d7d;font-family:var(--bd);color:var(--ink)}
-@media(min-width:900px){html{font-size:clamp(16px,min(1.5vw,2.3vh),34px)}.photo.tall{aspect-ratio:4/5;height:40vh;width:auto;margin-inline:auto}.photo svg{max-height:38vh}.barw{height:clamp(110px,30vh,320px)}.dot{width:.6rem;height:.6rem}.dot.on{width:1.3rem}}
-.stage{position:relative;height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#cacaca,#b3b3b3 75%)}
-.stage::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:60;
-  background:radial-gradient(circle,rgba(0,0,0,.09) .8px,transparent 1.2px) 0 0/4px 4px,repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0 1px,transparent 1px 3px);
-  box-shadow:inset 0 0 80px rgba(0,0,0,.28)}
-.top{position:absolute;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:.5rem;
-  padding:.4rem 1rem;border-bottom:1px solid var(--ink);background:var(--paper);font:italic .68rem var(--bd)}
-.top .dt{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.top button{font:700 .64rem var(--hd);letter-spacing:.08em;text-transform:uppercase;background:none;border:1px solid var(--ink);padding:.2rem .55rem;cursor:pointer;color:var(--ink)}
-.top button:hover{background:var(--ink);color:var(--paper)}
-.ticker{position:absolute;left:0;right:0;bottom:3rem;height:1.5rem;z-index:50;display:flex;align-items:center;background:var(--ink);color:#e4e4e4;overflow:hidden;
-  font:700 .64rem var(--hd);letter-spacing:.1em;text-transform:uppercase}
-.ticker b{background:var(--red);color:#fff;padding:0 .7rem;height:100%;display:flex;align-items:center;z-index:2;flex:none}
-.ticker div{white-space:nowrap;animation:tick 40s linear infinite;padding-left:1rem}
-@keyframes tick{to{transform:translateX(-50%)}}
-.nav{position:absolute;left:0;right:0;bottom:0;height:3rem;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:.6rem;
-  padding:0 1rem;background:var(--paper);border-top:4px double var(--ink)}
-.btn{font:700 .72rem var(--hd);letter-spacing:.1em;text-transform:uppercase;padding:.45rem .9rem;border:1.5px solid var(--ink);background:none;color:var(--ink);cursor:pointer;transition:.15s}
-.btn:hover:not(:disabled){background:var(--ink);color:var(--paper)}
-.btn:disabled{opacity:.3;cursor:default}
-.btn-next{background:var(--ink);color:#eee}
-.btn-next:hover:not(:disabled){background:var(--red);border-color:var(--red);color:#fff}
-.dots{display:flex;gap:5px;flex:1;justify-content:center;align-items:center}
-.dot{width:8px;height:8px;border:1px solid var(--ink);background:none;cursor:pointer;padding:0;transition:width .25s,background .25s}
-.dot.on{background:var(--ink);width:18px}
-
-.slide{position:absolute;inset:0;display:flex;overflow-y:auto;padding:2.9rem 1rem 5.2rem;opacity:0;visibility:hidden;pointer-events:none;z-index:4}
+:root{--deep:#032b52;--sea:#0a77b8;--coral:#ff7a59;--foam:#eaf9ff;--hd:'Oswald','Impact',sans-serif;--bd:'Nunito',system-ui,sans-serif}
+html,body{height:100%;overflow:hidden;font-family:var(--bd);color:var(--foam);background:#021c36}
+.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,transparent 45%,rgba(0,18,40,.5) 100%),linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/56px 56px,linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/56px 56px,linear-gradient(180deg,hsl(var(--hue) 85% 34%) 0%,hsl(var(--hue) 90% 38%) 40%,hsl(calc(var(--hue) + 5) 90% 17%) 100%);transition:--hue var(--D,1s) cubic-bezier(.65,0,.35,1)}
+/* animasi internal halus: cahaya latar bergeser perlahan */
+.stage::before{content:'';position:absolute;inset:-25%;z-index:0;pointer-events:none;background:repeating-radial-gradient(circle at 30% 40%,rgba(255,255,255,.13) 0 2px,transparent 3px 38px),repeating-radial-gradient(circle at 72% 62%,rgba(180,240,255,.11) 0 2px,transparent 3px 52px);mix-blend-mode:soft-light;animation:gdrift 22s ease-in-out infinite alternate}
+@keyframes gdrift{to{transform:translate(6%,4%) rotate(4deg)}}
+.canvas{position:absolute;--big:7em;--big2:5em}
+@media(max-aspect-ratio:1/1){.canvas{--big:4.8em;--big2:3.1em}}
+#fx{position:fixed;inset:0;z-index:12;pointer-events:none}
+#fx>*{pointer-events:none}
+.sea{position:absolute;left:0;right:0;bottom:0;height:22%;pointer-events:none;z-index:1}
+.sea i{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0 10Q25 0 50 10T100 10V20H0Z' fill='%23ffffff'/%3E%3C/svg%3E") repeat-x;background-size:240px 100%;opacity:.12;animation:drift 7s linear infinite}
+.sea i:nth-child(2){opacity:.1;top:12%;animation-duration:11s;animation-direction:reverse}
+.sea i:nth-child(3){opacity:.08;top:26%;animation-duration:15s}
+@keyframes drift{to{background-position-x:240px}}
+.bub{position:absolute;bottom:-30px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);animation:up linear infinite;z-index:2;pointer-events:none}
+@keyframes up{to{transform:translateY(-110vh) translateX(20px);opacity:.2}}
+.bl{position:absolute;left:-15vmax;top:-15vmax;width:45vmax;height:45vmax;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.3),rgba(255,255,255,.03) 70%);transition:transform var(--D,1s) cubic-bezier(.65,0,.35,1);pointer-events:none;z-index:1}
+#hero{position:absolute;left:0;top:0;width:100px;transform-origin:50% 50%;z-index:15;pointer-events:none}
+#hero .sw{background:none;filter:drop-shadow(0 6px 8px rgba(0,0,0,.3))}
+.top{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:calc(.5em + env(safe-area-inset-top,0px)) 1.2em .5em;font:800 .8em var(--hd);letter-spacing:.08em;background:linear-gradient(rgba(2,28,54,.65),transparent)}
+.top button{font:700 .9em var(--bd);color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:.25em .8em;cursor:pointer}
+.slide{position:absolute;inset:0;overflow-y:auto;display:flex;padding:calc(2.7em + env(safe-area-inset-top,0px)) 1.4em 3.4em;opacity:0;visibility:hidden;pointer-events:none;z-index:4}
 .slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:5}
 .slide.leaving{visibility:visible;opacity:1;z-index:4;pointer-events:none}
-.wrap{width:100%;max-width:66rem;margin:auto}
+.slide:not(.active) *{animation-play-state:paused!important}
+.wrap{width:100%;max-width:60em;margin:auto}
 .center{text-align:center}
-
-.rule{border-top:1.5px solid var(--ink);margin:.45rem 0}
-.rule.dbl{border-top:4px double var(--ink)}
-.big{font:900 clamp(2.2rem,10vw,6rem)/.95 var(--hd);text-transform:uppercase;text-align:center;margin:.35rem 0;color:#262626;text-shadow:3px 3px 0 #8d8d8d}
-.blackbar{background:var(--ink);color:#dcdcdc;display:flex;justify-content:space-between;gap:.5rem;padding:.25rem .8rem;font:italic .68rem var(--bd);margin:.3rem 0}
-.navline{text-align:center;font:700 .6rem var(--hd);letter-spacing:.14em;text-transform:uppercase;padding:.4rem 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
-.subt{display:flex;align-items:center;gap:.8rem;margin:.6rem 0}
-.subt i{flex:1;border-top:1.5px solid var(--ink)}
-.subt span{font:400 clamp(.85rem,2.4vw,1.2rem) var(--hd);letter-spacing:.06em;text-transform:uppercase}
-.sechead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:.2rem 0 .8rem}
-.hl{font:800 clamp(1.3rem,4.6vw,2.4rem)/1.05 var(--hd);text-transform:uppercase}
-.sec{font:italic .68rem var(--bd);color:var(--mid);white-space:nowrap}
-.body{font-size:clamp(.74rem,1.9vw,.95rem);line-height:1.55;text-align:justify;hyphens:auto}
-.dropcap::first-letter{font:900 3.1em/.8 var(--hd);float:left;padding:.06em .08em 0 0}
-.quote{font:italic 400 clamp(.95rem,2.6vw,1.35rem)/1.45 var(--hd);text-align:justify}
-.quote::first-letter{font:900 2.6em/.8 var(--hd);float:left;padding:.05em .08em 0 0;font-style:normal}
-
-.photo{position:relative;border:1px solid var(--ink);background:radial-gradient(circle,rgba(0,0,0,.28) .8px,transparent 1.2px) 0 0/4px 4px,#d9d9d9;overflow:hidden;display:block;margin:0}
-.photo svg{display:block;width:100%;height:auto;max-height:34vh}
-.photo img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
-.photo.tall{aspect-ratio:4/5}
-.photo.tall svg{height:100%;max-height:none}
-.photo.sm{width:3.4rem;flex:none;aspect-ratio:1}
-.photo.sm svg{max-height:none;height:100%}
-.cap{font:700 .78rem var(--hd);text-align:center;margin-top:.35rem}
-.cap small{display:block;font:400 .64rem var(--bd);color:var(--mid);margin-top:.1rem}
-.tag{font:700 .55rem var(--hd);letter-spacing:.12em;text-transform:uppercase;color:var(--red);text-align:center;margin-top:.3rem}
-
-.g2{display:grid;grid-template-columns:1fr 1.3fr;gap:1.1rem;align-items:start}
-.vr{border-left:1px solid var(--ink);padding-left:1.1rem}
-@media(max-width:640px){.g2{grid-template-columns:1fr}.vr{border-left:0;padding-left:0;border-top:1px solid var(--ink);padding-top:.7rem}}
-.people{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.toc{display:grid;grid-template-columns:repeat(2,1fr);gap:.1rem 2rem}
-.toc-row{display:flex;align-items:baseline;gap:.5rem;padding:.55rem .3rem;background:none;border:0;border-bottom:1px solid rgba(0,0,0,.5);font:400 .9rem var(--hd);cursor:pointer;text-align:left;color:var(--ink);transition:background .2s,color .2s}
-.toc-row .no{font:900 1.3rem var(--hd)}
-.toc-row i{flex:1;border-bottom:2px dotted var(--ink);transform:translateY(-.25em)}
-.toc-row span:last-child{font:italic .7rem var(--bd)}
-.toc-row:hover{background:var(--ink);color:var(--paper)}
-.toc-row:hover i{border-color:var(--paper)}
-@media(max-width:640px){.toc{grid-template-columns:1fr}}
-.goals{list-style:none;display:flex;flex-direction:column}
-.goals li{display:flex;gap:.8rem;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--ink);font-size:clamp(.8rem,2vw,1rem);line-height:1.35}
-.goals b{font:900 2.2rem/1 var(--hd);width:2rem;text-align:center;flex:none}
-.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:.9rem;max-width:520px;margin-left:auto;margin-right:auto}
-.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:.8rem}
-.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem}
-.barw{height:clamp(110px,27vh,230px);display:flex;align-items:flex-end;border-bottom:3px solid var(--ink)}
-.bar{width:min(62%,46px);margin:0 auto;background:var(--ink);position:relative;border-radius:50% 50% 0 0/9px 9px 0 0}
-.bar::before{content:'';position:absolute;top:0;left:0;right:0;height:26%;background:#6a6a6a;border-radius:inherit}
-.chart .cap{font-size:.74rem}
-.tips{display:grid;grid-template-columns:repeat(2,1fr);gap:.2rem 1.6rem}
-.tip{display:flex;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid var(--ink);font-size:clamp(.78rem,1.9vw,.95rem);line-height:1.35}
-@media(max-width:640px){.tips{grid-template-columns:1fr}}
-.steps{display:flex;align-items:center;justify-content:center;gap:.8rem;margin-top:1rem}
-.steps>div{flex:1;max-width:190px}
-.arr{font-size:1.6rem;animation:arrow 1.2s ease-in-out infinite}
-@keyframes arrow{50%{transform:translateX(6px)}}
-.stamp{display:inline-block;margin:1rem auto;border:4px solid var(--red);color:var(--red);font:900 1.4rem var(--hd);letter-spacing:.2em;padding:.25rem 1rem;transform:rotate(-12deg)}
-.note{margin-top:1rem;border:1px solid var(--ink);padding:.4rem .7rem;font:italic .72rem var(--bd);background:rgba(255,255,255,.18)}
-.note b{font:700 .6rem var(--hd);letter-spacing:.12em;text-transform:uppercase;margin-right:.5rem;font-style:normal}
-
-/* animasi masuk untuk elemen yang TIDAK punya pasangan morph */
-.slide.active .rv{animation:var(--a,ink) .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--b) + var(--n,0)*.1s)}
-@keyframes ink{from{opacity:0;filter:blur(7px);transform:translateY(10px) scale(1.04)}}
-@keyframes rule{from{transform:scaleX(0)}}
-@keyframes photo{from{clip-path:inset(0 0 100% 0);filter:blur(5px)}}
-@keyframes bar{from{transform:scaleY(0)}}
-@keyframes press{from{opacity:0;transform:scale(1.9);filter:blur(10px)}}
-@keyframes stamp{0%{opacity:0;transform:rotate(-12deg) scale(3)}60%{opacity:1;transform:rotate(-12deg) scale(.9)}100%{transform:rotate(-12deg) scale(1)}}
-.rv-rule{--a:rule;transform-origin:left}
-.rv-photo{--a:photo}
-.rv-bar{--a:bar;transform-origin:bottom}
-.rv-stamp{--a:stamp}
-.lt{display:inline-block}
-.slide.active .lt{animation:press .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--b) + var(--i)*.055s)}
-/* elemen yang sedang di-morph: matikan animasi masuk biasa */
-.slide .mo,.slide .mo .lt{animation:none!important}
-
-.f-run{animation:bob .5s ease-in-out infinite alternate}
-@keyframes bob{to{transform:translateY(-4px)}}
-.f-spin{transform-origin:50px 50px;animation:spin 6s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.f-wave{animation:wave 1.6s linear infinite}
-@keyframes wave{to{transform:translateX(-50px)}}
-.speed{animation:speed .7s linear infinite}
-@keyframes speed{from{transform:translateX(14px);opacity:0}40%{opacity:1}to{transform:translateX(-14px);opacity:0}}
-.flag{animation:flag 1.2s ease-in-out infinite alternate;transform-origin:60px 14px}
-@keyframes flag{to{transform:skewY(-12deg)}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.chip{display:inline-block;font:800 .7em var(--hd);letter-spacing:.14em;text-transform:uppercase;background:var(--coral);color:#fff;border-radius:99px;padding:.2em .9em;margin-bottom:.4em}
+h2{font:800 2.2em/1.05 var(--hd);color:var(--tc,#fff);margin-bottom:.4em;text-shadow:0 .08em 0 rgba(3,43,82,.5)}
+.slide .wrap:not(.center) h2{padding-right:calc(6.5em/var(--ts,1))}
+h3{font:800 1.05em var(--hd);margin-bottom:.15em}
+p,.li li span{font-size:.95em;line-height:1.45}
+.card p{font-size:.82em;line-height:1.35}
+.card,.li li{background:var(--ac,rgba(255,255,255,.14));border:var(--bw,1px) solid var(--bc,rgba(255,255,255,.3));border-radius:var(--r,.9em);box-shadow:var(--sh,none);backdrop-filter:blur(6px);transition:background .35s,border-color .35s}
+.gh{background:transparent!important;border-color:transparent!important;box-shadow:none!important;backdrop-filter:none!important;transition:none!important}
+.ghost{position:fixed;left:0;top:0;z-index:-1;pointer-events:none;border-style:solid;backdrop-filter:blur(6px);will-change:transform,width,height}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--cw,9em),100%),1fr));gap:.8em}
+.card{padding:.6em;text-align:center}
+.card .pool{margin-bottom:.4em}
+.li{list-style:none;display:flex;flex-direction:column;gap:.4em}
+.li li{display:flex;gap:.7em;align-items:center;padding:.35em}
+.li li span{font-size:.9em}
+.li li span b{color:#ffe08a}
+.th{width:min(var(--tw,6.2em),34%);flex:none}
+.pool{border-radius:.7em;overflow:hidden;border:.15em solid #fff;position:relative}
+.sw{display:block;width:100%;height:auto;background:linear-gradient(#cdefff,#7fd0f0)}
+.sw.dk{background:linear-gradient(#bfeaff 0 66%,#e8cf9c 66%)}
+.sw text{transform-box:fill-box;transform-origin:center}
+.big{font:800 var(--big)/.95 var(--hd);color:var(--tc,#fff);text-align:center;letter-spacing:.04em;text-shadow:0 .06em 0 #054a80,0 .12em .3em rgba(0,0,0,.35)}
+.big .c{animation:bob 1.6s ease-in-out infinite;animation-delay:calc(var(--i)*.15s)}
+@keyframes bob{50%{transform:translateY(-.14em)}}
+.c{display:inline-block;font-style:normal}.w{display:inline-block;white-space:nowrap}
+.ha{width:min(15em,62%);aspect-ratio:2/1;margin:.6em auto}
+.sub{font:700 1.15em var(--bd);opacity:.9;margin-top:.3em}
+.nav{position:absolute;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;gap:.6em;padding:.6em 1.2em calc(.6em + env(safe-area-inset-bottom,0px));background:rgba(3,43,82,.7);backdrop-filter:blur(8px)}
+.btn{font:800 .85em var(--hd);border:0;border-radius:99px;padding:.5em 1.1em;cursor:pointer;color:#fff;background:var(--sea)}
+.btn.nx{background:var(--coral)}
+.btn:disabled{opacity:.35;cursor:default}
+.dots{flex:1;display:flex;justify-content:center;gap:.3em;flex-wrap:wrap}
+.dot{width:.4em;height:.4em;border-radius:99px;border:0;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s;padding:0}
+.dot.on{background:#fff;width:1.1em}
+.wv{animation:wv 1.1s linear infinite}.wv2{animation:wv 1.7s linear infinite reverse}
+@keyframes wv{to{transform:translateX(-40px)}}
+.arm{transform-origin:122px 54px}.leg{transform-origin:72px 54px}
+.free .a1,.fly .a1,.fly .a2{animation:rot 1.8s linear infinite}
+.free .a2{animation:rot 1.8s linear infinite -.9s}
+.back .a1{animation:rot 1.8s linear infinite reverse}
+.back .a2{animation:rot 1.8s linear infinite reverse -.9s}
+@keyframes rot{to{transform:rotate(360deg)}}
+.breast .arm{animation:br 1.8s ease-in-out infinite}
+@keyframes br{0%,100%{transform:rotate(60deg)}50%{transform:rotate(150deg)}}
+.free .l1,.back .l1{animation:fl .25s ease-in-out infinite alternate}
+.free .l2,.back .l2{animation:fl .25s ease-in-out infinite alternate -.12s}
+@keyframes fl{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.fly .leg{animation:fl .6s ease-in-out infinite alternate}
+.breast .l1{animation:fr 1.8s ease-in-out infinite}.breast .l2{animation:fr 1.8s ease-in-out infinite reverse}
+@keyframes fr{50%{transform:rotate(28deg)}}
+.bod,.bod2{animation:bd 2.2s ease-in-out infinite}
+@keyframes bd{50%{transform:translateY(-3px)}}
+.fly .bod{animation:fb 1.8s ease-in-out infinite;transform-origin:100px 54px}
+@keyframes fb{50%{transform:rotate(-7deg) translateY(-4px)}}
+.a-float{animation:flt 2.4s ease-in-out infinite}
+@keyframes flt{50%{transform:translateY(-6px) rotate(6deg)}}
+.a-sway{animation:swy 2s ease-in-out infinite}
+@keyframes swy{50%{transform:rotate(14deg)}}
+.pls,.hl{animation:pls 1.1s ease-in-out infinite}
+.hl{transform-box:fill-box;transform-origin:center}
+@keyframes pls{50%{transform:scale(1.2)}}
+.pop{animation:pop 3s ease-out infinite}
+@keyframes pop{0%,50%{transform:scale(0);opacity:0}62%{transform:scale(1.3);opacity:1}75%,92%{transform:scale(1);opacity:1}100%{opacity:0}}
+.spin{animation:spn 8s linear infinite}@keyframes spn{to{transform:rotate(360deg)}}
+.bounce{animation:bnc .8s ease-in-out infinite alternate}@keyframes bnc{to{transform:translateY(-8px) rotate(8deg)}}
+.drop{animation:drp 1.3s ease-in infinite}@keyframes drp{from{transform:translateY(-14px);opacity:0}30%{opacity:1}to{transform:translateY(12px);opacity:0}}
+.bb{animation:bbl 1.6s ease-in infinite;transform-box:fill-box}
+@keyframes bbl{from{transform:translateY(8px);opacity:0}30%{opacity:1}to{transform:translateY(-22px);opacity:0}}
+.t1,.t2{transform-origin:100px 56px;animation:tr .9s ease-in-out infinite alternate}.t2{animation-direction:alternate-reverse}
+@keyframes tr{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}
+.gl{animation:gl 3s cubic-bezier(.1,.7,.3,1) infinite}@keyframes gl{from{transform:translateX(-40px)}to{transform:translateX(20px)}}
+.spd{animation:spd .7s linear infinite}@keyframes spd{from{transform:translateX(14px);opacity:0}40%{opacity:1}to{transform:translateX(-14px);opacity:0}}
+.dive{animation:dv 3s ease-in infinite;transform-origin:38px 60px}
+@keyframes dv{0%,35%{transform:none;opacity:1}65%{transform:translate(38px,-10px) rotate(80deg);opacity:1}85%{transform:translate(70px,26px) rotate(110deg);opacity:1}100%{transform:translate(80px,34px) rotate(110deg);opacity:0}}
+.splash{animation:spl 3s ease-out infinite}@keyframes spl{0%,62%{opacity:0;transform:scale(.3)}75%{opacity:1;transform:scale(1.2)}100%{opacity:0;transform:scale(1.4)}}
+.rope{animation:rp 1s linear infinite}@keyframes rp{to{stroke-dashoffset:-12}}
+.fl{animation:fp 3.4s ease-in-out infinite;transform-origin:100px 54px}
+@keyframes fp{0%{transform:translateX(-70px) rotate(0)}40%{transform:translateX(20px) rotate(0)}55%{transform:translateX(20px) rotate(180deg)}95%,100%{transform:translateX(-70px) rotate(180deg)}}
+.fn{animation:fn 3s cubic-bezier(.2,.7,.3,1) infinite}@keyframes fn{0%{transform:translateX(-80px)}55%,100%{transform:translateX(0)}}
+.gg{animation:gg 2.6s ease-in-out infinite}@keyframes gg{0%{transform:translateY(-26px);opacity:0}30%,100%{transform:none;opacity:1}}
+.cp{animation:cp 2.6s ease-in-out infinite}@keyframes cp{0%{transform:translateY(-40px);opacity:0}35%,100%{transform:none;opacity:1}}
+.ar{transform-origin:100px 33px}.lg{transform-origin:100px 54px}
+.swing .ar1{animation:sg 1.2s ease-in-out infinite alternate}.swing .ar2{animation:sg 1.2s ease-in-out infinite alternate-reverse}
+@keyframes sg{from{transform:rotate(-45deg)}to{transform:rotate(45deg)}}
+.wm .ar1,.wm .ar2{animation:rot 1.4s linear infinite}.wm .ar2{animation-delay:-.7s}
+.wm{animation:sq 1.4s ease-in-out infinite;transform-origin:100px 80px}@keyframes sq{50%{transform:scaleY(.92)}}
+.run .lg1,.run .ar2{animation:lr .35s ease-in-out infinite alternate}.run .lg2,.run .ar1{animation:lr .35s ease-in-out infinite alternate-reverse}
+@keyframes lr{from{transform:rotate(-35deg)}to{transform:rotate(35deg)}}
+.man.run{animation:slip 3.4s ease-in infinite;transform-origin:100px 80px}
+@keyframes slip{0%{transform:translateX(-70px) rotate(0);opacity:1}55%{transform:translateX(10px) rotate(0)}70%,92%{transform:translateX(24px) rotate(-85deg);opacity:1}100%{transform:translateX(24px) rotate(-85deg);opacity:0}}
+.pant{animation:pnt 1s ease-in-out infinite;transform-origin:100px 80px}@keyframes pnt{50%{transform:scaleY(.95)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.btn,.top button{transition:transform .25s cubic-bezier(.3,1.4,.5,1),filter .25s}.btn:hover,.top button:hover{transform:translateY(-.08em) scale(1.06);filter:brightness(1.12)}.btn:active,.top button:active{transform:scale(.94)}
+/* ===== TEMA KOLAM RENANG: tali lintasan, bendera punggung, papan skor, ubin kolam ===== */
+h2{text-transform:uppercase;letter-spacing:.03em}
+.chip{border-radius:.35em;box-shadow:0 .12em 0 rgba(0,0,0,.28);letter-spacing:.18em}
+#pg{background:#021c36;color:#ffe08a;padding:.1em .6em;border-radius:.3em;letter-spacing:.12em;box-shadow:inset 0 0 0 1px rgba(255,224,138,.4)}
+.card::before{content:'';display:block;height:.38em;margin:-.6em -.6em .5em;border-radius:.6em .6em 0 0;background:repeating-linear-gradient(90deg,#ff7a59 0 .8em,#fff 0 1.6em)}
+.li li::before{content:'';align-self:stretch;width:.3em;flex:none;border-radius:9em;background:repeating-linear-gradient(180deg,#ff7a59 0 .7em,#fff 0 1.4em)}
+.stage::after{content:'';position:absolute;left:0;right:0;top:env(safe-area-inset-top,0px);height:7px;z-index:19;pointer-events:none;background:repeating-linear-gradient(90deg,#ff7a59 0 14px,#fff 14px 28px,#3ec8e8 28px 42px);box-shadow:0 2px 6px rgba(0,0,0,.35);animation:rope 6s linear infinite}
+@keyframes rope{to{background-position-x:84px}}
+.nav{box-shadow:0 -4px 14px rgba(0,0,0,.3)}
+.nav::before{content:'';position:absolute;left:0;top:0;height:.2em;width:calc(var(--p,0)*100%);background:linear-gradient(90deg,#ffe08a,#ff7a59);transition:width .9s cubic-bezier(.5,0,.1,1)}
+.nav::after{content:'';position:absolute;left:0;right:0;bottom:100%;height:16px;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 16'%3E%3Cpath d='M0 1H48' stroke='%23fff' stroke-width='1.6'/%3E%3Cpath d='M3 1l7 14 7-14z' fill='%23ff7a59'/%3E%3Cpath d='M19 1l7 14 7-14z' fill='%23fff'/%3E%3Cpath d='M35 1l7 14 7-14z' fill='%233ec8e8'/%3E%3C/svg%3E") repeat-x;background-size:48px 16px}
+/* bentuk dekor yang ikut Morph: berpindah, berputar, membesar/mengecil, ganti bentuk & warna tiap slide */
+.sh{position:absolute;left:0;top:0;width:22vmax;height:22vmax;z-index:1;pointer-events:none;transition:transform var(--D,1.3s) cubic-bezier(.5,0,.1,1),border-radius var(--D,1.3s) cubic-bezier(.5,0,.1,1),background-color var(--D,1.3s),border-color var(--D,1.3s)}
+.sh.ring{border:1.2vmax solid transparent}
+.sh.bar{width:50vmax;height:3.2vmax}
+.sh.tri{clip-path:polygon(0 0,100% 0,50% 100%)}
+h2{font-size:calc(2.2em*var(--ts,1))}
+@media(min-aspect-ratio:1/1){.li{display:grid;grid-template-columns:repeat(var(--lc,1),1fr)}}
+.li li{text-align:left}
+@media(min-aspect-ratio:1/1){.slide.sp .wrap{display:grid;grid-template-columns:.85fr 1.5fr;column-gap:1.4em;align-items:start;align-content:center}
+.slide.sp .wrap>.chip{grid-column:1;grid-row:1;justify-self:start}
+.slide.sp .wrap>h2{grid-column:1;grid-row:2;padding-right:0}
+.slide.sp .wrap>.li,.slide.sp .wrap>.cards{grid-column:2;grid-row:1/span 3;margin-top:3em}}
+@media(min-aspect-ratio:1/1){.slide.sr .wrap{display:grid;grid-template-columns:1.5fr .85fr;column-gap:1.4em;align-items:start;align-content:center}
+.slide.sr .wrap>.chip{grid-column:2;grid-row:1;justify-self:start;margin-top:3em}
+.slide.sr .wrap>h2{grid-column:2;grid-row:2;padding-right:0}
+.slide.sr .wrap>.li,.slide.sr .wrap>.cards{grid-column:1;grid-row:1/span 3;margin-top:3em}
+.slide.col .li{gap:.8em;margin-top:.4em}
+.slide.col .li li{flex-direction:column;align-items:stretch;text-align:center}
+.slide.col .li li::before{width:auto;height:.35em;background:repeating-linear-gradient(90deg,#ff7a59 0 .7em,#fff 0 1.4em)}
+.slide.col .th{width:100%}}
+.slide.bt .wrap{display:flex;flex-direction:column}
+.slide.bt .wrap>.cards,.slide.bt .wrap>.li{order:1;margin-top:3em}
+.slide.bt .wrap>h2{order:2;margin:.6em 0 0}
+.slide.bt .wrap>.chip{order:3;align-self:flex-start;margin-top:.4em}
+.num{position:fixed;z-index:0;line-height:.8;font-family:var(--hd);font-weight:700;color:rgba(255,255,255,.07);-webkit-text-stroke:2px rgba(255,255,255,.42);pointer-events:none;white-space:nowrap}
+@media(max-aspect-ratio:1/1){.slide.col .li{display:grid;grid-template-columns:1fr 1fr;gap:.6em}
+.slide.col .li li{flex-direction:column;align-items:stretch;text-align:center}
+.slide.col .th{width:100%}
+.slide.col .li li::before{width:auto;height:.35em;background:repeating-linear-gradient(90deg,#ff7a59 0 .7em,#fff 0 1.4em)}
+.slide.sr .wrap{text-align:right}
+.slide.sr .wrap>.chip{margin-top:3em}
+.slide.sr .wrap>h2{padding-right:0}
+.slide.sr .li li{text-align:right;flex-direction:row-reverse}}
+#cap,#pp,.nav .btn[title]{display:none}
+.zk1,.zk2{animation:zk .28s ease-in-out infinite alternate}.zk2{animation-direction:alternate-reverse}@keyframes zk{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
+.zw1,.zw2,.zb1,.zb2{animation:zw 1.6s linear infinite}.zb1,.zb2{animation-duration:1.4s}.zw2{animation-delay:-.8s}@keyframes zw{to{transform:rotate(360deg)}}
+.zr1,.zr2{animation:zw 1.6s linear infinite reverse}.zr2{animation-delay:-.8s}
+.zs{animation:zs 1.8s ease-in-out infinite}@keyframes zs{0%,100%{transform:rotate(55deg)}50%{transform:rotate(150deg)}}
+.zh{animation:zh 1.8s ease-in-out infinite}@keyframes zh{0%,100%{transform:none}50%{transform:translateY(-8px) rotate(-18deg)}}
+.zt{animation:zt 1.8s ease-in-out infinite}@keyframes zt{0%,100%{transform:none}40%,60%{transform:translateY(-7px) rotate(-28deg)}}
+.zu{animation:zu 1.4s ease-in-out infinite}@keyframes zu{0%,100%{transform:none}35%,55%{transform:translateY(-8px) rotate(-12deg)}}
+.zp{animation:zp 1.8s ease-in-out infinite}.zq{animation:zp 1.4s ease-in-out infinite}@keyframes zp{0%,30%,70%,100%{opacity:0}45%,60%{opacity:1}}
+.zf{animation:zf 1.8s ease-in-out infinite}@keyframes zf{0%,60%,100%{transform:rotate(0)}30%{transform:rotate(40deg)}}
+.zd{animation:zd .6s ease-in-out infinite alternate}@keyframes zd{from{transform:rotate(-20deg)}to{transform:rotate(20deg)}}
+.zbw{animation:zbw .6s ease-in-out infinite alternate}@keyframes zbw{from{transform:rotate(3deg)}to{transform:rotate(-3deg)}}
+/* sequencer dimatikan */
+.slide.seq .li li:not(.foc),.slide.seq .card:not(.foc){opacity:.38}
+.slide.seq .li li:not(.foc) *,.slide.seq .card:not(.foc) *{animation-play-state:paused!important}
+.slide.seq .li li,.slide.seq .card{transition:background .35s,border-color .35s,opacity .4s,box-shadow .4s}
+.foc{box-shadow:0 0 0 .14em #ffe08a,0 .4em 1.4em rgba(0,0,0,.35)!important}
+.wd{text-decoration:none;border-radius:.2em;transition:background .25s}
+.foc .wd.on{background:rgba(255,224,138,.35)}
+#cap{position:absolute;left:50%;bottom:calc(3em + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:21;max-width:92%;font:800 .8em var(--hd);background:var(--coral);color:#fff;padding:.3em 1em;border-radius:99px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+#cap.on{opacity:1}
 </style>
 </head>
 <body>
 <div class="stage" id="stage">
-  <div class="top">
-    <span><button onclick="go(2)">☰ Daftar Isi</button> <button onclick="fsToggle()">⛶ Layar Penuh (F)</button></span>
-    <span class="dt" id="date"></span>
-    <span>Hal. <b id="cur">1</b>/<span id="tot">11</span></span>
+  <div class="canvas" id="cv">
+    <div class="top"><span>🏊 Renang · Kelompok 1</span><span><button onclick="fs()">⛶ Layar penuh</button> <span id="pg"></span></span></div>
+    <div id="root"></div><div id="cap"></div>
+    <div class="nav"><button class="btn" id="pv" onclick="goDir(-1)">‹ Kembali</button><div class="dots" id="dots"></div><button class="btn" id="pp" onclick="tog()">▶ Putar</button><button class="btn" onclick="rep()" title="Ulangi animasi">↻</button><button class="btn nx" id="nx" onclick="goDir(1)">Lanjut ›</button></div>
   </div>
-  <div id="slides-root"></div>
-  <div class="ticker"><b>Terkini</b><div id="tk"></div></div>
-  <div class="nav">
-    <button class="btn" id="prev" onclick="goDir(-1)">‹ Kembali</button>
-    <div class="dots" id="dots"></div>
-    <button class="btn btn-next" id="next" onclick="goDir(1)">Lanjut ›</button>
-  </div>
+  <div id="fx"></div>
+  <div class="sea"><i></i><i></i><i></i></div>
 </div>
-
 <script>
-const DATA = {
-  tema: "OLAHRAGA",
-  kelompok: "KELOMPOK 1",
-  judul: "TUGAS\nSEKOLAH",
-  anggota: [
-    { nama: "Nama Kamu",    jabatan: "Ketua",     deskripsi: "Pembawa materi", foto: "" },
-    { nama: "Nama Teman 1", jabatan: "Moderator", deskripsi: "Pengarah",       foto: "" },
-    { nama: "Nama Teman 2", jabatan: "Notulen",   deskripsi: "Pencatat",       foto: "" }
-  ],
-  daftarIsi: [
-    { no: "01", label: "Latar Belakang", slide: 3 },
-    { no: "02", label: "Tujuan",         slide: 4 },
-    { no: "03", label: "Pengertian",     slide: 5 },
-    { no: "04", label: "Jenis-Jenis",    slide: 6 },
-    { no: "05", label: "Manfaat",        slide: 7 },
-    { no: "06", label: "Cedera",         slide: 8 },
-    { no: "07", label: "Kesimpulan",     slide: 9 },
-    { no: "08", label: "Penutup",        slide: 10 }
-  ],
-  tujuan: [
-    "Mengetahui pengertian olahraga",
-    "Mengetahui jenis-jenis olahraga",
-    "Mengetahui manfaat olahraga bagi tubuh dan mental",
-    "Mengetahui cara mencegah cedera saat berolahraga"
-  ],
-  latarBelakang: [
-    "Olahraga penting dilakukan sejak dini untuk menjaga kesehatan tubuh dan meningkatkan kebugaran jasmani sehari-hari.",
-    "Dengan berolahraga secara teratur, tubuh menjadi lebih kuat, mental lebih stabil, dan risiko penyakit menurun."
-  ],
-  pengertian: "Olahraga adalah aktivitas fisik yang dilakukan secara terencana dan berulang untuk menjaga kesehatan, meningkatkan kebugaran tubuh, serta melatih keterampilan gerak.",
-  jenis: [
-    { judul: "Permainan Bola",    contoh: "sepak bola · basket · voli",  grup: "Beregu" },
-    { judul: "Atletik",           contoh: "lari · lompat · tolak",       grup: "Perorangan" },
-    { judul: "Bela Diri",         contoh: "silat · karate · taekwondo",  grup: "Perorangan" },
-    { judul: "Renang",            contoh: "gaya bebas · dada",           grup: "Perorangan" },
-    { judul: "Senam & Kebugaran", contoh: "senam · yoga · sepeda",       grup: "Perorangan" }
-  ],
-  manfaat: [
-    { no: 1, judul: "Jantung Sehat", desc: "Melatih jantung & paru-paru" },
-    { no: 2, judul: "Otot Kuat",     desc: "Membangun kekuatan tubuh" },
-    { no: 3, judul: "Daya Tahan",    desc: "Stamina lebih baik" },
-    { no: 4, judul: "Mental Baik",   desc: "Kurangi stres & cemas" },
-    { no: 5, judul: "Sportivitas",   desc: "Melatih kerja sama & fair play" }
-  ],
-  cedera: [
-    { teks: "Keseleo & kram — pemanasan dulu" },
-    { teks: "Gunakan sepatu & alat yang sesuai" },
-    { teks: "Jaga teknik gerakan yang benar" },
-    { teks: "Minum air cukup (hidrasi)" },
-    { teks: "Berhenti jika sakit atau sangat lelah" }
-  ],
-  kesimpulan: "Olahraga sangat penting untuk kesehatan tubuh dan mental. Lakukan secara teratur dengan urutan: pemanasan → kegiatan inti → pendinginan. Jaga keselamatan, minum cukup, dan istirahat yang cukup agar tubuh tetap bugar.",
-  penutup: "Ada Pertanyaan?"
+/* ============ PENGATURAN MORPH (terpusat) ============
+   dur/ease global; per:{indexSlide:{dur,ease}} untuk durasi per slide;
+   stagger = jeda maksimum antar item (ms), selesai tetap serempak di akhir. */
+const CFG={dur:1300,ease:'cubic-bezier(0.5,0,0.1,1)',stagger:0,per:{}};
+
+const SK='#f2b88a',CO='#ff7a59';
+const ln=(d,c=SK,w=5)=>`<path d="${d}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" fill="none"/>`;
+const hd=(x,y,r=7)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${SK}"/><path d="M${x-r} ${y-1}a${r} ${r} 0 0 1 ${2*r} 0z" fill="${CO}"/>`;
+const tx=(s,x,y,c='',f=24,st='')=>`<text x="${x}" y="${y}" font-size="${f}" class="${c}" style="${st}" text-anchor="middle">${s}</text>`;
+const wave='M-40 56q10-6 20 0'+'t20 0'.repeat(15)+'V100H-40Z';
+const WT=`<g class="wv2" opacity=".5"><path d="${wave}" fill="#3ec8e8" transform="translate(0 4)"/></g><g class="wv" opacity=".6"><path d="${wave}" fill="#0a77b8"/></g>`;
+const SV=(c,i)=>`<svg class="sw ${c}" viewBox="0 0 200 100">${i}</svg>`;
+const body=()=>`<g class="bod"><g class="arm a2">${ln('M122 54V22','#e6a778')}</g><g class="leg l2">${ln('M72 54H36','#e6a778',6)}</g>${ln('M72 54H130',SK,12)}${ln('M98 54H118',CO,12)}<g class="leg l1">${ln('M72 54H36',SK,6)}</g><circle cx="142" cy="50" r="8" fill="${SK}"/><path d="M134 49a8 8 0 0 1 16 0z" fill="${CO}"/><path d="M146 49h5" stroke="#032b52" stroke-width="2.5"/><g class="arm a1">${ln('M122 54V22')}</g></g>`;
+const HL={k:[48,54,18],l:[122,36,24],n:[146,46,15]};
+const hl=h=>!h?'':h=='i'?tx('⭐',100,26,'pls',26):`<circle class="hl" cx="${HL[h][0]}" cy="${HL[h][1]}" r="${HL[h][2]}" fill="none" stroke="#ffe08a" stroke-width="3.5"/>`+(h=='n'?[0,1,2].map(k=>`<circle class="bb" cx="${158+k*5}" cy="44" r="${2+k}" fill="#fff" style="animation-delay:${k*.5}s"/>`).join(''):'');
+const sw=(t,h='',x='')=>SV(t,body()+WT+hl(h)+x);
+const FL=`<g class="bod2">${ln('M58 54H128',SK,12)}${ln('M92 54H112',CO,12)}${ln('M58 54H38')}<circle cx="140" cy="50" r="8" fill="${SK}"/><path d="M132 49a8 8 0 0 1 16 0z" fill="${CO}"/></g>`;
+const man=c=>`<g class="man ${c}">${hd(100,22,8)}<g class="lg lg1">${ln('M100 54V80')}</g><g class="lg lg2">${ln('M100 54V80')}</g>${ln('M100 30V54',CO,8)}<g class="ar ar1">${ln('M100 33V54')}</g><g class="ar ar2">${ln('M100 33V54')}</g></g>`;
+const FACE=`<circle cx="100" cy="58" r="30" fill="${SK}"/><circle cx="88" cy="55" r="3" fill="#032b52"/><circle cx="112" cy="55" r="3" fill="#032b52"/><path d="M90 70q10 8 20 0" stroke="#032b52" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+const WALL='<rect x="178" y="20" width="30" height="80" fill="#9fd3e8"/>';
+const SC={
+sehat:sw('free','',tx('❤️',100,28,'pls',30)),
+rekreasi:SV('',FL+WT+tx('☀️',165,28,'spin',28)+tx('🍹',40,30,'a-float',22)),
+prestasi:sw('free','',tx('🏆',165,34,'bounce',30)+tx('🥇',35,30,'bounce',22)),
+bertahan:SV('',`${ln('M100 50V62')}${hd(100,42,9)}<g class="t1">${ln('M100 56L78 46')}</g><g class="t2">${ln('M100 56L122 46')}</g>${WT}${tx('🛟',40,40,'a-float',28)}${tx('🆘',160,30,'pls',22)}`),
+mengapung:SV('',FL+WT+tx('⬆️',100,28,'a-float',20)),
+napas:sw('free','n'),
+meluncur:SV('',`<rect x="0" y="22" width="12" height="78" fill="#9fd3e8"/><g class="gl">${ln('M60 54H130',SK,11)}${ln('M96 54H116',CO,11)}${ln('M130 54H168',SK,5)}${hd(142,49,7)}</g><g class="spd">${ln('M24 42H48','#fff',3)}${ln('M16 52H38','#fff',3)}${ln('M24 62H46','#fff',3)}</g>${WT}`),
+kuno:sw('breast','',tx('🦴',40,30,'a-float',22)+tx('🌋',170,32,'a-sway',26)),
+start:SV('dk',`<g transform="translate(0 16)">${WT}</g><rect x="0" y="72" width="66" height="28" fill="#e8cf9c"/><rect x="18" y="60" width="38" height="12" fill="#cbd5db"/><g class="dive">${hd(38,20,7)}${ln('M38 28V46',CO,7)}${ln('M38 46V60')}${ln('M38 30L28 44')}</g>${tx('💦',104,66,'splash',26)}`),
+gaya:sw('free','',`<path class="rope" d="M0 24H200" stroke="${CO}" stroke-width="5" stroke-dasharray="6 6"/>`+tx('📏',165,50,'pls',22)),
+putaran:SV('',`${WALL}<g class="fl">${ln('M72 54H130',SK,11)}${ln('M98 54H118',CO,11)}${ln('M72 54H48')}${hd(142,50,8)}</g>${WT}${tx('🔄',100,26,'spin',22)}`),
+finis:SV('',`${WALL}<g class="fn">${ln('M72 54H130',SK,11)}${ln('M98 54H118',CO,11)}${ln('M72 54H48')}${ln('M136 54H174',SK,5)}${hd(138,48,7)}</g>${WT}${tx('✅',150,28,'pop',26)}${tx('⏱️',30,28,'pls',24)}`),
+dq:sw('free','',tx('🟥',150,32,'pop',30)+tx('🚩',40,30,'a-sway',24)),
+suit:SV('dk',man('swing')+tx('✨',150,34,'pls',26)+tx('🩱',50,36,'a-float',24)),
+goggle:SV('',`${FACE}<g class="gg">${ln('M70 54H130','#032b52',3)}<circle cx="88" cy="54" r="10" fill="#aee8ff" stroke="#032b52" stroke-width="3.5"/><circle cx="112" cy="54" r="10" fill="#aee8ff" stroke="#032b52" stroke-width="3.5"/></g>${tx('💧',160,30,'drop',20)}${tx('💧',40,30,'drop',20,'animation-delay:.6s')}`),
+cap:SV('',`${FACE}<g class="cp"><path d="M68 54a32 32 0 0 1 64 0z" fill="${CO}"/>${ln('M68 54H132','#d9553a',4)}</g>${tx('✨',165,34,'pls',22)}`),
+warm:SV('dk',man('wm')+tx('🔥',45,36,'pls',22)),
+teman:SV('free',`<g transform="translate(70 21) scale(.6)">${body()}</g><g transform="translate(-5 21) scale(.6)">${body()}</g>${WT}${tx('🤝',100,24,'pls',24)}`),
+rules:SV('',`<rect x="55" y="8" width="90" height="84" rx="8" fill="#fff"/>${[0,1,2].map(k=>`<rect x="66" y="${26+k*22}" width="44" height="6" rx="3" fill="#9bc"/>`+tx('✅',128,34+k*22,'pop',20,`animation-delay:${k*.6}s`)).join('')}`),
+lari:SV('dk',man('run')+tx('💦',40,86,'pls',16)+tx('🚫',165,34,'pls',28)),
+lelah:SV('dk',man('pant')+tx('💦',128,30,'drop',18)+tx('😮‍💨',72,28,'a-float',20))
 };
-
-const NOTES = [
-  "",
-  "Halo! Kami Kelompok 1 akan menjelaskan tentang olahraga.",
-  "Ini daftar materinya. Klik salah satu baris untuk langsung loncat!",
-  "Olahraga bikin badan sehat dan bugar setiap hari!",
-  "Ada 4 hal yang akan kita pelajari hari ini.",
-  "Olahraga = gerak tubuh yang terencana dan berulang.",
-  "Ada olahraga beregu dan perorangan, lho!",
-  "Rutin olahraga: jantung, otot, dan mental ikut kuat!",
-  "Pemanasan dulu ya, biar tidak cedera!",
-  "Ingat urutannya: pemanasan, inti, pendinginan.",
-  "Terima kasih! Ada pertanyaan?"
-];
-
-const K = 'stroke="#111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"';
-const GROUND = '<path d="M8 93H94" stroke="#111" stroke-width="3"/>';
-const RUN_IN = `<g class="f-run"><circle cx="60" cy="20" r="9" fill="#111"/><g ${K}><path d="M57 32L48 58"/><path d="M56 37L72 47L82 41"/><path d="M56 37L42 45L34 57"/><path d="M48 58L64 70L60 89"/><path d="M48 58L36 75L20 77"/></g></g>`;
-const ILL = {
-  hero: `<svg viewBox="0 0 160 100"><defs><pattern id="hd" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#111"/></pattern></defs><circle cx="118" cy="32" r="24" fill="url(#hd)" stroke="#111" stroke-width="2"/><g class="speed" stroke="#111" stroke-width="3" stroke-linecap="round"><path d="M14 40H44"/><path d="M8 56H36"/><path d="M18 72H46"/></g><g transform="translate(34 -2)">${RUN_IN}</g><path d="M0 92H160" stroke="#111" stroke-width="4"/></svg>`,
-  run: `<svg viewBox="0 0 100 100">${RUN_IN}${GROUND}</svg>`,
-  ball: `<svg viewBox="0 0 100 100"><g class="f-spin"><circle cx="50" cy="50" r="32" fill="#eee" stroke="#111" stroke-width="4"/><polygon points="50,36 63,45 58,60 42,60 37,45" fill="#111"/><path d="M50 36V19M63 45L80 39M58 60L69 76M42 60L31 76M37 45L20 39" stroke="#111" stroke-width="4" stroke-linecap="round"/></g></svg>`,
-  kick: `<svg viewBox="0 0 100 100"><g class="f-run"><circle cx="38" cy="20" r="9" fill="#111"/><g ${K}><path d="M40 32L42 58"/><path d="M40 38L60 34"/><path d="M40 38L24 46"/><path d="M42 58L82 50"/><path d="M42 58L36 88"/></g></g>${GROUND}</svg>`,
-  swim: `<svg viewBox="0 0 100 100"><circle cx="28" cy="46" r="8" fill="#111"/><g ${K}><path d="M36 54L70 56"/><path d="M34 50Q42 24 62 34"/><path d="M72 56L88 50"/></g><g class="f-wave"><path d="M-50 64q12.5 -8 25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0" stroke="#111" stroke-width="4" fill="none"/><path d="M-50 78q12.5 -8 25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0" stroke="#555" stroke-width="4" fill="none"/></g></svg>`,
-  senam: `<svg viewBox="0 0 100 100"><g class="f-run"><circle cx="50" cy="20" r="9" fill="#111"/><g ${K}><path d="M50 32V58"/><path d="M50 36L28 14"/><path d="M50 36L72 14"/><path d="M50 58L32 88"/><path d="M50 58L68 88"/></g></g></svg>`,
-  stadium: `<svg viewBox="0 0 120 90"><path d="M10 82V30M110 82V30" stroke="#111" stroke-width="4"/><rect x="2" y="18" width="16" height="11" fill="#111"/><rect x="102" y="18" width="16" height="11" fill="#111"/><path d="M18 80V46Q60 16 102 46V80Z" fill="#eee" stroke="#111" stroke-width="3"/><path d="M18 56H102M18 66H102" stroke="#111" stroke-width="2"/><g fill="#111"><rect x="30" y="58" width="9" height="22"/><rect x="48" y="58" width="9" height="22"/><rect x="66" y="58" width="9" height="22"/><rect x="84" y="58" width="9" height="22"/></g><path d="M60 30V8" stroke="#111" stroke-width="3"/><path class="flag" d="M60 8L82 14L60 20Z" fill="#111"/></svg>`,
-  person: `<svg viewBox="0 0 100 120"><circle cx="50" cy="42" r="20" fill="#111"/><path d="M10 120Q12 78 50 76Q88 78 90 120Z" fill="#111"/></svg>`,
-  trophy: `<svg viewBox="0 0 100 100"><path d="M28 16H72V40Q72 62 50 66Q28 62 28 40Z" fill="#111"/><path d="M28 22Q10 22 12 40Q14 50 30 50M72 22Q90 22 88 40Q86 50 70 50" stroke="#111" stroke-width="5" fill="none"/><rect x="44" y="66" width="12" height="12" fill="#111"/><rect x="32" y="78" width="36" height="9" fill="#111"/></svg>`,
-  shoe: `<svg viewBox="0 0 100 100"><path d="M12 62V38Q36 42 44 24L56 42Q82 44 90 62V70H12Z" fill="#eee" stroke="#111" stroke-width="4" stroke-linejoin="round"/><rect x="12" y="68" width="78" height="10" fill="#111"/><path d="M40 34L46 44M48 30L54 40" stroke="#111" stroke-width="3"/></svg>`,
-  plester: `<svg viewBox="0 0 100 100"><g transform="rotate(-35 50 50)"><rect x="10" y="36" width="80" height="28" rx="14" fill="#eee" stroke="#111" stroke-width="4"/><rect x="38" y="36" width="24" height="28" fill="#999" stroke="#111" stroke-width="3"/></g></svg>`,
-  check: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="34" fill="#eee" stroke="#111" stroke-width="5"/><path d="M32 52L45 65L70 36" stroke="#111" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`,
-  bottle: `<svg viewBox="0 0 100 100"><rect x="40" y="8" width="20" height="12" fill="#111"/><path d="M34 28Q34 20 42 20H58Q66 20 66 28V88H34Z" fill="#eee" stroke="#111" stroke-width="4"/><path d="M34 54Q42 48 50 54T66 54V88H34Z" fill="#777"/></svg>`,
-  stop: `<svg viewBox="0 0 100 100"><polygon points="32,8 68,8 92,32 92,68 68,92 32,92 8,68 8,32" fill="#111"/><text x="50" y="58" text-anchor="middle" font-size="22" font-weight="900" fill="#eee" font-family="Playfair Display,serif">STOP</text></svg>`
-};
-const JI = ['ball', 'run', 'kick', 'swim', 'senam'];
-const CI = ['plester', 'shoe', 'check', 'bottle', 'stop'];
-
-const R = (n, c = '', x = '') => `class="rv ${c}" style="--n:${n};${x}"`;
-let li = 0;
-const letters = t => { li = 0; return [...t].map(ch => ch === ' ' ? ' ' : `<span class="lt" style="--i:${li++}">${ch}</span>`).join(''); };
-const head = (t, s, n = 0) => `<div ${R(n, 'rule dbl rv-rule')}></div><div class="sechead"><h2 ${R(n + 1, 'hl')}>${t}</h2><span ${R(n + 2, 'sec')}>${s}</span></div>`;
-const note = n => NOTES[n] ? `<div ${R(11, 'note')}><b>Catatan Redaksi</b>${NOTES[n]}</div>` : '';
-const slide = (k, inner) => `<section class="slide${k === 0 ? ' active' : ''}" data-i="${k}"><div class="wrap">${inner}${note(k)}</div></section>`;
-
-function renderSlides() {
-  const d = DATA, S = [];
-  S.push(slide(0, `
-    <div ${R(0, 'rule dbl rv-rule')}></div>
-    <h1 class="big">${letters(d.judul.replace('\n', ' '))}</h1>
-    <div ${R(3, 'blackbar')}><span>Edisi PJOK</span><span>${d.kelompok}</span><span class="today"></span></div>
-    <div ${R(4, 'navline')}>${d.daftarIsi.map(x => x.label).join(' ◆ ')}</div>
-    <div ${R(5, 'subt')}><i></i><span>Presentasi · ${d.tema}</span><i></i></div>
-    <div class="g2">
-      <figure ${R(6, 'photo rv-photo')}>${ILL.hero}</figure>
-      <div class="vr">
-        <h3 ${R(7, 'hl')} style="--n:7;font-size:clamp(1.2rem,3.6vw,1.9rem)">${d.tema}: Gerak Sehat, Tubuh Kuat</h3>
-        <p ${R(8, 'body dropcap')} style="--n:8;margin-top:.6rem">${d.latarBelakang[0]}</p>
-      </div>
-    </div>`));
-  S.push(slide(1, head('DISUSUN OLEH', 'Tim Penyusun') + `
-    <div class="people">${d.anggota.map((a, k) => `
-      <div>
-        <figure ${R(3 + k, 'photo tall rv-photo')}>${a.foto ? `<img src="${a.foto}" alt="${a.nama}">` : ILL.person}</figure>
-        <div ${R(4 + k, 'cap')}>${a.nama}<small>${a.jabatan} · ${a.deskripsi}</small></div>
-      </div>`).join('')}
-    </div>`));
-  S.push(slide(2, head('DALAM EDISI INI', 'Daftar Isi') + `
-    <div class="toc">${d.daftarIsi.map((x, k) => `
-      <button ${R(3 + k, 'toc-row')} onclick="go(${x.slide})"><span class="no">${x.no}</span><span>${x.label}</span><i></i><span>hal. ${x.slide + 1}</span></button>`).join('')}
-    </div>`));
-  S.push(slide(3, head('LATAR BELAKANG', 'Sorotan Utama') + `
-    <div class="g2">
-      <div>
-        <figure ${R(3, 'photo rv-photo')}>${ILL.stadium}</figure>
-        <div ${R(4, 'cap')}>Olahraga dimulai dari kebiasaan kecil<small>Ilustrasi: stadion</small></div>
-      </div>
-      <div class="vr">
-        <p ${R(4, 'body dropcap')}>${d.latarBelakang[0]}</p>
-        <p ${R(5, 'body')} style="--n:5;margin-top:.7rem">${d.latarBelakang[1]}</p>
-      </div>
-    </div>`));
-  S.push(slide(4, head('TUJUAN PRESENTASI', 'Agenda') + `
-    <div class="g2">
-      <ol class="goals">${d.tujuan.map((t, k) => `<li ${R(3 + k)}><b>${k + 1}</b><span>${t}</span></li>`).join('')}</ol>
-      <div>
-        <figure ${R(4, 'photo rv-photo')}>${ILL.run}</figure>
-        <div ${R(5, 'cap')}>Empat hal yang akan dipelajari<small>Ilustrasi: pelari</small></div>
-      </div>
-    </div>`));
-  S.push(slide(5, head('PENGERTIAN OLAHRAGA', 'Definisi') + `
-    <div class="g2">
-      <figure ${R(3, 'photo rv-photo')}>${ILL.senam}</figure>
-      <div class="vr"><p ${R(4, 'quote')}>“${d.pengertian}”</p></div>
-    </div>
-    <div class="strip">
-      <div><figure ${R(5, 'photo rv-photo')}>${ILL.ball}</figure><div ${R(6, 'cap')}>Bola</div></div>
-      <div><figure ${R(6, 'photo rv-photo')}>${ILL.shoe}</figure><div ${R(7, 'cap')}>Sepatu</div></div>
-      <div><figure ${R(7, 'photo rv-photo')}>${ILL.trophy}</figure><div ${R(8, 'cap')}>Piala</div></div>
-    </div>`));
-  S.push(slide(6, head('JENIS-JENIS OLAHRAGA', 'Klasifikasi') + `
-    <div class="kinds">${d.jenis.map((j, k) => `
-      <div>
-        <figure ${R(3 + k, 'photo rv-photo')}>${ILL[JI[k]]}</figure>
-        <div ${R(4 + k, 'tag')}>${j.grup}</div>
-        <div ${R(4 + k, 'cap')}>${j.judul}<small>${j.contoh}</small></div>
-      </div>`).join('')}
-    </div>`));
-  S.push(slide(7, head('MANFAAT OLAHRAGA', 'Grafik Manfaat') + `
-    <div class="chart">${d.manfaat.map((m, k) => `
-      <div>
-        <div class="barw"><div ${R(3 + k, 'bar rv-bar', `height:${38 + k * 15}%`)}></div></div>
-        <div ${R(5 + k, 'cap')}>${m.no}. ${m.judul}<small>${m.desc}</small></div>
-      </div>`).join('')}
-    </div>`));
-  S.push(slide(8, head('CEDERA &amp; PENCEGAHAN', 'Keselamatan') + `
-    <div class="tips">${d.cedera.map((c, k) => `
-      <div ${R(3 + k, 'tip')}><figure class="photo sm">${ILL[CI[k]]}</figure><div><b>${k + 1}.</b> ${c.teks}</div></div>`).join('')}
-    </div>`));
-  S.push(slide(9, head('KESIMPULAN', 'Ringkasan') + `
-    <p ${R(3, 'body dropcap')}>${d.kesimpulan}</p>
-    <div class="steps">
-      <div><figure ${R(4, 'photo rv-photo')}>${ILL.senam}</figure><div ${R(5, 'cap')}>1. Pemanasan</div></div>
-      <span ${R(5, 'arr')}>➜</span>
-      <div><figure ${R(6, 'photo rv-photo')}>${ILL.run}</figure><div ${R(7, 'cap')}>2. Kegiatan Inti</div></div>
-      <span ${R(7, 'arr')}>➜</span>
-      <div><figure ${R(8, 'photo rv-photo')}>${ILL.bottle}</figure><div ${R(9, 'cap')}>3. Pendinginan</div></div>
-    </div>`));
-  S.push(`<section class="slide" data-i="10"><div class="wrap center">
-    <div ${R(0, 'rule dbl rv-rule')}></div>
-    <div ${R(1, 'subt')}><i></i><span>Presentasi ${d.tema}</span><i></i></div>
-    <h1 class="big">${letters('TERIMA KASIH')}</h1>
-    <div ${R(8, 'subt')}><i></i><span>${d.penutup}</span><i></i></div>
-    <div ${R(9, 'stamp rv-stamp')}>SELESAI</div>
-    <p ${R(10, 'sec')} style="--n:10;display:block;white-space:normal">${d.kelompok} · Edisi PJOK</p>
-    ${note(10)}
-  </div></section>`);
-  document.getElementById('slides-root').innerHTML = S.join('');
-}
-
-/* =========================================================
-   TRANSISI MORPH (ala PowerPoint)
-   Elemen sejenis di slide lama & baru dipasangkan berdasarkan
-   urutan, lalu "terbang" dari posisi/ukuran lama ke yang baru.
-   Elemen tanpa pasangan muncul dengan animasi tinta.
-   Jenis: t = text (skala ikut ukuran font), box (skala ikut kotak), move (geser saja)
-   f = 1 → ikut cross-fade, f = 0 → bentuk sama persis (tanpa fade)
-   ========================================================= */
-const CATS = [
-  ['.rule', 'box', 0],
-  ['.big', 'text', 1],
-  ['.hl', 'text', 1],
-  ['.sec', 'text', 1],
-  ['.blackbar,.subt', 'box', 0],
-  ['.photo:not(.sm)', 'box', 1],
-  ['.cap', 'text', 1],
-  ['.tag', 'text', 1],
-  ['.body,.quote', 'text', 1],
-  ['.toc-row,.goals li,.tip', 'move', 1],
-  ['.bar', 'box', 0],
-  ['.note', 'move', 1]
-];
-const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-const fs = e => parseFloat(getComputedStyle(e).fontSize) || 16;
-
-let slides = [], i = 0, busy = false, queued = null;
-const total = 11;
-
-function ui() {
-  document.getElementById('cur').textContent = i + 1;
-  document.getElementById('prev').disabled = i === 0;
-  document.getElementById('next').textContent = i === total - 1 ? 'Selesai ✓' : 'Lanjut ›';
-  const el = document.getElementById('dots'); el.innerHTML = '';
-  for (let n = 0; n < total; n++) {
-    const b = document.createElement('button');
-    b.className = 'dot' + (n === i ? ' on' : '');
-    b.onclick = () => go(n);
-    el.appendChild(b);
-  }
-}
-function swap(n) { slides.forEach((s, k) => s.classList.toggle('active', k === n)); i = n; ui(); }
-
-function go(n) {
-  if (n < 0 || n >= total || n === i) return;
-  if (busy) { queued = n; return; }
-  const old = slides[i], nw = slides[n];
-  if (!old.animate || matchMedia('(prefers-reduced-motion:reduce)').matches) { swap(n); return; }
-  busy = true;
-  nw.scrollTop = 0;
-
-  /* 1. ukur posisi lama & baru, lalu pasangkan */
-  const pairs = [];
-  CATS.forEach(([sel, type, fade]) => {
-    const A = [...old.querySelectorAll(sel)], B = [...nw.querySelectorAll(sel)];
-    for (let j = 0; j < Math.min(A.length, B.length); j++) {
-      const ra = A[j].getBoundingClientRect(), rb = B[j].getBoundingClientRect();
-      if (!rb.width || !ra.width) continue;
-      let sx = 1, sy = 1;
-      if (type === 'text') sx = sy = clamp(fs(A[j]) / fs(B[j]), .3, 4);
-      else if (type === 'box') { sx = clamp(ra.width / rb.width, .05, 12); sy = clamp(ra.height / Math.max(rb.height, 1), .05, 12); }
-      pairs.push({ a: A[j], b: B[j], dx: ra.left - rb.left, dy: ra.top - rb.top, sx, sy, fade });
-    }
-  });
-
-  /* 2. siapkan: matikan animasi masuk untuk yang di-morph */
-  document.documentElement.style.setProperty('--b', '.5s');
-  old.classList.add('leaving');
-  pairs.forEach(p => { p.b.classList.add('mo'); if (!p.fade) p.a.style.visibility = 'hidden'; });
-  swap(n);
-
-  /* 3. jalankan morph */
-  const D = 850;
-  pairs.forEach(p => {
-    p.b.style.transformOrigin = '0 0';
-    const from = `translate(${p.dx}px,${p.dy}px) scale(${p.sx},${p.sy})`;
-    p.b.animate([
-      { transform: from, opacity: p.fade ? 0 : 1 },
-      { opacity: 1, offset: .5 },
-      { transform: 'none', opacity: 1 }
-    ], { duration: D, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'backwards' })
-      .onfinish = () => { p.b.style.transformOrigin = ''; };
-  });
-  const fo = old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, easing: 'ease-in', fill: 'forwards' });
-
-  setTimeout(() => {
-    fo.cancel();
-    old.classList.remove('leaving');
-    pairs.forEach(p => { p.a.style.visibility = ''; p.a.classList.remove('mo'); });
-    old.querySelectorAll('.mo').forEach(e => e.classList.remove('mo'));
-    busy = false;
-    if (queued !== null) { const q = queued; queued = null; go(q); }
-  }, D + 80);
-}
-function goDir(d) { go((queued !== null ? queued : i) + d); }
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goDir(1); }
-  else if (e.key === 'ArrowLeft') goDir(-1);
-  else if (e.key === 'Home') go(0);
-  else if (e.key === 'End') go(total - 1);
-  else if (e.key === 'f' || e.key === 'F') {
-    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.();
-  }
+/* ====== ADEGAN PRAKTIK: gerakan karakter berbeda untuk tiap pernyataan ====== */
+const O=(x,y)=>`style="transform-origin:${x}px ${y}px"`;
+const AR=(c,col=SK)=>c=='-'?ln('M122 54H168',col,5):`<g class="${c}" ${O(122,54)}>${ln('M122 54V22',col)}</g>`;
+const LG=(c,col=SK)=>`<g class="${c}" ${O(72,54)}>${ln('M72 54H36',col,6)}</g>`;
+const TOR=ln('M72 54H130',SK,12)+ln('M98 54H118',CO,12);
+const HD=(c,up)=>`<g class="${c}" ${O(138,52)}><circle cx="142" cy="50" r="8" fill="${SK}"/><path d="M134 49a8 8 0 0 1 16 0z" fill="${CO}"/>${up?'<path d="M138 54q4 3 8 0" stroke="#032b52" stroke-width="2" fill="none"/>':'<path d="M146 49h5" stroke="#032b52" stroke-width="2.5"/>'}</g>`;
+const SD=(a1,a2,l1,l2,h,w,up)=>`<g class="${w||''}" ${O(100,54)}>${AR(a2,'#e6a778')}${LG(l2,'#e6a778')}${TOR}${LG(l1)}${HD(h,up)}${AR(a1)}</g>`;
+const BUB=(x,y)=>[0,1,2].map(k=>`<circle class="bb" cx="${x+k*5}" cy="${y}" r="${2+k%2}" fill="#fff" style="animation-delay:${k*.45}s"/>`).join('');
+const AP=(v,w)=>`<path fill="none" stroke="${SK}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" d="${v[0]}">${v.length>1?`<animate attributeName="d" dur="2.4s" repeatCount="indefinite" calcMode="spline" keySplines="${v.slice(1).map(()=>'.45 0 .55 1').join(';')}" values="${v.join(';')}"/>`:''}</path>`;
+const MR=s=>`<g transform="translate(0 100) scale(1 -1)">${s}</g>`;
+const TV=(lg,ar)=>{const l=AP(lg,6),a=AP(ar,5);return `${l}${MR(l)}${a}${MR(a)}<rect x="60" y="43" width="62" height="14" rx="7" fill="${SK}"/><rect x="88" y="43" width="22" height="14" fill="${CO}"/><circle cx="132" cy="50" r="8" fill="${CO}"/>`+tx('Tampak dari atas',100,95,'',8,'fill:#032b52;font-weight:700')};
+const LX='M62 47L40 48L18 48',LR='M62 47L44 33L56 40',LK='M62 47L46 34L22 20',AX='M118 46L145 47L172 47',AO='M118 46L138 30L160 14',AI='M118 46L126 34L142 42';
+const LB=t=>tx(t,168,20,'',9,'fill:#032b52;font-weight:700');
+Object.assign(SC,{
+free0:SV('',SD('zw1','zw2','zk1','zk2','')+WT+tx('⭐',100,26,'pls',26)),
+free1:SV('','<rect x="160" y="50" width="22" height="7" rx="3" fill="#ffe08a"/>'+SD('-','-','zk1','zk2','')+WT+BUB(22,46)+tx('💦',22,44,'drop',18)),
+free2:SV('',SD('zw1','zw2','','','')+WT),
+free3:SV('',SD('zw1','zw2','zk1','zk2','zt')+WT+BUB(152,48)+tx('💨',160,36,'zp',20)),
+breast0:SV('',SD('zs','zs','zf','zf','zh')+WT+tx('🐸',40,34,'bounce',26)),
+breast1:SV('',TV([LX,LR,LK,LX,LX],[AX])),
+breast2:SV('',TV([LX],[AX,AO,AI,AX,AX])),
+breast3:SV('',SD('zs','zs','zf','zf','zh')+WT+tx('💨',160,36,'zp',20)),
+back0:SV('',`<g transform="translate(0 8)">${SD('zr1','zr2','zk1','zk2','','',1)}</g>`+WT+tx('☀️',160,26,'spin',24)),
+back1:SV('',`<g transform="translate(26 -8) scale(.7)">${SD('zw1','zw2','zk1','zk2','')}</g><g transform="translate(26 36) scale(.7)">${SD('zr1','zr2','zk1','zk2','','',1)}</g><path d="M0 44H200" stroke="#fff" stroke-dasharray="4 4" opacity=".7"/>`+LB('Telungkup')+tx('Terlentang',168,64,'',9,'fill:#032b52;font-weight:700')),
+back2:SV('',`<g transform="translate(0 8)">${SD('zr1','zr2','zk1','zk2','','',1)}</g>`+WT+tx('💨',160,40,'zp',18)+tx('😌',30,30,'a-float',20)),
+fly0:SV('',SD('zb1','zb2','zd','zd','','zbw')+WT+tx('💦',150,30,'drop',18)+tx('💪',40,32,'pls',22)),
+fly1:SV('',SD('zb1','zb2','zd','zd','','zbw')+WT+tx('🦋',165,30,'a-float',26)),
+fly2:SV('',SD('-','-','zd','zd','','zbw')+WT+`<g class="spd">${ln('M24 42H48','#fff',3)}${ln('M16 52H38','#fff',3)}</g>`),
+fly3:SV('',SD('zb1','zb2','zd','zd','zu','zbw')+WT+tx('💨',160,34,'zq',20))
 });
-function fsToggle() { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
-let tx = 0;
-const stage = document.getElementById('stage');
-stage.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, { passive: true });
-stage.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].screenX - tx;
-  if (Math.abs(dx) > 60) goDir(dx < 0 ? 1 : -1);
-}, { passive: true });
-let wheelAt = 0;
-stage.addEventListener('wheel', e => {
-  const now = Date.now();
-  if (now - wheelAt < 1200 || Math.abs(e.deltaY) < 40) return;
-  const s = e.target.closest('.slide');
-  if (s && s.scrollHeight > s.clientHeight + 4) return;
-  wheelAt = now; goDir(e.deltaY > 0 ? 1 : -1);
-}, { passive: true });
+const HUE=[205,195,215,188,208,182,220,192,212,186,200,205];
+const ACC=['','rgba(255,255,255,.14)','rgba(120,210,255,.28)','rgba(62,200,232,.30)','rgba(255,255,255,.14)','rgba(120,200,255,.26)','rgba(180,235,255,.22)','rgba(100,170,255,.28)','rgba(255,255,255,.18)','rgba(100,230,220,.26)','rgba(150,215,255,.26)',''];
+const RAD=[.9,.7,1.5,.3,1.2,.5,1.4,.9,.2,1.3,.6,.9],BW=[1,1,2,1,3,1,2,1,3,1,2,1];
+const BC=['','rgba(255,255,255,.3)','#a8e4ff','#7fe6ff','rgba(255,255,255,.4)','#9fd8ff','#c8f0ff','#9cc4ff','#cfeeff','#8ff0e6','#b5e6ff',''];
+const SHD=['','0 .2em .8em rgba(0,0,0,.15)','0 .4em 1.2em rgba(0,0,0,.28)','0 .1em .3em rgba(0,0,0,.2)','0 .5em 1.4em rgba(0,0,0,.3)','0 .2em .6em rgba(0,0,0,.16)','0 .35em 1em rgba(0,0,0,.25)','0 .15em .5em rgba(0,0,0,.2)','0 .45em 1.3em rgba(0,0,0,.3)','0 .1em .4em rgba(0,0,0,.18)','0 .3em .9em rgba(0,0,0,.24)',''];
+const TC=['#fff','#fff','#e6f8ff','#bff0ff','#fff','#d6f3ff','#fff','#d0e6ff','#e6f8ff','#c9fff6','#fff','#fff'];
+const TS=[1,1.5,.8,1.8,.9,1.6,.7,1.2,1.4,1.2,1.9,1],LC=[1,1,1,1,4,1,1,2,1,1,1,1],LY=['','sp','','','col','sr','bt','col','sp','bt','sr',''],NS=[12,20,16,24,18,22,16,24,18,20,16,12],NX=['58%','-6%','54%','-3%','40%','56%','-5%','45%','55%','-2%','50%','25%'],NY=['62%','50%','58%','48%','54%','46%','56%','50%','58%','46%','52%','45%'],TW=[6.2,9,6.2,6.2,5,7,12,5,5,6.2,4.2,6.2],CW=[9,9,16,9,9,9,9,9,9,13,9,9],HW=[1,1.3,.8,1.2,1,1.3,.8,1.2,1.3,1,1.2,1];
+const HS=['free','breast','free','back','free','breast','back','fly','free','free','back','fly'];
+const HR=[0,-3,0,3,-2,2,-3,0,2,-2,3,0];
 
-renderSlides();
-slides = [...document.querySelectorAll('.slide')];
-const today = new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-document.getElementById('date').textContent = 'Harian Olahraga · ' + today;
-document.querySelectorAll('.today').forEach(e => e.textContent = today);
-const tk = ['Olahraga menjaga kesehatan tubuh dan mental', ...DATA.tujuan, 'Urutan aman: pemanasan → kegiatan inti → pendinginan', 'Minum air cukup dan istirahat yang cukup'].join('  ◆  ');
-document.getElementById('tk').textContent = tk + '  ◆  ' + tk + '  ◆  ';
-document.getElementById('tot').textContent = total;
-ui();
+const mid=(id,c='')=>`class="${c}" data-morph-id="${id}"`;
+const CH=t=>t.split(' ').map(w=>`<span class="w">${[...w].map(c=>`<i class="c">${c}</i>`).join('')}</span>`).join(' ');
+const head=(t,s)=>`<div ${mid('chip','chip')}>${s}</div><h2 ${mid('title')}>${CH(t)}</h2>`;
+const pl=(k,c,id)=>`<div class="pool ${c}" data-morph-id="pool-${id}">${SC[k]||k}</div>`;
+const card=(k,t,p,id)=>`<div ${mid('item-'+id,'card')} data-cap="${t}">${pl(k,'',id)}<h3>${t}</h3><p>${p}</p></div>`;
+const lst=a=>`<ul class="li">${a.map((x,k)=>`<li ${mid('item-'+k)} data-cap="${x[3]||x[1]||''}">${pl(x[0],'th',k)}<span>${x[1]?`<b>${x[1]}:</b> `:''}${x[2]}</span></li>`).join('')}</ul>`;
+const S=[];
+S.push(`<div class="wrap center"><div ${mid('chip','chip')}>Presentasi PJOK</div>
+<h1 ${mid('title','big')}>${[...'RENANG'].map((c,k)=>`<span class="c" style="--i:${k}">${c}</span>`).join('')}</h1>
+<div class="ha"></div>
+<p ${mid('sub-0','sub')}>Olahraga Air untuk Tubuh Sehat &amp; Kuat</p><p ${mid('sub-1','sub')} style="font-size:.85em">Kelompok 1 · Tugas Sekolah</p></div>`);
+S.push(`<div class="wrap">${head('Pengertian Renang','Materi 1')}${lst([[sw('breast'),'','Renang adalah olahraga yang dilakukan di dalam air dengan cara menggerakkan tubuh (tangan dan kaki) untuk mempertahankan diri agar tidak tenggelam dan bergerak maju.','Definisi: tangan dan kaki menggerakkan tubuh'],['kuno','','Olahraga ini sudah ada sejak zaman prasejarah dan merupakan salah satu insting dasar manusia untuk bertahan hidup.','Sejarah: insting bertahan hidup']])}</div>`);
+S.push(`<div class="wrap">${head('Tujuan Berenang','Materi 2')}<div class="cards">${card('sehat','Kesehatan','Meningkatkan daya tahan tubuh, kesehatan jantung, dan kekuatan otot.',0)}${card('rekreasi','Rekreasi','Sebagai kegiatan santai dan menyenangkan.',1)}${card('prestasi','Prestasi','Untuk mengikuti kompetisi renang.',2)}${card('bertahan','Keterampilan','Meningkatkan kemampuan bertahan hidup di air.',3)}</div></div>`);
+S.push(`<div class="wrap">${head('Teknik Dasar Renang','Materi 3')}<p data-fade style="margin-bottom:.8em">Sebelum mempelajari berbagai gaya renang, ada beberapa teknik dasar yang perlu dikuasai:</p><div class="cards">${card('mengapung','Mengapung','Menjaga tubuh tetap berada di permukaan air.',0)}${card('napas','Pernapasan','Mengatur napas saat berada di dalam air.',1)}${card('meluncur','Meluncur','Meluncur di permukaan air dengan menggunakan dorongan kaki.',2)}</div></div>`);
+[['free','Gaya Bebas','Front Crawl',['Gaya renang yang paling umum dan mudah dipelajari.','Gerakan kaki naik turun bergantian, seperti gerakan berjalan di tempat.','Lengan bergerak bergantian ke depan.','Pernapasan dilakukan dengan memutar kepala ke samping.'],'iklN'],
+['breast','Gaya Dada','Breaststroke',['Juga dikenal sebagai gaya katak karena gerakannya mirip katak.','Kaki bergerak membuka dan menutup, seperti gerakan kaki katak.','Lengan bergerak ke samping dan ke depan secara bersamaan.','Pernapasan dilakukan saat lengan membuka ke samping.'],'iklN'],
+['back','Gaya Punggung','Backstroke',['Dilakukan dengan posisi tubuh terlentang.','Gerakan kaki dan lengan mirip dengan gaya bebas, tetapi dilakukan dalam posisi terbalik.','Pernapasan lebih mudah karena wajah selalu berada di atas permukaan air.'],'ilN'],
+['fly','Gaya Kupu-Kupu','Butterfly Stroke',['Gaya renang yang paling sulit dan membutuhkan kekuatan serta koordinasi yang baik.','Kedua lengan bergerak bersamaan ke depan, seperti gerakan sayap kupu-kupu.','Kaki bergerak bersamaan naik turun, menghasilkan dorongan ke depan.','Pernapasan dilakukan saat lengan bergerak ke atas.'],'ilkN']
+].forEach((g,n)=>S.push(`<div class="wrap">${head(g[1],'Materi 4.'+(n+1)+' · '+g[2])}${lst(g[3].map((t,k)=>[SC[g[0]+k],'',t,{i:'Peragaan seluruh gerakan',k:'Perhatikan gerakan kaki',l:'Perhatikan gerakan lengan',n:'Perhatikan pernapasan'}[g[4][k].toLowerCase()]]))}</div>`));
+S.push(`<div class="wrap">${head('Peraturan dalam Renang','Materi 5')}${lst([['start','Start','Dilakukan dari atas balok start dengan posisi tubuh siap meluncur ke air.'],['gaya','Gaya','Perenang harus mengikuti gaya renang yang ditentukan dalam perlombaan.'],['putaran','Putaran','Saat mencapai ujung kolam, perenang harus melakukan putaran balik dengan cepat dan efisien.'],['finis','Finis','Perenang harus menyentuh dinding kolam saat mencapai finis.'],['dq','Diskualifikasi','Perenang dapat didiskualifikasi jika melanggar peraturan, seperti start yang salah atau tidak menyelesaikan gaya renang dengan benar.']])}</div>`);
+S.push(`<div class="wrap">${head('Peralatan Renang','Materi 6')}<div class="cards">${card('suit','Pakaian renang','Nyaman dan pas, memudahkan pergerakan di air.',0)}${card('goggle','Kacamata renang','Melindungi mata dari klorin dan membantu melihat dengan jelas di dalam air.',1)}${card('cap','Penutup kepala','Mengurangi hambatan air dan melindungi rambut dari klorin.',2)}</div></div>`);
+S.push(`<div class="wrap">${head('Keselamatan di Kolam Renang','Materi 7')}${lst([['warm','Pemanasan','Lakukan sebelum berenang untuk mempersiapkan otot dan mengurangi risiko cedera.'],['teman','Jangan berenang sendiri','Selalu berenang dengan teman atau diawasi oleh orang dewasa.'],['rules','Ikuti peraturan kolam renang','Patuhi semua peraturan dan petunjuk keselamatan yang ada di kolam renang.'],['lari','Jangan berlari di tepi kolam','Tepi kolam renang biasanya licin, jadi jangan berlari untuk menghindari terjatuh.'],['lelah','Berhenti jika lelah','Jika merasa lelah, segera berhenti dan istirahat.']])}</div>`);
+S.push(`<div class="wrap center"><div ${mid('chip','chip')}>Selesai</div><h1 ${mid('title','big')} style="font-size:var(--big2)">${[...'TERIMA KASIH'].map((c,k)=>c==' '?' ':`<span class="c" style="--i:${k}">${c}</span>`).join('')}</h1><div class="ha"></div><p ${mid('sub-0','sub')}>Ada pertanyaan?</p><p ${mid('sub-1','sub')} style="font-size:.85em">Kelompok 1 · Olahraga Renang</p></div>`);
+
+/* ============ KANVAS ============ */
+const st=document.getElementById('stage'),cv=document.getElementById('cv'),fx=document.getElementById('fx'),root=document.getElementById('root');
+const T=S.length;let i=0,tr=null,hp=null;
+function fit(){const vw=innerWidth,vh=innerHeight,por=vw/vh<1;let w,h;
+ if(por){w=vw;h=vh}else{w=Math.min(vw,vh*16/9);h=w*9/16}
+ const u=por?Math.min(w/21,h/38):w/60;
+ cv.style.cssText=`left:${(vw-w)/2}px;top:${(vh-h)/2}px;width:${w}px;height:${h}px;font-size:${u}px`;
+ fx.style.fontSize=u+'px';return u}
+fit();
+root.innerHTML=S.map((h,k)=>`<section class="slide${k?'':' active'}${LY[k]?' '+LY[k]:''}" style="--ac:${ACC[k]||'rgba(255,255,255,.14)'};--r:${RAD[k]}em;--bw:${BW[k]}px;--bc:${BC[k]||'rgba(255,255,255,.3)'};--sh:${SHD[k]||'0 .2em .8em rgba(0,0,0,.15)'};--tc:${TC[k]};--ts:${TS[k]};--lc:${LC[k]};--tw:${TW[k]}em;--cw:${CW[k]}em"><b class="num" data-morph-id="num" style="left:${NX[k]};top:${NY[k]};font-size:${NS[k]}em">${k==0?'GO':k==11?'FIN':String(k).padStart(2,'0')}</b>${h}</section>`).join('');
+const sl=[...root.children];
+function ui(){document.querySelector('.nav').style.setProperty('--p',i/(T-1));pg.textContent=(i+1)+'/'+T;pv.disabled=i==0;nx.textContent=i==T-1?'Selesai ✓':'Lanjut ›';nx.disabled=i==T-1;
+ dots.innerHTML=sl.map((_,k)=>`<button class="dot${k==i?' on':''}" onclick="go(${k})"></button>`).join('')}
+
+/* ============ OBJEK PERSISTEN ============ */
+const hero=document.createElement('div');hero.id='hero';hero.innerHTML=sw('free');st.appendChild(hero);
+const bls=[0,1,2].map(()=>{const d=document.createElement('div');d.className='bl';st.insertBefore(d,cv);return d});
+const shp=['ring','bar','tri','blob'].map(c=>{const d=document.createElement('div');d.className='sh '+c;st.insertBefore(d,cv);return d});
+function env2(n){shp.forEach((s,k)=>{const a=Math.sin(n*1.3+k*2.1),c=Math.cos(n*1.1+k*1.7),col=`hsla(${[200,190,175,210][k]+n*4},90%,66%,${k==1?.3:.26})`;
+ s.style.transform=`translate(${(a*.5+.5)*78}vw,${(c*.5+.5)*68}vh) rotate(${(n*47+k*60)%360}deg) scale(${.6+((n+k*2)%4)*.35})`;
+ s.style.borderRadius=k==0?'50%':k==3?((n%3)*30+10)+'%':k==1?(n%2?'2vmax':'0'):'0';
+ s.style[k==0?'borderColor':'backgroundColor']=col});}
+const hf=p=>`translate(${p.x+p.w/2-50}px,${p.y+p.w/4-25}px) scale(${p.w/100}) rotate(${p.r}deg)`;
+function hTarget(n){const a=sl[n].querySelector('.ha'),r0=cv.getBoundingClientRect(),u=parseFloat(cv.style.fontSize);
+ if(a){const r=a.getBoundingClientRect();return{x:r.left,y:r.top,w:r.width,r:HR[n]}}
+ const w=Math.min(5.5*u,r0.width*.28)*HW[n];return{x:r0.right-w-u,y:r0.top+2.7*u,w,r:HR[n]}}
+function heroTo(n){const t=hTarget(n);hero.firstChild.setAttribute('class','sw '+HS[n]);hero.style.transform=hf(t);hp=t}
+function env(n){env2(n);st.style.setProperty('--hue',HUE[n]);
+ bls.forEach((b,k)=>{const a=Math.sin(n*1.7+k*2.3),c=Math.cos(n*1.3+k*1.9);b.style.transform=`translate(${(a*.5+.3)*70}vw,${(c*.5+.3)*70}vh) scale(${.5+((n+k)%3)*.45})`})}
+for(let k=0;k<18;k++){const b=document.createElement('span');b.className='bub';const s=6+Math.random()*18;
+ b.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${7+Math.random()*9}s;animation-delay:-${Math.random()*12}s`;st.appendChild(b)}
+
+/* ============ MESIN MORPH (FLIP / Web Animations API) ============
+   First: ukur semua [data-morph-id] di slide lama. Last: slide baru sudah ter-layout.
+   Invert/Play: tiap pasangan ID dianimasikan dengan easing sama; selesai serempak.
+   Hierarki: judul & teks mulai tanpa jeda, kartu/baris berjenjang (stagger) namun
+   berakhir bersamaan. Tanpa pasangan -> fade halus. */
+function cancelTr(){if(!tr)return;const X=tr;tr=null;X.timers.forEach(clearTimeout);X.anims.forEach(a=>{try{a.cancel()}catch(e){}});X.nodes.forEach(n=>n.remove());X.undo.forEach(f=>f())}
+const fz=e=>parseFloat(getComputedStyle(e).fontSize)||16;
+function swap(n){sl.forEach((s,k)=>s.classList.toggle('active',k==n));i=n;ui();env(n)}
+function morph(old,nw,n,cur){
+ const D=(CFG.per[n]&&CFG.per[n].dur)||CFG.dur,E=(CFG.per[n]&&CFG.per[n].ease)||CFG.ease;
+ const X={anims:[],nodes:[],timers:[],undo:[]};tr=X;
+ const A=(el,kf,o)=>{const a=el.animate(kf,Object.assign({duration:D,easing:E,fill:'both'},o||{}));X.anims.push(a);return a};
+ const R=e=>e.getBoundingClientRect(),U=f=>X.undo.push(f);
+ const fadeIn=el=>A(el,[{opacity:0,transform:'translateY(.7em)'},{opacity:1,transform:'none'}],{delay:D*.45,duration:D*.55});
+ const ids=s=>{const m=new Map();s.querySelectorAll('[data-morph-id]').forEach(e=>{if(!m.has(e.dataset.morphId))m.set(e.dataset.morphId,e)});return m};
+ nw.scrollTop=0;
+ const MO=ids(old),MN=ids(nw),RO=new Map([...MO].map(([k,e])=>[k,R(e)]));
+ st.style.setProperty('--D',D+'ms');
+ let ord=0;
+ const dl=()=>Math.min(ord++*CFG.stagger/4,CFG.stagger);
+
+ const fly=(a,b,ra,rb,uni,de)=>{
+  const s=uni?rb.width/ra.width:1,s0=uni?ra.width/rb.width:1,c=a.cloneNode(true),du=D-de;
+  c.removeAttribute('data-morph-id');
+  Object.assign(c.style,{position:'absolute',left:0,top:0,margin:0,width:ra.width+'px',height:uni?ra.height+'px':'auto',whiteSpace:'nowrap',transformOrigin:'0 0'});
+  fx.appendChild(c);X.nodes.push(c);
+  const fx_=rb.left-ra.left,fy_=rb.top-ra.top,fa=Math.min(80,Math.hypot(fx_,fy_)*.22)+16,fr=(fx_>=0?1:-1)*6;
+  A(c,[{transform:`translate(${ra.left}px,${ra.top}px) scale(1)`,opacity:1},{opacity:1,offset:.2},{transform:`translate(${(ra.left+rb.left)/2}px,${(ra.top+rb.top)/2-fa}px) scale(${(1+s)/2*1.08}) rotate(${fr}deg)`,offset:.5},{opacity:0,offset:.65},{transform:`translate(${rb.left}px,${rb.top}px) scale(${s})`,opacity:0}],{delay:de,duration:du});
+  b.style.transformOrigin='0 0';U(()=>b.style.transformOrigin='');
+  A(b,[{transform:`translate(${ra.left-rb.left}px,${ra.top-rb.top}px) scale(${s0})`,opacity:0},{opacity:0,offset:.2},{transform:`translate(${(ra.left-rb.left)/2}px,${(ra.top-rb.top)/2-fa}px) scale(${(s0+1)/2*1.08}) rotate(${fr}deg)`,offset:.5},{opacity:1,offset:.65},{transform:'none',opacity:1}],{delay:de,duration:du});
+  a.style.visibility='hidden';U(()=>a.style.visibility='');
+ };
+ const item=(a,b,ra,rb,de)=>{
+  const cs=getComputedStyle(a),cb=getComputedStyle(b),du=D-de;
+  const g=document.createElement('div');g.className='ghost';nw.prepend(g);X.nodes.push(g);
+  const sh=(r,c)=>({width:r.width+'px',height:r.height+'px',borderRadius:c.borderTopLeftRadius,backgroundColor:c.backgroundColor,borderColor:c.borderTopColor,borderWidth:c.borderTopWidth,boxShadow:c.boxShadow});
+  const ax=rb.left-ra.left,ay=rb.top-ra.top,ar=Math.min(80,Math.hypot(ax,ay)*.22)+14;
+  A(g,[Object.assign({transform:`translate(${ra.left}px,${ra.top}px)`},sh(ra,cs)),{transform:`translate(${(ra.left+rb.left)/2}px,${(ra.top+rb.top)/2-ar}px) rotate(${(ax>=0?1:-1)*4}deg)`,offset:.5},Object.assign({transform:`translate(${rb.left}px,${rb.top}px)`},sh(rb,cb))],{delay:de,duration:du});
+  A(g,[{opacity:1},{opacity:1,offset:.6},{opacity:0}]);
+  A(g,[{filter:'brightness(1)'},{filter:'brightness(1.4) saturate(1.3)',offset:.5},{filter:'brightness(1)'}],{delay:de,duration:D-de});
+  a.classList.add('gh');U(()=>a.classList.remove('gh'));
+  b.classList.add('gh');U(()=>b.classList.remove('gh'));
+  X.timers.push(setTimeout(()=>b.classList.remove('gh'),D*.6+de));
+  [...b.children].filter(c=>!c.classList.contains('pool')).forEach(c=>A(c,[{opacity:0,transform:'translateY(.5em)'},{opacity:1,transform:'none'}],{delay:D*.45,duration:D*.4}));
+ };
+ const title=(a,b)=>{let ci=0;
+  const CA=[...a.querySelectorAll('.c')].map(e=>({e,r:R(e),f:fz(e),col:getComputedStyle(e).color,u:0}));
+  [...b.querySelectorAll('.c')].forEach(e=>{
+   const rb=R(e),ch=e.textContent.toLowerCase();let best=null,bd=1e9;
+   CA.forEach(x=>{if(!x.u&&x.e.textContent.toLowerCase()==ch){const d=Math.hypot(x.r.left-rb.left,x.r.top-rb.top);if(d<bd){bd=d;best=x}}});
+   if(!best){fadeIn(e);return}
+   best.u=1;best.e.style.visibility='hidden';U(()=>best.e.style.visibility='');
+   e.style.transformOrigin='0 0';U(()=>e.style.transformOrigin='');
+   const de=Math.min(ci++*26,280),dx=best.r.left-rb.left,dy=best.r.top-rb.top,k0=best.f/fz(e);A(e,[{transform:`translate(${dx}px,${dy}px) scale(${k0})`,color:best.col},{transform:`translate(${dx/2}px,${dy/2-fz(e)*.55}px) scale(${(k0+1)/2*1.12})`,offset:.5},{transform:'none',color:getComputedStyle(e).color}],{delay:de,duration:D-de});
+  });
+ };
+ for(const [id,b] of MN){
+  const a=MO.get(id),rb=R(b);
+  if(!a){if(!(id.startsWith('pool-')&&!MO.has('item-'+id.slice(5))))fadeIn(b);continue}
+  const ra=RO.get(id);
+  if(!ra.width||!rb.width)continue;
+  if(id=='title')title(a,b);
+  else if(id.startsWith('item-'))item(a,b,ra,rb,dl());
+  else if(id.startsWith('pool-'))fly(a,b,ra,rb,true,Math.min(+id.slice(5)*CFG.stagger/4,CFG.stagger)||0);
+  else fly(a,b,ra,rb,false,0);
+ }
+ nw.querySelectorAll('[data-fade]').forEach(fadeIn);
+
+ const t=hTarget(n);hero.firstChild.setAttribute('class','sw '+HS[n]);
+ const dir=n>i?1:-1,cw=Math.min(innerWidth*.5,innerHeight*1.05),hm=hf({x:(innerWidth-cw)/2,y:(innerHeight-cw/2)/2,w:cw,r:-dir*9});
+ const wv=document.createElement('div');Object.assign(wv.style,{position:'absolute',left:0,top:0,width:'70vw',height:'100vh',transformOrigin:'0 0',background:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0H9Q17 10 9 20T9 40H0Z' fill='white' fill-opacity='.55'/%3E%3C/svg%3E") right center/7vw 34vh repeat-y,linear-gradient(90deg,transparent,rgba(255,255,255,.2) 60%,rgba(255,255,255,.38))`});fx.appendChild(wv);X.nodes.push(wv);
+ A(wv,[{transform:`translateX(${dir>0?-70:170}vw) scaleX(${dir})`},{transform:`translateX(${dir>0?100:0}vw) scaleX(${dir})`}]);
+ A(hero,[{transform:cur||hf(hp)},{transform:hm,offset:.5},{transform:hf(t)}]);
+ const ring=document.createElement('div');Object.assign(ring.style,{position:'absolute',left:(t.x+t.w*-.1)+'px',top:(t.y+t.w/4-t.w*.6)+'px',width:t.w*1.2+'px',height:t.w*1.2+'px',border:'3px solid rgba(255,255,255,.85)',borderRadius:'50%'});fx.appendChild(ring);X.nodes.push(ring);A(ring,[{transform:'scale(.3)',opacity:.9},{transform:'scale(2.6)',opacity:0}],{delay:D*.45,duration:D*.55});hero.style.transform=hf(t);hp=t;
+
+ old.classList.add('leaving');U(()=>old.classList.remove('leaving'));
+ A(old,[{opacity:1},{opacity:0}],{duration:D*.45});
+ swap(n);
+ X.timers.push(setTimeout(()=>{if(tr===X)cancelTr()},D+60));
+}
+function go(n){
+ if(n<0||n>=T||n===i)return;
+ const cur=tr?getComputedStyle(hero).transform:null;
+ cancelTr();
+ clr();clearTimeout(gt);
+ if(matchMedia('(prefers-reduced-motion:reduce)').matches){swap(n);heroTo(n);seqStart(n);return}
+ morph(sl[i],sl[n],n,cur);gt=setTimeout(()=>seqStart(n),((CFG.per[n]&&CFG.per[n].dur)||CFG.dur)+150);
+}
+/* ============ SEQUENCER: satu timeline per slide, tiap pernyataan diperagakan berurutan ============
+   fokus item -> animasi adegan hanya berjalan pada item aktif -> kata disorot sesuai tempo -> keterangan tahap -> jeda -> item berikut -> (jika Putar) slide berikut lewat Morph */
+let playing=false,sq=null,gt=0;
+function wrapW(el){if(el.dataset.w)return;el.dataset.w=1;el.innerHTML=el.innerHTML.replace(/(^|>)([^<]+)/g,(m,a,t)=>a+t.replace(/\S+/g,w=>`<s class="wd">${w}</s>`))}
+function clr(){if(sq)sq.t.forEach(clearTimeout);sq=null;sl.forEach(s=>{s.classList.remove('seq');s.querySelectorAll('.foc').forEach(e=>e.classList.remove('foc'))});cap.classList.remove('on')}
+function seqStart(n,from=0){clr();return;const s=sl[n],its=[...s.querySelectorAll('.li li,.cards .card')];sq={n,its,k:from,t:[]};
+ if(!its.length){sq.t.push(setTimeout(done,3500));return}
+ s.classList.add('seq');step()}
+function step(){const q=sq;if(!q)return;const s=sl[q.n];s.querySelectorAll('.foc').forEach(e=>e.classList.remove('foc'));
+ if(q.k>=q.its.length){s.classList.remove('seq');cap.classList.remove('on');q.t.push(setTimeout(done,1400));return}
+ const el=q.its[q.k],tn=el.querySelector(':scope>span')||el.querySelector('p');wrapW(tn);
+ const ws=[...tn.querySelectorAll('.wd')];ws.forEach(w=>w.classList.remove('on'));el.classList.add('foc');
+ const h=Math.min(6500,Math.max(2600,1800+tn.textContent.length*45));
+ ws.forEach((w,j)=>q.t.push(setTimeout(()=>w.classList.add('on'),400+j/ws.length*h*.65)));
+ cap.textContent=`Tahap ${q.k+1}/${q.its.length}`+(el.dataset.cap?' · '+el.dataset.cap:'');cap.classList.add('on');
+ q.k++;q.t.push(setTimeout(step,h))}
+function done(){const n=sq?sq.n:i;clr();if(n==T-1){playing=false;pp.textContent='▶ Putar'}else if(playing&&n==i)goDir(1)}
+function tog(){if(playing){playing=false;if(sq){sq.t.forEach(clearTimeout);sq.t=[]}pp.textContent='▶ Putar'}
+ else{playing=true;pp.textContent='⏸ Jeda';seqStart(i,sq&&sq.n==i?Math.max(0,sq.k-1):0)}}
+function rep(){clearTimeout(gt);seqStart(i,0)}
+function goDir(d){go(i+d)}
+function fs(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.()}
+document.addEventListener('keydown',e=>{if(e.key=='ArrowRight'||e.key==' '){e.preventDefault();goDir(1)}else if(e.key=='ArrowLeft')goDir(-1);else if(e.key=='p'||e.key=='P')tog();else if(e.key=='r'||e.key=='R')rep();else if(e.key=='Home')go(0);else if(e.key=='End')go(T-1);else if(e.key=='f'||e.key=='F')fs()});
+let tx0=0;st.addEventListener('touchstart',e=>{tx0=e.changedTouches[0].screenX},{passive:true});
+st.addEventListener('touchend',e=>{const d=e.changedTouches[0].screenX-tx0;if(Math.abs(d)>60)goDir(d<0?1:-1)},{passive:true});
+addEventListener('resize',()=>{cancelTr();fit();heroTo(i)});
+document.fonts&&document.fonts.ready.then(()=>{if(!tr)heroTo(i)});
+env(0);heroTo(0);ui();
 </script>
 </body>
 </html>
