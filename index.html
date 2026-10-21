@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Olahraga Renang</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
 <style>:root{--ink:#0e2f4f;--coral:#ff6b5e;--sun:#ffd23f;--aqua:#27c4e8;--teal:#14a39a;--cream:#fffdf5;--mint:#9be8d0;--pink:#ffb3c7;--sky:#a8dcff;--peach:#ffc98a}
@@ -31,7 +31,7 @@ html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand'
 #sun .in{animation:spin 24s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 
 #slides{position:absolute;inset:0;z-index:2}
-.slide{position:absolute;inset:0;display:none;padding:26px 56px 168px}
+.slide{position:absolute;inset:0;display:none;padding:26px var(--px,56px) 168px}
 .slide.on{display:block}
 .wrap{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
 
@@ -70,7 +70,9 @@ html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand'
 .blist li{display:flex;gap:14px;align-items:flex-start;background:var(--cream);border:3px solid var(--ink);border-radius:20px 24px 20px 24px;box-shadow:4px 5px 0 var(--ink);padding:10px 16px;font-size:21px;line-height:1.3;font-weight:700}
 .blist li i{flex:none;width:34px;height:34px;border-radius:50%;background:var(--coral);color:#fff;border:3px solid var(--ink);font:700 18px/28px Fredoka,sans-serif;text-align:center;font-style:normal}
 .split{display:grid;grid-template-columns:1.12fr 1fr;gap:48px;align-items:center;width:100%;max-width:1168px}
-.split .col{display:flex;flex-direction:column;gap:20px;align-items:center}
+.split .col{display:flex;flex-direction:column;gap:18px;align-items:center}
+.col .txtcard{font-size:21px;padding:16px 22px;line-height:1.4}
+.col .chips{flex-wrap:nowrap;gap:8px}.col .chip{font-size:15px;padding:4px 11px;white-space:nowrap}
 
 /* kover & penutup */
 .cover{display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:36px;width:100%;height:100%}
@@ -101,9 +103,9 @@ html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand'
 @keyframes icp{from{transform:scale(0) rotate(-40deg)}}
 
 /* pelatih */
-.cch{position:absolute;bottom:54px;width:92px;height:120px;z-index:5;cursor:pointer}
+.cch{position:absolute;bottom:54px;width:128px;height:136px;z-index:5;cursor:pointer}
 .cch svg{width:100%;height:100%;overflow:visible}
-.cch.R{right:28px}.cch.L{left:28px}
+.cch.R{right:22px}.cch.L{left:22px}
 .cch .g-body{animation:cb 1.6s ease-in-out infinite;transform-origin:40px 98px}.cch .g-arm{animation:cw 1.1s ease-in-out infinite;transform-origin:58px 52px}
 .cch .g-head{animation:ch 2.4s ease-in-out infinite;transform-origin:40px 44px}
 .cch .g-eye{animation:bl 4s infinite;transform-origin:center;transform-box:fill-box}
@@ -111,7 +113,7 @@ html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand'
 @keyframes cb{50%{transform:scale(1.02,.97)}}@keyframes cw{50%{transform:rotate(-24deg)}}@keyframes ch{50%{transform:rotate(3deg)}}
 @keyframes bl{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}@keyframes mo{50%{transform:scale(1,.55)}}
 .say{position:absolute;bottom:96px;max-width:520px;background:#fff;border:3.5px solid var(--ink);border-radius:24px;box-shadow:4px 5px 0 var(--ink);padding:10px 20px;font:700 20px/1.25 Fredoka,sans-serif;z-index:5;pointer-events:none}
-.say.R{right:132px}.say.L{left:132px}
+.say.R{right:166px}.say.L{left:166px}
 .say:after{content:"";position:absolute;top:50%;margin-top:-8px;width:16px;height:16px;background:#fff}
 .say.R:after{right:-10px;border-top:3.5px solid var(--ink);border-right:3.5px solid var(--ink);transform:rotate(45deg)}
 .say.L:after{left:-10px;border-bottom:3.5px solid var(--ink);border-left:3.5px solid var(--ink);transform:rotate(45deg)}
@@ -129,12 +131,13 @@ html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand'
 .fs{position:absolute;top:12px;right:18px;z-index:30;width:44px;height:44px;border-radius:50%;border:3px solid var(--ink);background:var(--cream);font-size:19px;cursor:pointer;box-shadow:2px 3px 0 var(--ink)}
 .hint{position:absolute;right:26px;bottom:18px;z-index:30;color:#fff;font:600 13px Fredoka,sans-serif;opacity:.8;text-shadow:0 1px 0 rgba(14,47,79,.6)}
 
-/* anjuran putar layar di HP potret */
-#rot{display:none;position:fixed;left:0;right:0;top:0;z-index:99;background:var(--sun);border-bottom:3px solid var(--ink);color:var(--ink);font:700 15px Fredoka,sans-serif;text-align:center;padding:8px}
-@media (orientation:portrait) and (max-width:800px){#rot{display:block}}
+/* notifikasi putar layar (5 detik) */
+#rot{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 12px);transform:translate(-50%,-160%);opacity:0;transition:transform .5s cubic-bezier(.3,1.4,.5,1),opacity .4s;z-index:99;background:var(--sun);border:3px solid var(--ink);border-radius:22px;box-shadow:3px 4px 0 var(--ink);padding:10px 18px;font:700 15px Fredoka,sans-serif;color:var(--ink);text-align:center;max-width:88vw;pointer-events:none}
+#rot.show{transform:translate(-50%,0);opacity:1}
+#sa{position:fixed;left:0;top:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 @media (prefers-reduced-motion:reduce){.bub,.rays i.ray,.waves svg{animation:none}}
 </style></head><body>
-<div id="rot">↻ Putar layar ke mode landscape untuk tampilan terbaik</div>
+<div id="sa"></div><div id="rot">↻ Putar layar ke mode landscape untuk tampilan terbaik</div>
 <div class="stage">
 <div class="bgl" id="bg1"></div><div class="bgl" id="bg2"></div><div class="rays"><i class="ray"></i><i class="ray"></i><i class="ray"></i></div>
 <div class="waves"><svg class="b" viewBox="0 0 2400 120" preserveAspectRatio="none"><path d="M0 50 Q150 10 300 50 T600 50 T900 50 T1200 50 T1500 50 T1800 50 T2100 50 T2400 50 V120 H0Z" style="fill:var(--w1)"/></svg><svg viewBox="0 0 2400 120" preserveAspectRatio="none" style="opacity:.55"><path d="M0 50 Q150 10 300 50 T600 50 T900 50 T1200 50 T1500 50 T1800 50 T2100 50 T2400 50 V120 H0Z" style="fill:var(--w2)"/></svg></div>
@@ -148,7 +151,7 @@ html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand'
 <script>/* =========================================================
    B1 — HELPER SMIL, PERENANG (tampak samping), ORANG (tampak depan), PELATIH
    ========================================================= */
-const INK = '#0e2f4f', SKIN = '#f6c9a0', SKIN2 = '#dba477', SUIT = '#ff6b5e', SUIT2 = '#d9483f', CAP = '#ffd23f', TRUNK = '#2b6cb0';
+const INK = '#0e2f4f', SKIN = '#e3b08a', SKIN2 = '#c58d68', SUIT = '#1f3b6b', SUIT2 = '#162b50', CAP = '#ff6b5e', TRUNK = '#2b6cb0';
 const KS = '.45 0 .55 1';
 const spl = n => Array(n - 1).fill(KS).join(';');
 
@@ -164,22 +167,31 @@ function moveG(v, dur, beg, inner, kt, lin) {
 }
 function limb(px, py, base, l1, l2, A, B, dur, beg, lag, col, w, tip, k) {
   k = k || {};
-  const c2 = k.c2 || col, ink = w + 2.6;
-  const lower = `<line x2="${l2}" stroke="${INK}" stroke-width="${ink}" stroke-linecap="round"/><line x2="${l2}" stroke="${c2}" stroke-width="${w}" stroke-linecap="round"/>${tip || ''}`;
-  const upper = `<line x2="${l1}" stroke="${INK}" stroke-width="${ink}" stroke-linecap="round"/><g transform="translate(${l1} 0)">${rotG(B, dur, beg + lag, lower, k.Bk, k.Bl)}</g><line x2="${l1}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+  const c2 = k.c2 || col;
+  const OL = 'stroke="#000" stroke-opacity=".38" stroke-width=".8" stroke-linejoin="round"';
+  /* segmen otot: lebar awal a, tengah m (menggembung), ujung b */
+  const sg = (len, a, m, b, f) => `<path d="M0 ${-a / 2}Q${len * .42} ${-m * .64} ${len} ${-b / 2}A${b / 2} ${b / 2} 0 0 1 ${len} ${b / 2}Q${len * .42} ${m * .64} 0 ${a / 2}A${a / 2} ${a / 2} 0 0 1 0 ${-a / 2}Z" fill="${f}" ${OL}/>`;
+  const hl = (len, m, b) => `<path d="M${len * .18} ${-m * .26}Q${len * .5} ${-m * .36} ${len * .84} ${-b * .2}" stroke="#fff" stroke-opacity=".26" stroke-width=".9" fill="none" stroke-linecap="round"/>`;
+  const lower = sg(l2, w * .8, w * .92, w * .56, c2) + hl(l2, w * .92, w * .56) + (tip || '');
+  const sleeve = k.sl ? sg(l1 * .52, w * 1.2, w * 1.34, w * 1.16, k.sl) : '';
+  const upper = `<g transform="translate(${l1} 0)">${rotG(B, dur, beg + lag, lower, k.Bk, k.Bl)}</g>` + sg(l1, w * 1.12, w * 1.22, w * .8, col) + hl(l1, w * 1.22, w * .8) + sleeve;
   return `<g transform="translate(${px} ${py}) rotate(${base})">${rotG(A, dur, beg, upper, k.Ak, k.Al)}</g>`;
 }
-const handT = (l2, c) => `<circle cx="${l2}" r="3" fill="${c}" stroke="${INK}" stroke-width="1.2"/>`;
-const footT = (l2, c) => `<ellipse cx="${l2 + 1.6}" cy=".4" rx="4.3" ry="2.4" fill="${c}" stroke="${INK}" stroke-width="1.2"/>`;
+const handT = (l2, c) => `<g transform="translate(${l2 - .4} 0)"><path d="M0 -2.2Q3.6 -3 7 -1.5Q8.1 0 7 1.5Q3.6 2.8 0 2.3Z" fill="${c}" stroke="#000" stroke-opacity=".38" stroke-width=".7" stroke-linejoin="round"/><path d="M1.2 -2Q3.4 -4 5 -3.2" stroke="#000" stroke-opacity=".3" stroke-width=".6" fill="none"/></g>`;
+const footT = (l2, c) => `<path d="M${l2 - .4} -2.1Q${l2 + 5} -2.8 ${l2 + 9} -.6Q${l2 + 10} .7 ${l2 + 8.4} 1.7Q${l2 + 4} 2.9 ${l2 - .4} 2.3Z" fill="${c}" stroke="#000" stroke-opacity=".38" stroke-width=".7" stroke-linejoin="round"/>`;
+
 
 function headG(x, y, o = {}) {
   const mouth = o.mouthO
-    ? `<ellipse cx="5.8" cy="4.9" rx="1.7" ry="2" fill="#7a2a2a"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="${o.mkt || '0;.5;.6;.88;1'}" dur="${o.D}s" begin="${-(o.beg || 0)}s" repeatCount="indefinite"/></ellipse>`
-    : `<path d="M2.6 4.5 Q5.2 6.5 7.6 4.1" stroke="#8a3a3a" stroke-width="1.25" fill="none" stroke-linecap="round"/>`;
-  const face = `<circle r="8.3" fill="${SKIN}" stroke="${INK}" stroke-width="1.6"/>
-    <path d="M-8.2 1.6 C-9.4 -8 -1 -10.8 5.6 -7.5 C8.9 -5.6 9.3 -1 8.4 .8 Q0 -2 -8.2 1.6Z" fill="${o.cap || CAP}" stroke="${INK}" stroke-width="1.3" stroke-linejoin="round"/>
-    <path d="M-7.8 -1.4 L1.2 -2.7" stroke="${INK}" stroke-width="1.1" opacity=".5"/>
-    <circle cx="4.3" cy="-.3" r="3.2" fill="#c9f1ff" stroke="${INK}" stroke-width="1.2"/><circle cx="5" cy="-.3" r="1.15" fill="${INK}"/><path d="M2.9 -1.8 l1.4 -.5" stroke="#fff" stroke-width=".9" stroke-linecap="round"/>
+    ? `<ellipse cx="5.4" cy="3.8" rx="1.1" ry="1.3" fill="#6b2a2a"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="${o.mkt || '0;.5;.6;.88;1'}" dur="${o.D}s" begin="${-(o.beg || 0)}s" repeatCount="indefinite"/></ellipse>`
+    : `<path d="M3.9 3.7 Q5.1 4.4 6.3 3.6" stroke="#8a4a3a" stroke-width=".7" fill="none" stroke-linecap="round"/>`;
+  const OL = 'stroke="#000" stroke-opacity=".38" stroke-width=".8" stroke-linejoin="round"';
+  const face = `<ellipse rx="5.6" ry="6" fill="${SKIN}" ${OL}/>
+    <path d="M5 -.6 L7.5 1.8 L5.2 2.7Z" fill="${SKIN}" ${OL}/>
+    <ellipse cx="-1.4" cy="1.3" rx="1.1" ry="1.7" fill="${SKIN2}"/>
+    <path d="M-5.6 1 C-6.8 -6.4 -1 -8 3.8 -5.8 C5.8 -4.8 6 -2.8 5.4 -1.8 Q0 -2.8 -5.6 1Z" fill="${o.cap || CAP}" ${OL}/>
+    <path d="M-5.2 -1.7 L3.4 -1.2" stroke="#1a1a1a" stroke-width=".9" opacity=".8"/>
+    <ellipse cx="3.7" cy="-.2" rx="2.7" ry="2.1" fill="#2d5d86" opacity=".92" stroke="#111" stroke-width=".8"/><path d="M2.6 -1 l1.4 -.4" stroke="#fff" stroke-width=".7" opacity=".7" stroke-linecap="round"/>
     ${mouth}`;
   return `<g transform="translate(${x} ${y})">${rotG(o.rot === undefined ? 0 : o.rot, o.D || 2, o.beg || 0, face, o.kt)}</g>`;
 }
@@ -191,47 +203,50 @@ function puff(x, y, D, at, big) {
   });
   return s;
 }
-const torsoSide = `<line x1="58" y1="41" x2="88" y2="40" stroke="${INK}" stroke-width="14.6" stroke-linecap="round"/><line x1="58" y1="41" x2="88" y2="40" stroke="${SUIT}" stroke-width="11.8" stroke-linecap="round"/><line x1="64" y1="37.4" x2="84" y2="36.8" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>`;
-const hipCap = `<circle cx="58" cy="41" r="7.4" fill="${SUIT2}" stroke="${INK}" stroke-width="1.4"/>`;
+const torsoSide = `<path d="M58 36C62 34.8 66 36.2 72 36S82 33.8 89 34.5C93 35.5 94 40 92 43C90 46.5 84 47 80 46S68 45 62 46.2C58.5 46.6 55.5 43 56 40C56 38 57 36.6 58 36Z" fill="${SKIN}" stroke="#000" stroke-opacity=".38" stroke-width=".9" stroke-linejoin="round"/><path d="M66 40.2Q76 38.4 87 40" stroke="#000" stroke-opacity=".16" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M62 37.2Q74 36.2 86 36" stroke="#fff" stroke-opacity=".25" stroke-width="1.1" fill="none" stroke-linecap="round"/><path d="M56.6 37C62 35 68 36.4 72.4 36.6L73.4 45.8C66 46 62 46.6 58 46.6C55.5 44.5 55.5 40 56.6 37Z" fill="${SUIT}" stroke="#000" stroke-opacity=".4" stroke-width=".8" stroke-linejoin="round"/>`;
+const neckS = `<line x1="89.5" y1="38" x2="95.5" y2="36.4" stroke="#000" stroke-opacity=".38" stroke-width="6.2" stroke-linecap="round"/><line x1="89.5" y1="38" x2="95.5" y2="36.4" stroke="${SKIN}" stroke-width="5" stroke-linecap="round"/>`;
 
 function swimG(st, o = {}) {
-  const arm = (c, beg, A, B, D, k) => limb(88, 40, 0, 15, 14, A, B, D, beg, .07, c, 5, handT(14, c), k);
-  const leg = (c, beg, A, B, D, k) => limb(58, 41, 180, 16, 15, A, B, D, beg, .09, c, 6.4, footT(15, c), k);
-  let far = '', near = '', body = '', headS = '', extra = '', wrap = v => v;
+  const arm = (c, beg, A, B, D, k) => limb(88, 40, 0, 15, 13, A, B, D, beg, .06, c, 5.6, handT(13, c), k);
+  const leg = (c, beg, A, B, D, k) => limb(58, 41, 180, 17, 16, A, B, D, beg, .09, c, 8.4, footT(16, c), Object.assign({ sl: c === SKIN2 ? SUIT2 : SUIT }, k));
+  const rollG = (v, D, amp, cx, cy) => `<g><animateTransform attributeName="transform" type="rotate" values="${-amp} ${cx} ${cy};${amp} ${cx} ${cy};${-amp} ${cx} ${cy}" dur="${D}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines="${spl(3)}"/>${v}</g>`;
+  const AK = '0;.14;.28;.43;.58;.73;.87;1';
+  let far = '', near = '', headS = '', extra = '', wrap = v => v;
 
   if (st === 'free' || st === 'breath') {
     const D = st === 'breath' ? 2.6 : 1.7, big = st === 'breath';
-    const ak = { Ak: '0;.42;1', Al: true, Bk: '0;.2;.42;.7;1' };
-    const aA = [-180, -3, 180], aB = [50, 22, -4, 34, 50];
+    const ak = { Ak: AK, Al: true, Bk: AK, Bl: true };
+    const aA = [10, 55, 110, 165, 235, 285, 335, 370], aB = [15, 55, 65, 15, 85, 95, 55, 15];
     far = arm(SKIN2, D / 2, aA, aB, D, ak) + leg(SKIN2, .23, [-13, 13, -13], [8, -26, 8], .46);
     near = leg(SKIN, 0, [-13, 13, -13], [8, -26, 8], .46) + arm(SKIN, 0, aA, aB, D, ak);
     headS = headG(99, 35.2, { rot: [0, 0, big ? -44 : -34, big ? -44 : -34, 0], kt: '0;.45;.6;.88;1', D, mouthO: true, mkt: '0;.5;.6;.88;1' }) + puff(106, 39, D, .6, big);
-    wrap = v => moveG([[0, 0], [0, 1.4], [0, 0]], D, 0, v);
+    wrap = v => moveG([[0, 0], [0, 1.4], [0, 0]], D, 0, rollG(v, D, 2.4, 73, 40));
   } else if (st === 'back') {
-    const D = 1.9, ak = { Ak: '0;.42;1', Al: true };
-    const aA = [-180, -3, 180], aB = [8, 4, 0, 4, 8];
-    far = arm(SKIN2, D / 2, aA, aB, D, ak) + leg(SKIN2, .23, [-12, 12, -12], [8, -22, 8], .5);
+    const D = 1.9, bk = '0;.25;.5;.62;.75;.88;1';
+    const ak = { Ak: bk, Al: true, Bk: bk, Bl: true };
+    const aA = [180, 270, 360, 405, 450, 495, 540], aB = [3, 3, 6, 55, 62, 25, 3];
+    far = arm(SKIN2, D / 2, aA, aB, D, ak) + leg(SKIN2, .25, [-12, 12, -12], [8, -22, 8], .5);
     near = leg(SKIN, 0, [-12, 12, -12], [8, -22, 8], .5) + arm(SKIN, 0, aA, aB, D, ak);
     headS = headG(98.5, 34.2, { rot: -84, D });
     extra = `<path transform="translate(112 18)" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3Z" fill="#ffd23f"><animateTransform attributeName="transform" type="scale" additive="sum" values=".5;1.2;.5" dur="1.4s" repeatCount="indefinite"/></path>`;
-    wrap = v => `<g transform="translate(0 3.4)">${moveG([[0, 0], [0, -1.2], [0, 0]], D, 0, v)}</g>`;
+    wrap = v => `<g transform="translate(0 3.4)">${moveG([[0, 0], [0, -1.2], [0, 0]], D, 0, rollG(v, D, 2, 73, 40))}</g>`;
   } else if (st === 'breast') {
-    const D = 2.2, ak = { Ak: '0;.25;.5;.72;1', Bk: '0;.25;.5;.72;1' };
-    const aA = [0, 40, 100, 62, 0], aB = [0, 6, 10, -112, 0];
-    const lk = { Ak: '0;.3;.45;.66;1', Bk: '0;.3;.45;.66;1' };
-    const lA = [0, -42, -30, 5, 0], lB = [0, 96, 82, 0, 0];
-    far = arm(SKIN2, 0, aA, aB, D, ak) + leg(SKIN2, .05, lA, lB, D, lk);
-    near = leg(SKIN, 0, lA, lB, D, lk) + arm(SKIN, 0, aA, aB, D, ak);
-    headS = headG(99, 35.2, { rot: [0, -12, -20, 0, 0], kt: '0;.3;.5;.72;1', D, mouthO: true, mkt: '0;.35;.45;.62;1' }) + puff(106, 39, D, .55);
-    wrap = v => moveG([[0, 1.5], [0, -3.2], [0, 1.5], [0, 2.4], [0, 1.5]], D, 0, v, '0;.3;.52;.8;1');
+    const D = 2.4, at = '0;.12;.3;.48;.62;.8;1', lt = '0;.3;.5;.58;.72;1';
+    const aA = [0, 0, 50, 95, 80, 25, 0], aB = [0, 0, 8, -55, -80, -25, 0];
+    const lA = [0, 0, -42, -30, 5, 0], lB = [0, 0, 96, 82, 0, 0];
+    far = arm(SKIN2, 0, aA, aB, D, { Ak: at, Bk: at }) + leg(SKIN2, .04, lA, lB, D, { Ak: lt, Bk: lt });
+    near = leg(SKIN, 0, lA, lB, D, { Ak: lt, Bk: lt }) + arm(SKIN, 0, aA, aB, D, { Ak: at, Bk: at });
+    headS = headG(99, 35.2, { rot: [0, 0, -10, -22, -12, 0, 0], kt: at, D, mouthO: true, mkt: '0;.3;.4;.6;.7;.85;1' }) + puff(106, 39, D, .55);
+    wrap = v => moveG([[0, 1.5], [0, 1.5], [0, -1.5], [0, -3.2], [0, 0], [0, 2], [0, 1.5]], D, 0, v, at);
   } else if (st === 'fly') {
-    const D = 1.5, ak = { Ak: '0;.4;1', Al: true, Bk: '0;.2;.4;.7;1' };
-    const aA = [-180, -3, 180], aB = [30, 12, -6, 26, 30];
-    const kA = [-18, 18, -18], kB = [14, -18, 14];
+    const D = 1.6;
+    const ak = { Ak: AK, Al: true, Bk: AK, Bl: true };
+    const aA = [10, 55, 110, 165, 235, 290, 335, 370], aB = [10, 50, 60, 12, 25, 20, 12, 10];
+    const kA = [-14, 14, -14], kB = [10, -22, 10];
     far = arm(SKIN2, 0, aA, aB, D, ak);
-    near = leg(SKIN2, .1, kA, kB, D / 2) + leg(SKIN, 0, kA, kB, D / 2) + arm(SKIN, 0, aA, aB, D, ak);
+    near = leg(SKIN2, .08, kA, kB, D / 2) + leg(SKIN, 0, kA, kB, D / 2) + arm(SKIN, 0, aA, aB, D, ak);
     headS = headG(99, 35.2, { rot: [8, -4, -26, -26, 8], kt: '0;.3;.5;.8;1', D, mouthO: true, mkt: '0;.4;.5;.76;1' }) + puff(106, 39, D, .55);
-    wrap = v => `<g>${`<animateTransform attributeName="transform" type="rotate" values="-5 88 40;5 88 40;-5 88 40" dur="${D / 2}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines="${spl(3)}"/>`}${v}</g>`;
+    wrap = v => `<g><animateTransform attributeName="transform" type="rotate" values="-5 73 40;5 73 40;-5 73 40" dur="${D / 2}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines="${spl(3)}"/>${v}</g>`;
   } else if (st === 'float') {
     const D = 3.4;
     far = arm(SKIN2, 0, [-24, -12, -24], [0, 4, 0], D) + leg(SKIN2, .4, [8, -3, 8], [4, -2, 4], D);
@@ -247,8 +262,7 @@ function swimG(st, o = {}) {
     extra = `<g stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0"><path d="M30 30 h16"/><path d="M22 44 h20"/><path d="M34 52 h14"/><animate attributeName="opacity" values="0;0;.9;0" keyTimes="0;.14;.4;.84" dur="${D}s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;0 0;-22 0;-22 0" keyTimes="0;.14;.84;1" dur="${D}s" repeatCount="indefinite"/></g>`;
     wrap = v => `<g><animateTransform attributeName="transform" type="translate" values="-14 0;-14 0;22 0;22 0" keyTimes="0;.14;.84;1" dur="${D}s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.1 .6 .3 1;0 0 1 1"/><animate attributeName="opacity" values="1;1;1;0;0;1" keyTimes="0;.14;.8;.9;.97;1" dur="${D}s" repeatCount="indefinite"/>${v}</g>`;
   }
-  const bodyAll = far + hipCap + torsoSide + near + headS + extra;
-  return wrap(bodyAll);
+  return wrap(far + torsoSide + neckS + near + headS + extra);
 }
 
 function waterOverlay(y = 42, x0 = -20, w = 190, h = 90, op = .42) {
@@ -258,30 +272,45 @@ function waterOverlay(y = 42, x0 = -20, w = 190, h = 90, op = .42) {
 const SWSVG = (st, vb = '8 2 128 66') => `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid meet">${swimG(st)}${waterOverlay(42, -20, 190, 40, .4)}</svg>`;
 
 /* ORANG TAMPAK DEPAN */
+function rotC(v, cx, cy, dur, beg, inner) {
+  if (!Array.isArray(v)) return v ? `<g transform="rotate(${v} ${cx} ${cy})">${inner}</g>` : inner;
+  const n = v.length;
+  return `<g><animateTransform attributeName="transform" type="rotate" values="${v.map(a => `${a} ${cx} ${cy}`).join(';')}" keyTimes="${v.map((_, i) => (i / (n - 1)).toFixed(3)).join(';')}" dur="${dur}s" begin="${-beg}s" repeatCount="indefinite" calcMode="spline" keySplines="${spl(n)}"/>${inner}</g>`;
+}
 function figV(p) {
-  const d = p.dur || 1.2, ph = p.ph || 0;
+  const d = p.dur || 1.2, ph = p.ph || 0, SK = p.skin || SKIN, SK2 = p.skin2 || SKIN2, TOP = p.top || '#ff6b5e', SH = p.shorts || TRUNK;
   const A = (k, def) => p[k] === undefined ? def : p[k];
-  const vl = (sx, sy, l1, l2, U, F, c1, c2, w, tip, beg) => limb(sx, sy, 90, l1, l2, U, F, d, beg, d * .9 / d * .1, c1, w, tip, { c2 });
+  const vl = (sx, sy, l1, l2, U, F, c1, c2, w, tip, beg, k) => limb(sx, sy, 90, l1, l2, U, F, d, beg, .08, c1, w, tip, Object.assign({ c2 }, k || {}));
   const aL = A('aL', [0, 0]), aR = A('aR', [0, 0]), lL = A('lL', [0, 0]), lR = A('lR', [0, 0]);
-  const legs = vl(28, 42, 12, 12, lL[0], lL[1], TRUNK, SKIN, 6.2, footT(12, SKIN), ph) + vl(36, 42, 12, 12, lR[0], lR[1], TRUNK, SKIN, 6.2, footT(12, SKIN), ph);
-  const armL = vl(25, 22, 10, 9, aL[0], aL[1], SKIN, SKIN, 4.4, handT(9, SKIN) + (aL[2] ? `<g transform="translate(9 0) rotate(-90)">${aL[2]}</g>` : ''), ph);
-  const armR = vl(39, 22, 10, 9, aR[0], aR[1], SKIN, SKIN, 4.4, handT(9, SKIN) + (aR[2] ? `<g transform="translate(9 0) rotate(-90)">${aR[2]}</g>` : ''), ph);
-  const hasH = p.head !== undefined;
-  const head = rotG(hasH ? p.head : [-2.5, 2.5, -2.5], hasH ? d : d * 1.7, ph, `<rect x="29" y="17" width="6" height="5" fill="${SKIN}"/><circle cx="32" cy="11" r="8.6" fill="${SKIN}" stroke="${INK}" stroke-width="1.6"/>
-    <path d="M23.4 11.4 C22.6 1.6 30 .2 35 .8 C40.8 1.6 42 7 40.6 11.4 Q32 8 23.4 11.4Z" fill="${p.cap || CAP}" stroke="${INK}" stroke-width="1.3" stroke-linejoin="round"/>
-    <rect x="24.2" y="8.4" width="15.6" height="4.6" rx="2.3" fill="#c9f1ff" stroke="${INK}" stroke-width="1.2"/>
-    <circle cx="28.4" cy="10.7" r="1.15" fill="${INK}"/><circle cx="35.6" cy="10.7" r="1.15" fill="${INK}"/>
-    <path d="M28.6 16.2 Q32 19 35.4 16.2" stroke="#8a3a3a" stroke-width="1.25" fill="none" stroke-linecap="round"/>`);
-  const trunkBand = `<rect x="23.6" y="38" width="16.8" height="6" rx="2.5" fill="${TRUNK}" stroke="${INK}" stroke-width="1.4"/>`;
-  const torso = rotG(A('torso', 0), d, ph, `<rect x="23.5" y="19" width="17" height="22" rx="6" fill="${SUIT}" stroke="${INK}" stroke-width="1.6"/>${p.chest || ''}${armL}${armR}${head}`);
+  const OL = 'stroke="#000" stroke-opacity=".38" stroke-width=".8" stroke-linejoin="round"';
+  const shoe = `<path d="M13.4 -3.4Q19.6 -3.8 21 0Q21.4 3.6 16.2 4Q13.8 3.8 13.4 3.4Z" fill="#f4f4f4" ${OL}/><path d="M14.4 2.4H20.2" stroke="#ff6b5e" stroke-width="1"/>`;
+  const legs = vl(28.6, 36.5, 17.5, 16, lL[0], lL[1], SK, SK, 8.2, shoe, ph, { sl: SH }) + vl(35.4, 36.5, 17.5, 16, lR[0], lR[1], SK, SK, 8.2, shoe, ph, { sl: SH });
+  const pelvis = `<path d="M25 32H39L40.4 40.5Q32 42 23.6 40.5Z" fill="${SH}" ${OL}/>`;
+  const shirt = `<path d="M23 15.8Q23.6 13.6 27 13.6H37Q40.4 13.6 41 15.8L39.6 36.4Q32 38.2 24.4 36.4Z" fill="${TOP}" ${OL}/><path d="M29 13.8Q32 17.6 35 13.8" stroke="#000" stroke-opacity=".3" stroke-width=".8" fill="none"/><path d="M26 22Q32 24 38 22" stroke="#fff" stroke-opacity=".18" stroke-width="1.2" fill="none"/>`;
+  const armL = vl(24, 15.8, 12.5, 11, aL[0], aL[1], SK, SK, 5.4, handT(11, SK) + (aL[2] ? `<g transform="translate(13 0) rotate(-90)">${aL[2]}</g>` : ''), ph, { sl: TOP });
+  const armR = vl(40, 15.8, 12.5, 11, aR[0], aR[1], SK, SK, 5.4, handT(11, SK) + (aR[2] ? `<g transform="translate(13 0) rotate(-90)">${aR[2]}</g>` : ''), ph, { sl: TOP });
+  const hasH = p.head !== undefined, gog = p.goggles !== false;
+  const cap = p.cap || CAP;
+  const eyes = gog
+    ? `<ellipse cx="29.5" cy="7.3" rx="2.5" ry="1.9" fill="#2d5d86" opacity=".92" stroke="#111" stroke-width=".7"/><ellipse cx="34.5" cy="7.3" rx="2.5" ry="1.9" fill="#2d5d86" opacity=".92" stroke="#111" stroke-width=".7"/><path d="M27 7.3H26.4M37 7.3H37.6M32 7.2V7.4" stroke="#111" stroke-width=".8"/><path d="M28.4 6.6l1.4-.3M33.4 6.6l1.4-.3" stroke="#fff" stroke-width=".6" opacity=".7"/>`
+    : `<ellipse cx="29.8" cy="7.3" rx="1.05" ry=".7" fill="#2a1b14"/><ellipse cx="34.2" cy="7.3" rx="1.05" ry=".7" fill="#2a1b14"/><path d="M28.2 5.6Q29.8 5 31.2 5.6M32.8 5.6Q34.2 5 35.8 5.6" stroke="#2a1b14" stroke-width=".6" fill="none"/>`;
+  const mouth = p.talk
+    ? `<ellipse cx="32" cy="11.3" rx="1.5" ry=".5" fill="#6b2a2a"><animate attributeName="ry" values=".3;1.3;.4;1;.3" dur=".9s" repeatCount="indefinite"/></ellipse>`
+    : `<path d="M30.2 11.2Q32 12.4 33.8 11.2" stroke="#8a4a3a" stroke-width=".8" fill="none" stroke-linecap="round"/>`;
+  const headM = `<rect x="29.6" y="11.4" width="4.8" height="4.4" rx="1.6" fill="${SK2}"/><ellipse cx="25.8" cy="7.5" rx="1.1" ry="1.8" fill="${SK2}"/><ellipse cx="38.2" cy="7.5" rx="1.1" ry="1.8" fill="${SK2}"/>
+    <ellipse cx="32" cy="7.3" rx="5.3" ry="6.3" fill="${SK}" ${OL}/>
+    <path d="M26.5 5.8C26 -.8 30 -1.8 32 -1.8C34 -1.8 38 -.8 37.5 5.8Q32 3.2 26.5 5.8Z" fill="${cap}" ${OL}/>
+    ${eyes}<path d="M32 8.2L31.4 10.2H32.6" stroke="${SK2}" stroke-width=".7" fill="none" stroke-linecap="round"/>${mouth}`;
+  const head = rotC(hasH ? p.head : [-2.5, 2.5, -2.5], 32, 12, hasH ? d : d * 1.7, ph, headM);
+  const torso = rotC(A('torso', 0), 32, 37, d, ph, shirt + (p.chest || '') + armL + armR + head);
   const bb = Array.isArray(p.bob) ? p.bob : null;
-  let body = `${legs}${trunkBand}${torso}`;
+  let body = `${legs}${pelvis}${torso}`;
   if (bb) {
     const jumpy = Math.min(...bb) < 0;
     body = moveG(bb.map(y => [0, y]), p.bobDur || d, ph, body, null, false);
-    if (jumpy) body = `<g transform="translate(32 70)"><g><animateTransform attributeName="transform" type="scale" values="${bb.map(y => y < -.5 ? '.97 1.04' : '1.05 .95').join(';')}" keyTimes="${bb.map((_, i) => (i / (bb.length - 1)).toFixed(3)).join(';')}" dur="${p.bobDur || d}s" begin="${-ph}s" repeatCount="indefinite"/><g transform="translate(-32 -70)">${body}</g></g></g>`;
+    if (jumpy) body = `<g transform="translate(32 72)"><g><animateTransform attributeName="transform" type="scale" values="${bb.map(y => y < -.5 ? '.97 1.04' : '1.05 .95').join(';')}" keyTimes="${bb.map((_, i) => (i / (bb.length - 1)).toFixed(3)).join(';')}" dur="${p.bobDur || d}s" begin="${-ph}s" repeatCount="indefinite"/><g transform="translate(-32 -72)">${body}</g></g></g>`;
   }
-  return `<svg viewBox="-6 -4 76 78" overflow="visible">${p.pre || ''}<ellipse cx="32" cy="70" rx="14" ry="2.2" fill="#000" opacity=".22"/>${body}${p.prop || ''}</svg>`;
+  return `<svg viewBox="-6 -4 76 78" overflow="visible">${p.pre || ''}<ellipse cx="32" cy="72" rx="14" ry="2.2" fill="#000" opacity=".22"/>${body}${p.prop || ''}</svg>`;
 }
 const spark = (x, y, dur = 1.1) => `<path transform="translate(${x} ${y})" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3Z" fill="#ffd23f"><animateTransform attributeName="transform" type="scale" additive="sum" values=".4;1.2;.4" dur="${dur}s" repeatCount="indefinite"/></path>`;
 const sweat = `<g fill="#7ec8ff"><path d="M46 12 q-2.5 4 0 5.5 q2.5 -1.5 0 -5.5Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 12" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.2s" repeatCount="indefinite"/></path><path d="M18 10 q-2 3.5 0 5 q2 -1.5 0 -5Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 12" dur="1.2s" begin="-.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.2s" begin="-.6s" repeatCount="indefinite"/></path></g>`;
@@ -290,33 +319,20 @@ const medalP = `<g transform="translate(32 31)"><path d="M-4 -9 L0 -2 L4 -9" str
 const noRun = `<g transform="translate(32 34)" opacity=".95"><circle r="30" fill="none" stroke="#e0453a" stroke-width="5"/><path d="M-21 -21 L21 21" stroke="#e0453a" stroke-width="5" stroke-linecap="round"/></g>`;
 const podium = `<g><rect x="12" y="58" width="40" height="14" rx="2" fill="#ffd23f" stroke="${INK}" stroke-width="1.6"/><text x="32" y="69" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="700" font-size="10" fill="${INK}">1</text></g>`;
 const FIGP = {
-  warm: { dur: 1, bob: [0, -4, 0], aL: [[0, 150, 0], 0], aR: [[0, -150, 0], 0], lL: [[0, 16, 0], 0], lR: [[0, -16, 0], 0], prop: spark(54, 14) },
-  run: { dur: .62, bobDur: .31, bob: [0, -3, 0, -3, 0], torso: 5, aL: [[-55, 55, -55], [-80, -30, -80]], aR: [[55, -55, 55], [-30, -80, -30]], lL: [[-40, 40, -40], [4, 60, 4]], lR: [[40, -40, 40], [60, 4, 60]] },
-  stop: { dur: 1.8, torso: [0, 4, 0], head: [0, 6, 0], aL: [[8, 14, 8], 0], aR: [[-150, -160, -150], [-6, 16, -6], stopSign], prop: sweat },
+  warm: { dur: 1, bob: [0, -4, 0], aL: [[0, 155, 0], [4, 14, 4]], aR: [[0, -155, 0], [-4, -14, -4]], lL: [[0, 14, 0], 0], lR: [[0, -14, 0], 0], prop: spark(54, 14) },
+  run: { dur: .62, bobDur: .31, bob: [0, -3, 0, -3, 0], torso: 5, aL: [[-40, 40, -40], -75], aR: [[40, -40, 40], 75], lL: [[-30, 30, -30], [0, 55, 0]], lR: [[30, -30, 30], [55, 0, 55]] },
+  stop: { dur: 1.8, torso: [0, 4, 0], head: [0, 6, 0], aL: [[8, 14, 8], [5, 10, 5]], aR: [[-150, -160, -150], [-6, 16, -6], stopSign], prop: sweat },
   cheer: { dur: .9, bob: [0, -5, 0], aL: [150, [-14, 14, -14]], aR: [-150, [14, -14, 14]], chest: medalP, prop: spark(6, 10, .8) + spark(58, 10, .8), pre: podium }
 };
 const FIGV = n => figV(FIGP[n]);
 const FIGNORUN = () => figV(Object.assign({}, FIGP.run, { prop: noRun }));
 
-/* PELATIH */
-const COACH_SVG = `<svg viewBox="0 0 80 104"><ellipse cx="40" cy="100" rx="22" ry="3.5" fill="#000" opacity=".25"/>
-<g class="g-body">
-<rect x="29" y="74" width="9" height="24" rx="4" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="1.5"/><rect x="42" y="74" width="9" height="24" rx="4" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="1.5"/>
-<rect x="27" y="72" width="26" height="12" rx="4" fill="#2b6cb0" stroke="#0e2f4f" stroke-width="1.6"/>
-<ellipse cx="32" cy="98" rx="8" ry="3.4" fill="#fff" stroke="#0e2f4f" stroke-width="1.5"/><ellipse cx="48" cy="98" rx="8" ry="3.4" fill="#fff" stroke="#0e2f4f" stroke-width="1.5"/>
-<g class="g-arm2"><rect x="16" y="54" width="8" height="22" rx="4" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="1.5" transform="rotate(8 20 54)"/></g>
-<rect x="24" y="48" width="32" height="30" rx="10" fill="#ff6b5e" stroke="#0e2f4f" stroke-width="2"/>
-<text x="40" y="68" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="700" font-size="10" fill="#fff">PJOK</text>
-<path d="M40 50 q-2 10 3 16" stroke="#fff" stroke-width="1.5" fill="none"/><circle cx="43.4" cy="68" r="2.6" fill="#ffd23f" stroke="#0e2f4f" stroke-width="1"/>
-<g class="g-arm"><rect x="54" y="50" width="8" height="24" rx="4" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="1.5"/><circle cx="58" cy="76" r="5" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="1.5"/></g>
-<g class="g-head"><rect x="35" y="40" width="10" height="9" fill="#f6c9a0"/>
-<circle cx="40" cy="28" r="17" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="2"/>
-<path d="M23 29 C21 6 40 2 55 12 C60 17 58 26 57 29 Q40 22 23 29Z" fill="#ffd23f" stroke="#0e2f4f" stroke-width="2" stroke-linejoin="round"/>
-<path d="M30 8 Q36 12 33 23" stroke="#e0b21a" stroke-width="1.6" fill="none" opacity=".7"/>
-<rect x="28" y="23" width="24" height="8" rx="4" fill="#c9f1ff" stroke="#0e2f4f" stroke-width="1.6"/><circle cx="34" cy="27" r="1.9" fill="#0e2f4f" class="g-eye"/><circle cx="46" cy="27" r="1.9" fill="#0e2f4f" class="g-eye"/>
-<circle cx="29" cy="36" r="3" fill="#f08a7a" opacity=".6"/><circle cx="51" cy="36" r="3" fill="#f08a7a" opacity=".6"/>
-<ellipse class="g-mouth" cx="40" cy="37" rx="4" ry="3" fill="#7a2a2a"/></g>
-</g></svg>`;
+/* PELATIH (badan manusia, animasi SMIL) */
+const COACH_SVG = figV({
+  dur: 1.6, cap: '#3a2a20', goggles: false, talk: true, skin: '#d9a67e', skin2: '#bd8761', top: '#ff6b5e', shorts: '#2b6cb0',
+  torso: [0, 1.5, 0], aL: [[5, 9, 5], [3, 8, 3]], aR: [[-150, -150, -150], [-30, 28, -30]],
+  chest: `<text x="32" y="27.5" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="700" font-size="5.2" fill="#fff">PJOK</text><path d="M29.6 14.2Q32 22 34.4 14.2" stroke="#222" stroke-width=".5" fill="none"/><circle cx="32" cy="22.2" r="1.5" fill="#ffd23f" stroke="#7a5a00" stroke-width=".5"/>`
+});
 
 /* =========================================================
    B2 — IKON & DATA
@@ -393,7 +409,7 @@ const coachH = n => { const [s, t] = GURU[n]; return `<div class="cch ${s}">${CO
 const strokeH = g => `<div class="wrap">${ttl(g.nama, g.en)}<div class="split"><div>${pool(g.id, '', g.tag)}</div><ul class="blist">${g.b.map((x, i) => `<li class="pop"><i>${i + 1}</i><span>${x}</span></li>`).join('')}</ul></div></div>`;
 const SL = [];
 SL[0] = `<div class="cover"><div class="cl"><h1 class="ttl big pop">${wv(DATA.judul.replace('\n', '<br>'))}</h1><div class="sub pop">${DATA.mapel} · ${DATA.kelompok}</div><button class="go pop" data-next>Mulai ▸</button></div>${pool('free')}</div>`;
-SL[1] = `<div class="wrap">${ttl('Disusun Oleh', DATA.kelompok)}<div class="members">${DATA.anggota.map((a, i) => `<div class="member pop"><div class="av">${[ICON.warm, ICON.trophy, figV(FIGP.run)][i]}</div>${a}</div>`).join('')}</div></div>`;
+SL[1] = `<div class="wrap">${ttl('Disusun Oleh', DATA.kelompok)}<div class="members">${DATA.anggota.map((a, i) => `<div class="member pop"><div class="av">${[figV(Object.assign({}, FIGP.warm, { cap: '#ff6b5e' })), figV(Object.assign({}, FIGP.cheer, { skin: '#b9835c', skin2: '#9d6b47', cap: '#27c4e8', top: '#14a39a' })), figV(Object.assign({}, FIGP.run, { skin: '#f0c7a4', skin2: '#d9a982', cap: '#ffb3c7', top: '#ffd23f' }))][i]}</div>${a}</div>`).join('')}</div></div>`;
 SL[2] = `<div class="wrap">${ttl('Daftar Isi', '7 materi renang')}<div class="toc">${DATA.toc.map((t, i) => `<div class="card pop" data-go="${t[1]}" style="--c:${COL[i % 5]}"><span class="num">${i + 1}</span><h3>${t[0]}</h3></div>`).join('')}</div></div>`;
 SL[3] = `<div class="wrap">${ttl('1. Pengertian Renang')}<div class="split">${pool('free', '', 'Olahraga air')}<div class="col"><div class="txtcard pop">${DATA.pengertian}<br><br>${DATA.pengertian2}</div><div class="chips pop"><span class="chip">💧 Di dalam air</span><span class="chip">🦵 Tangan &amp; kaki</span><span class="chip">🛟 Bertahan hidup</span></div></div></div></div>`;
 SL[4] = `<div class="wrap">${ttl('2. Tujuan Berenang')}${cardsH(DATA.tujuan, 4)}</div>`;
@@ -419,8 +435,28 @@ const smil = (el, on) => el.querySelectorAll('svg').forEach(s => { try { on ? s.
 slides.forEach(s => smil(s, false));
 
 /* skala panggung 16:9 mengikuti ukuran layar */
-function fit() { const s = Math.min(innerWidth / 1280, innerHeight / 720); deck.style.transform = `scale(${s})`; }
-addEventListener('resize', fit); fit();
+let wasPt = false, tT = 0;
+function toast() { const r = document.getElementById('rot'); r.classList.add('show'); clearTimeout(tT); tT = setTimeout(() => r.classList.remove('show'), 5000); }
+function fit() {
+  const vv = window.visualViewport, VW = vv ? vv.width : innerWidth, VH = vv ? vv.height : innerHeight;
+  const cs = getComputedStyle(document.getElementById('sa'));
+  const t = parseFloat(cs.paddingTop) || 0, r = parseFloat(cs.paddingRight) || 0, b = parseFloat(cs.paddingBottom) || 0, l = parseFloat(cs.paddingLeft) || 0;
+  const W = Math.max(100, VW - l - r), H = Math.max(100, VH - t - b);
+  const s = Math.min(W / 1280, H / 720);
+  /* panggung dilebarkan/ditinggikan mengikuti layar: tidak ada rongga */
+  const Lw = Math.min(W / s, 2000), Lh = Math.min(H / s, 1000);
+  deck.style.width = Lw + 'px'; deck.style.height = Lh + 'px';
+  deck.style.margin = `${-Lh / 2}px 0 0 ${-Lw / 2}px`;
+  deck.style.left = (l + W / 2) + 'px'; deck.style.top = (t + H / 2) + 'px';
+  deck.style.transform = `scale(${s})`;
+  deck.style.setProperty('--px', Math.max(56, (Lw - 1168) / 2) + 'px');
+  const pt = VH > VW && VW < 800;
+  if (pt && !wasPt) toast();
+  wasPt = pt;
+}
+addEventListener('resize', fit); addEventListener('orientationchange', () => setTimeout(fit, 250));
+if (window.visualViewport) visualViewport.addEventListener('resize', fit);
+fit();
 
 function applyDeco(n) {
   const d = DV[n % DV.length];
