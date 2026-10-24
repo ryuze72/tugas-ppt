@@ -4,138 +4,170 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
 <style>:root{--ink:#0e2f4f;--coral:#ff6b5e;--sun:#ffd23f;--aqua:#27c4e8;--teal:#14a39a;--cream:#fffdf5;--mint:#9be8d0;--pink:#ffb3c7;--sky:#a8dcff;--peach:#ffc98a}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand',system-ui,sans-serif;color:var(--ink)}
+html,body{height:100%;overflow:hidden;background:#0a5f94;font-family:'Quicksand',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:root{--ease:cubic-bezier(.22,1,.36,1);--ease-io:cubic-bezier(.65,0,.35,1)}
 
 /* ===== LATAR (memenuhi layar) ===== */
 .stage{position:fixed;inset:0;overflow:hidden;background:linear-gradient(180deg,#5fd8f5 0%,#23b5e0 45%,#0a5f94 100%);--w1:#1b9ed0;--w2:#0a6f9a}
-.bgl{position:absolute;inset:0;transition:opacity 1.5s ease;opacity:0}
+.bgl{position:absolute;inset:0;transition:opacity 1.5s var(--ease-io);opacity:0;will-change:opacity}
 .rays{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.rays i.ray{position:absolute;top:-10%;width:20%;height:130%;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0));transform:skewX(-18deg);animation:ray 9s ease-in-out infinite alternate}
+.rays i.ray{position:absolute;top:-10%;width:20%;height:130%;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0));transform:skewX(-18deg);animation:ray 9s ease-in-out infinite alternate;will-change:transform,opacity}
 .rays i.ray:nth-child(1){left:6%}.rays i.ray:nth-child(2){left:40%;width:12%;animation-delay:-3s}.rays i.ray:nth-child(3){left:72%;animation-delay:-6s}
 @keyframes ray{from{opacity:.25;transform:skewX(-18deg) translateX(-14px)}to{opacity:.8;transform:skewX(-18deg) translateX(22px)}}
-.bub{position:absolute;bottom:-30px;border-radius:50%;border:2px solid rgba(255,255,255,.75);background:rgba(255,255,255,.18);animation:rise linear infinite;pointer-events:none}
-@keyframes rise{to{transform:translateY(-110vh) translateX(18px)}}
+.bub{position:absolute;bottom:-30px;border-radius:50%;border:2px solid rgba(255,255,255,.75);background:rgba(255,255,255,.18);animation:rise linear infinite;pointer-events:none;will-change:transform}
+@keyframes rise{to{transform:translate3d(18px,-110vh,0)}}
 .waves{position:absolute;left:0;bottom:0;width:100%;height:16%;pointer-events:none;overflow:hidden}
-.waves svg{position:absolute;left:0;bottom:0;width:200%;height:100%;animation:wv 9s linear infinite}
+.waves{will-change:transform}
+.waves svg{position:absolute;left:0;bottom:0;width:200%;height:100%;animation:wv 9s linear infinite;will-change:transform}
 .waves svg.b{animation-duration:14s;animation-direction:reverse;bottom:-6px;opacity:.8}
-.waves path{transition:fill 1.5s}
-@keyframes wv{to{transform:translateX(-50%)}}
+.waves path{transition:fill 1.4s var(--ease-io)}
+@keyframes wv{to{transform:translate3d(-50%,0,0)}}
 
 /* ===== PANGGUNG 16:9 (1280x720, diskalakan otomatis) ===== */
 #deck{position:absolute;left:50%;top:50%;width:1280px;height:720px;margin:-360px 0 0 -640px;transform-origin:50% 50%}
-.deco{position:absolute;z-index:1;pointer-events:none;transition:left 1.1s cubic-bezier(.45,0,.15,1),top 1.1s cubic-bezier(.45,0,.15,1),transform 1.1s cubic-bezier(.45,0,.15,1)}
-.deco .in{width:100%;height:100%;animation:fl 5s ease-in-out infinite alternate}
+.deco{position:absolute;left:0;top:0;z-index:1;pointer-events:none;transition:transform 1.5s var(--ease-io);will-change:transform}
+.deco .in{width:100%;height:100%;animation:fl 5s ease-in-out infinite alternate;will-change:transform}
 .deco svg{width:100%;height:100%;overflow:visible}
-@keyframes fl{from{transform:translateY(-6px) rotate(-3deg)}to{transform:translateY(8px) rotate(3deg)}}
+@keyframes fl{from{transform:translate3d(0,-6px,0) rotate(-3deg)}to{transform:translate3d(0,8px,0) rotate(3deg)}}
 #sun{width:112px;height:112px}#c1{width:156px;height:82px}#c2{width:116px;height:60px}#ball{width:74px;height:74px}#shell{width:64px;height:64px}
 #sun .in{animation:spin 24s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 
-#slides{position:absolute;inset:0;z-index:2}
-.slide{position:absolute;inset:0;display:none;padding:26px var(--px,56px) 168px}
-.slide.on{display:block}
-.wrap{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+#slides{position:absolute;inset:0;z-index:2;overflow:visible;perspective:1300px;perspective-origin:50% 42%}
+.slide{position:absolute;inset:0;display:none;padding:20px var(--px,48px) 160px;}
+.slide.on{display:block;will-change:transform,opacity;transform-style:preserve-3d;transform-origin:50% 50%}
+.slide.on .wrap,.slide.on .split,.slide.on .cards,.slide.on .col,.slide.on .cover,.slide.on .cl,.slide.on .members,.slide.on .toc,.slide.on .blist,.slide.on .gcards{transform-style:preserve-3d}
+.slide.tr{pointer-events:none}
+.wrap{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
 
 /* judul & teks */
-.ttl{display:inline-block;position:relative;background:var(--sun);border:4px solid var(--ink);border-radius:36px 40px 34px 42px/40px 34px 42px 36px;box-shadow:5px 7px 0 var(--ink);padding:8px 34px 10px;font-family:Fredoka,sans-serif;font-weight:700;font-size:44px;line-height:1.15;text-align:center;color:var(--ink);white-space:nowrap}
+.ttl{display:inline-block;position:relative;background:var(--sun);border:4px solid var(--ink);border-radius:36px 40px 34px 42px/40px 34px 42px 36px;box-shadow:5px 7px 0 var(--ink);padding:10px 40px 12px;font-family:Fredoka,sans-serif;font-weight:700;font-size:56px;line-height:1.12;text-align:center;color:var(--ink);white-space:nowrap;max-width:96%}
 .ttl .l{display:inline-block}
-.ttl small{display:block;font-size:20px;font-weight:600;opacity:.75;margin-top:1px}
-.ttl.big{background:transparent;border:none;box-shadow:none;color:#fff;font-size:104px;line-height:1.02;-webkit-text-stroke:12px var(--ink);paint-order:stroke fill;text-shadow:0 9px 0 var(--ink);letter-spacing:2px;padding:0}
-.ttl.big span{display:inline-block;animation:lw 2.4s ease-in-out infinite;animation-delay:calc(var(--i)*.09s)}
-@keyframes lw{0%,60%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-.1em) rotate(-3deg)}}
-.sub{font-family:Fredoka,sans-serif;font-weight:600;font-size:24px;background:var(--cream);border:3px solid var(--ink);border-radius:26px;padding:6px 22px;box-shadow:4px 4px 0 var(--ink);text-align:center}
-.intro{font-weight:700;font-size:22px;text-align:center;color:#fff;text-shadow:0 2px 0 rgba(14,47,79,.55);max-width:900px}
+.ttl small{display:block;font-size:26px;font-weight:600;opacity:.8;margin-top:2px}
+.ttl.big{background:transparent;border:none;box-shadow:none;color:#fff;font-size:118px;line-height:1.02;-webkit-text-stroke:14px var(--ink);paint-order:stroke fill;text-shadow:0 10px 0 var(--ink);letter-spacing:2px;padding:0}
+.ttl.big span{display:inline-block;animation:lw 2.8s ease-in-out infinite;animation-delay:calc(var(--i)*.09s);will-change:transform}
+@keyframes lw{0%,60%,100%{transform:translate3d(0,0,0) rotate(0)}30%{transform:translate3d(0,-.1em,0) rotate(-3deg)}}
+.sub{font-family:Fredoka,sans-serif;font-weight:600;font-size:32px;background:var(--cream);border:3px solid var(--ink);border-radius:28px;padding:8px 28px;box-shadow:4px 4px 0 var(--ink);text-align:center}
+.intro{font-weight:700;font-size:28px;text-align:center;color:#fff;text-shadow:0 2px 0 rgba(14,47,79,.55);max-width:1000px;line-height:1.35}
 
 /* kolam */
-.pool{position:relative;width:100%;aspect-ratio:2/1;border:4px solid var(--ink);border-radius:34px 38px 32px 40px/38px 32px 40px 34px;box-shadow:6px 8px 0 var(--ink);overflow:hidden;background:linear-gradient(180deg,#e9fbff 0%,#bdeeff 42%,#52c6ee 100%)}
+.pool{contain:layout paint;position:relative;width:100%;aspect-ratio:2/1;border:4px solid var(--ink);border-radius:34px 38px 32px 40px/38px 32px 40px 34px;box-shadow:6px 8px 0 var(--ink);overflow:hidden;background:linear-gradient(180deg,#e9fbff 0%,#bdeeff 42%,#52c6ee 100%)}
 .pool svg{position:absolute;inset:0;width:100%;height:100%}
-.tag{position:absolute;top:12px;left:14px;background:var(--coral);color:#fff;border:3px solid var(--ink);border-radius:16px;padding:2px 14px;font-family:Fredoka,sans-serif;font-weight:600;font-size:17px;z-index:3;box-shadow:2px 3px 0 var(--ink)}
+.tag{position:absolute;top:12px;left:14px;background:var(--coral);color:#fff;border:3px solid var(--ink);border-radius:18px;padding:4px 16px;font-family:Fredoka,sans-serif;font-weight:600;font-size:20px;z-index:3;box-shadow:2px 3px 0 var(--ink)}
 
 /* kartu */
-.cards{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:22px;width:100%;max-width:1168px;--ic:124px}
-.cards.n5{--ic:92px;gap:16px}
-.card{position:relative;background:var(--cream);border:4px solid var(--ink);border-radius:28px 32px 26px 34px/32px 26px 34px 28px;box-shadow:5px 7px 0 var(--ink);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:26px 14px 20px}
-.card .ic{width:var(--ic);height:var(--ic);flex:none;background:var(--c,var(--sky));border:3.5px solid var(--ink);border-radius:50%;overflow:hidden;display:grid;place-items:center}
+.cards{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:20px;width:100%;max-width:1168px;--ic:118px}
+.cards.n5{--ic:88px;gap:14px}
+.card{position:relative;background:var(--cream);border:4px solid var(--ink);border-radius:28px 32px 26px 34px/32px 26px 34px 28px;box-shadow:5px 7px 0 var(--ink);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:22px 12px 18px}
+.card .ic{contain:layout paint;width:var(--ic);height:var(--ic);flex:none;background:var(--c,var(--sky));border:3.5px solid var(--ink);border-radius:50%;overflow:hidden;display:grid;place-items:center}
 .card .ic svg{width:100%;height:100%;overflow:visible}
 .card .ic.sq svg{transform:scale(1.15)}
-.card h3{font-family:Fredoka,sans-serif;font-weight:700;font-size:25px;line-height:1.1;margin-bottom:3px}
-.card p{font-size:17px;line-height:1.3;font-weight:600;opacity:.9}
-.cards.n5 .card h3{font-size:20px}.cards.n5 .card p{font-size:15px;line-height:1.28}
-.card .no{position:absolute;top:-14px;right:14px;background:var(--coral);color:#fff;border:3px solid var(--ink);border-radius:14px;font-family:Fredoka,sans-serif;font-weight:700;font-size:16px;padding:0 10px}
-.txtcard{background:var(--cream);border:4px solid var(--ink);border-radius:30px 34px 28px 36px/34px 28px 36px 30px;box-shadow:6px 8px 0 var(--ink);padding:24px 28px;font-size:24px;line-height:1.45;font-weight:700;width:100%}
+.card h3{font-family:Fredoka,sans-serif;font-weight:700;font-size:30px;line-height:1.12;margin-bottom:4px}
+.card p{font-size:20px;line-height:1.32;font-weight:600;opacity:.92}
+.cards.n5 .card h3{font-size:24px}.cards.n5 .card p{font-size:17px;line-height:1.28}
+.card .no{position:absolute;top:-14px;right:14px;background:var(--coral);color:#fff;border:3px solid var(--ink);border-radius:14px;font-family:Fredoka,sans-serif;font-weight:700;font-size:18px;padding:1px 12px}
+.txtcard{background:var(--cream);border:4px solid var(--ink);border-radius:30px 34px 28px 36px/34px 28px 36px 30px;box-shadow:6px 8px 0 var(--ink);padding:26px 30px;font-size:28px;line-height:1.45;font-weight:700;width:100%}
 .txtcard b{background:linear-gradient(transparent 58%,#ffe27a 58%)}
 .chips{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.chip{background:var(--pink);border:3px solid var(--ink);border-radius:22px;padding:5px 18px;font-family:Fredoka,sans-serif;font-weight:600;font-size:19px;box-shadow:3px 4px 0 var(--ink)}
+.chip{background:var(--pink);border:3px solid var(--ink);border-radius:22px;padding:6px 20px;font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;box-shadow:3px 4px 0 var(--ink)}
 .chip:nth-child(2){background:var(--mint)}.chip:nth-child(3){background:var(--sun)}
 .blist{list-style:none;width:100%;display:flex;flex-direction:column;gap:13px}
-.blist li{display:flex;gap:14px;align-items:flex-start;background:var(--cream);border:3px solid var(--ink);border-radius:20px 24px 20px 24px;box-shadow:4px 5px 0 var(--ink);padding:10px 16px;font-size:21px;line-height:1.3;font-weight:700}
-.blist li i{flex:none;width:34px;height:34px;border-radius:50%;background:var(--coral);color:#fff;border:3px solid var(--ink);font:700 18px/28px Fredoka,sans-serif;text-align:center;font-style:normal}
+.blist li{display:flex;gap:14px;align-items:flex-start;background:var(--cream);border:3px solid var(--ink);border-radius:20px 24px 20px 24px;box-shadow:4px 5px 0 var(--ink);padding:12px 18px;font-size:24px;line-height:1.32;font-weight:700}
+.blist li i{flex:none;width:38px;height:38px;border-radius:50%;background:var(--coral);color:#fff;border:3px solid var(--ink);font:700 20px/32px Fredoka,sans-serif;text-align:center;font-style:normal}
 .split{display:grid;grid-template-columns:1.12fr 1fr;gap:48px;align-items:center;width:100%;max-width:1168px}
 .split .col{display:flex;flex-direction:column;gap:18px;align-items:center}
-.col .txtcard{font-size:21px;padding:16px 22px;line-height:1.4}
-.col .chips{flex-wrap:nowrap;gap:8px}.col .chip{font-size:15px;padding:4px 11px;white-space:nowrap}
+.col .txtcard{font-size:26px;padding:18px 24px;line-height:1.42}
+.col .chips{flex-wrap:wrap;gap:10px;justify-content:center}.col .chip{font-size:18px;padding:5px 14px;white-space:nowrap}
 
 /* kover & penutup */
 .cover{display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:36px;width:100%;height:100%}
 .cover .cl{display:flex;flex-direction:column;align-items:center;gap:26px}
-.go{background:var(--coral);color:#fff;border:4px solid var(--ink);border-radius:30px;padding:10px 44px;font:700 28px Fredoka,sans-serif;box-shadow:5px 6px 0 var(--ink);cursor:pointer}
+.go{background:var(--coral);color:#fff;border:4px solid var(--ink);border-radius:32px;padding:12px 48px;font:700 34px Fredoka,sans-serif;box-shadow:5px 6px 0 var(--ink);cursor:pointer}
+.go{transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
 .go:active{transform:translate(3px,4px);box-shadow:1px 1px 0 var(--ink)}
-.slide.on .go{animation:gop 1.4s ease-in-out 1.5s infinite}@keyframes gop{50%{scale:1.07}}
+.slide.on .go{animation:gop 1.8s ease-in-out 1.2s infinite}@keyframes gop{50%{scale:1.06}}
 
 /* anggota */
-.members{display:flex;gap:48px;justify-content:center;width:100%}
-.member{width:270px;background:var(--cream);border:4px solid var(--ink);border-radius:30px 34px 28px 36px/34px 28px 36px 30px;box-shadow:6px 8px 0 var(--ink);padding:12px 8px 18px;text-align:center;font:700 26px Fredoka,sans-serif}
-.member .av{height:200px;margin-bottom:6px}.member .av svg{width:100%;height:100%}
+.members{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;width:100%;max-width:900px}
+.member{background:var(--cream);border:4px solid var(--ink);border-radius:30px 34px 28px 36px/34px 28px 36px 30px;box-shadow:6px 8px 0 var(--ink);padding:36px 22px;text-align:center;font:700 40px Fredoka,sans-serif;display:flex;align-items:center;justify-content:center;min-height:120px}
+.member .no{position:absolute;top:-16px;left:22px;background:var(--coral);color:#fff;border:3px solid var(--ink);border-radius:16px;font:700 20px Fredoka,sans-serif;padding:3px 16px;box-shadow:2px 3px 0 var(--ink)}
+.member{position:relative}
 
 /* daftar isi */
 .toc{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;width:100%;max-width:1100px}
-.toc .card{cursor:pointer;padding:22px 10px 20px;gap:12px}
-.toc .card h3{font-size:23px;margin:0}
-.toc .num{width:64px;height:64px;border-radius:50%;background:var(--c);border:3.5px solid var(--ink);font:700 32px/57px Fredoka,sans-serif;text-align:center}
+.toc .card{cursor:pointer;padding:24px 10px 22px;gap:12px}
+.toc .card h3{font-size:26px;margin:0;line-height:1.2}
+.toc .num{width:70px;height:70px;border-radius:50%;background:var(--c);border:3.5px solid var(--ink);font:700 34px/63px Fredoka,sans-serif;text-align:center}
 
 /* ringkasan gaya */
 .gcards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;width:100%;max-width:1168px}
 .gcard{background:var(--cream);border:4px solid var(--ink);border-radius:28px 32px 26px 34px/32px 26px 34px 28px;box-shadow:5px 7px 0 var(--ink);padding:10px 10px 16px;text-align:center;cursor:pointer}
 .gcard .pool{border-width:3px;border-radius:20px;box-shadow:none;margin-bottom:10px}
-.gcard h4{font:700 25px Fredoka,sans-serif;margin-bottom:3px}.gcard p{font-size:16.5px;font-weight:700;opacity:.85;line-height:1.2}
-.card,.gcard,.member{transition:translate .25s cubic-bezier(.3,1.6,.5,1)}.card:hover,.gcard:hover,.member:hover{translate:0 -6px}
-.blist li{transition:translate .25s}.blist li:hover{translate:5px 0}
-.slide.on .card .ic{animation:icp .8s cubic-bezier(.3,1.9,.5,1) calc(.85s + var(--n,0)*.09s) backwards}
-@keyframes icp{from{transform:scale(0) rotate(-40deg)}}
+.gcard h4{font:700 28px Fredoka,sans-serif;margin-bottom:4px}.gcard p{font-size:19px;font-weight:700;opacity:.88;line-height:1.25}
+.card,.gcard,.member{transition:translate .4s var(--ease)}.card:hover,.gcard:hover,.member:hover{translate:0 -6px}
+.blist li{transition:translate .4s var(--ease)}.blist li:hover{translate:5px 0}
+.slide.on .card .ic{animation:icp .9s var(--ease) calc(.75s + var(--n,0)*.08s) backwards}
+@keyframes icp{from{transform:scale(.55) rotate(-14deg);opacity:0}}
 
 /* pelatih */
-.cch{position:absolute;bottom:54px;width:128px;height:136px;z-index:5;cursor:pointer}
+.cch{will-change:transform;position:absolute;bottom:54px;width:128px;height:136px;z-index:5;cursor:pointer}
 .cch svg{width:100%;height:100%;overflow:visible}
 .cch.R{right:22px}.cch.L{left:22px}
-.cch .g-body{animation:cb 1.6s ease-in-out infinite;transform-origin:40px 98px}.cch .g-arm{animation:cw 1.1s ease-in-out infinite;transform-origin:58px 52px}
+.cch .g-body{animation:cb 1.8s ease-in-out infinite;transform-origin:40px 98px}.cch .g-arm{animation:cw 1.1s ease-in-out infinite;transform-origin:58px 52px}
 .cch .g-head{animation:ch 2.4s ease-in-out infinite;transform-origin:40px 44px}
 .cch .g-eye{animation:bl 4s infinite;transform-origin:center;transform-box:fill-box}
 .cch .g-mouth{animation:mo 1.2s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
 @keyframes cb{50%{transform:scale(1.02,.97)}}@keyframes cw{50%{transform:rotate(-24deg)}}@keyframes ch{50%{transform:rotate(3deg)}}
 @keyframes bl{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}@keyframes mo{50%{transform:scale(1,.55)}}
-.say{position:absolute;bottom:96px;max-width:520px;background:#fff;border:3.5px solid var(--ink);border-radius:24px;box-shadow:4px 5px 0 var(--ink);padding:10px 20px;font:700 20px/1.25 Fredoka,sans-serif;z-index:5;pointer-events:none}
+.say{position:absolute;bottom:100px;max-width:560px;background:#fff;border:3.5px solid var(--ink);border-radius:24px;box-shadow:4px 5px 0 var(--ink);padding:12px 22px;font:700 24px/1.28 Fredoka,sans-serif;z-index:5;pointer-events:none}
 .say.R{right:166px}.say.L{left:166px}
 .say:after{content:"";position:absolute;top:50%;margin-top:-8px;width:16px;height:16px;background:#fff}
 .say.R:after{right:-10px;border-top:3.5px solid var(--ink);border-right:3.5px solid var(--ink);transform:rotate(45deg)}
 .say.L:after{left:-10px;border-bottom:3.5px solid var(--ink);border-left:3.5px solid var(--ink);transform:rotate(45deg)}
-.slide.on .say{animation:sp .6s .8s cubic-bezier(.3,1.6,.5,1) backwards}
-@keyframes sp{from{transform:scale(.2);opacity:0}}
+.slide.on .say{animation:sp .7s .95s var(--ease) backwards}
+@keyframes sp{from{transform:translate3d(0,10px,0) scale(.9);opacity:0}}
 
 /* kontrol */
 .bar{position:absolute;left:0;right:0;bottom:0;height:56px;z-index:30;display:flex;align-items:center;justify-content:center;gap:18px}
-.btn{height:42px;min-width:110px;padding:0 20px;border-radius:24px;border:3px solid var(--ink);background:var(--sun);font:700 18px Fredoka,sans-serif;color:var(--ink);box-shadow:3px 4px 0 var(--ink);cursor:pointer}
+.btn{height:46px;min-width:120px;padding:0 22px;border-radius:24px;border:3px solid var(--ink);background:var(--sun);font:700 20px Fredoka,sans-serif;color:var(--ink);box-shadow:3px 4px 0 var(--ink);cursor:pointer}
+.btn{transition:transform .18s var(--ease),box-shadow .18s var(--ease),opacity .3s ease}
 .btn:active{transform:translate(2px,3px);box-shadow:1px 1px 0 var(--ink)}.btn[disabled]{opacity:.45}
 .btn.nx{background:var(--coral);color:#fff}
 .dots{display:flex;gap:7px;align-items:center}
-.dots i{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.55);border:1.5px solid var(--ink);transition:all .3s;cursor:pointer}.dots i.on{background:var(--sun);transform:scale(1.5)}
-.cnt{position:absolute;top:14px;left:18px;z-index:30;background:var(--cream);border:3px solid var(--ink);border-radius:16px;padding:2px 14px;font:700 16px Fredoka,sans-serif;box-shadow:2px 3px 0 var(--ink)}
+.dots i{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.55);border:1.5px solid var(--ink);transition:transform .45s var(--ease),background-color .45s ease;cursor:pointer}.dots i.on{background:var(--sun);transform:scale(1.5)}
+.cnt{position:absolute;top:14px;left:18px;z-index:30;background:var(--cream);border:3px solid var(--ink);border-radius:16px;padding:3px 16px;font:700 18px Fredoka,sans-serif;box-shadow:2px 3px 0 var(--ink)}
 .fs{position:absolute;top:12px;right:18px;z-index:30;width:44px;height:44px;border-radius:50%;border:3px solid var(--ink);background:var(--cream);font-size:19px;cursor:pointer;box-shadow:2px 3px 0 var(--ink)}
-.hint{position:absolute;right:26px;bottom:18px;z-index:30;color:#fff;font:600 13px Fredoka,sans-serif;opacity:.8;text-shadow:0 1px 0 rgba(14,47,79,.6)}
+.hint{position:absolute;right:26px;bottom:18px;z-index:30;color:#fff;font:600 15px Fredoka,sans-serif;opacity:.85;text-shadow:0 1px 0 rgba(14,47,79,.6)}
 
 /* notifikasi putar layar (5 detik) */
-#rot{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 12px);transform:translate(-50%,-160%);opacity:0;transition:transform .5s cubic-bezier(.3,1.4,.5,1),opacity .4s;z-index:99;background:var(--sun);border:3px solid var(--ink);border-radius:22px;box-shadow:3px 4px 0 var(--ink);padding:10px 18px;font:700 15px Fredoka,sans-serif;color:var(--ink);text-align:center;max-width:88vw;pointer-events:none}
+#rot{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 12px);transform:translate(-50%,-160%);opacity:0;transition:transform .6s var(--ease),opacity .45s ease;z-index:99;background:var(--sun);border:3px solid var(--ink);border-radius:22px;box-shadow:3px 4px 0 var(--ink);padding:10px 18px;font:700 15px Fredoka,sans-serif;color:var(--ink);text-align:center;max-width:88vw;pointer-events:none}
 #rot.show{transform:translate(-50%,0);opacity:1}
 #sa{position:fixed;left:0;top:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 @media (prefers-reduced-motion:reduce){.bub,.rays i.ray,.waves svg{animation:none}}
+/* ===== 3D: kedalaman berlapis & gerak ===== */
+#decos{position:absolute;inset:0;pointer-events:none;will-change:transform}
+#slides{will-change:transform;transform-origin:50% 50%}
+.card,.member,.blist li,.gcard,.ttl{transform-style:preserve-3d}
+.card .ic{translate:0 0 42px}.card h3{translate:0 0 22px}.card p{translate:0 0 10px}.card .no{translate:0 0 54px}
+.toc .num{translate:0 0 34px}
+.member .no{translate:0 0 40px}
+.blist li i{translate:0 0 30px}.blist li span{translate:0 0 12px}
+.gcard .pool{translate:0 0 34px}.gcard h4{translate:0 0 18px}.gcard p{translate:0 0 8px}
+.ttl small{translate:0 0 16px}
+.say{translate:0 0 46px}
+.cch{perspective:460px;transform-style:preserve-3d}
+.cch svg{animation:coach3d 3.6s cubic-bezier(.45,0,.55,1) infinite alternate;will-change:rotate}
+@keyframes coach3d{from{rotate:0 1 0 -26deg}to{rotate:0 1 0 26deg}}
+.card .ic{perspective:240px}
+.card .ic svg{animation:ic3d 5.2s cubic-bezier(.45,0,.55,1) infinite alternate;will-change:rotate}
+@keyframes ic3d{from{rotate:0 1 0 -24deg}to{rotate:0 1 0 24deg}}
+.pool{perspective:820px}
+.pool>svg{animation:pool3d 6.5s cubic-bezier(.45,0,.55,1) infinite alternate;scale:1.07;will-change:rotate}
+@keyframes pool3d{from{rotate:.25 1 0 -8deg}to{rotate:-.25 1 0 8deg}}
+.ttl{animation:ttl3d 6s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes ttl3d{from{rotate:1 .4 0 -4deg}to{rotate:1 .4 0 4deg}}
+@media (prefers-reduced-motion:reduce){.cch svg,.card .ic svg,.pool>svg,.ttl{animation:none}}
+
+.fs{transition:transform .25s var(--ease)}.fs:active{transform:scale(.92)}
 </style></head><body>
 <div id="sa"></div><div id="rot">↻ Putar layar ke mode landscape untuk tampilan terbaik</div>
 <div class="stage">
@@ -155,43 +187,155 @@ const INK = '#0e2f4f', SKIN = '#e3b08a', SKIN2 = '#c58d68', SUIT = '#1f3b6b', SU
 const KS = '.45 0 .55 1';
 const spl = n => Array(n - 1).fill(KS).join(';');
 
-function rotG(v, dur, beg, inner, kt, lin) {
-  if (!Array.isArray(v)) return v ? `<g transform="rotate(${v})">${inner}</g>` : inner;
-  const n = v.length, times = kt || v.map((_, i) => (i / (n - 1)).toFixed(3)).join(';');
-  return `<g><animateTransform attributeName="transform" type="rotate" values="${v.join(';')}" keyTimes="${times}" dur="${dur}s" begin="${-beg}s" repeatCount="indefinite" ${lin ? 'calcMode="linear"' : `calcMode="spline" keySplines="${spl(n)}"`}/>${inner}</g>`;
+/* ===== WARNA, GRADIEN & SHADING (tanpa garis tepi) ===== */
+const _hx = h => { h = h.replace('#', ''); if (h.length === 3) h = [...h].map(c => c + c).join(''); return [0, 2, 4].map(i => parseInt(h.substr(i, 2), 16)); };
+const _mx = (c, t, a) => '#' + _hx(c).map((v, i) => Math.max(0, Math.min(255, Math.round(v + (t[i] - v) * a))).toString(16).padStart(2, '0')).join('');
+const lite = (c, a) => _mx(c, [255, 255, 240], a), dark = (c, a) => _mx(c, [28, 22, 58], a);
+const GD = {
+  lens: '<linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9efff"/><stop offset=".5" stop-color="#4f9ccf"/><stop offset="1" stop-color="#1d4f7a"/></linearGradient>'
+};
+/* silinder: tepi gelap, sorot di sisi atas */
+function lg(c, flip) {
+  const id = 'g' + (flip ? 'f' : 'n') + c.slice(1);
+  if (!GD[id]) GD[id] = `<linearGradient id="${id}" x1="0" y1="${flip ? 1 : 0}" x2="0" y2="${flip ? 0 : 1}"><stop offset="0" stop-color="${dark(c, .2)}"/><stop offset=".3" stop-color="${lite(c, .24)}"/><stop offset=".62" stop-color="${c}"/><stop offset="1" stop-color="${dark(c, .34)}"/></linearGradient>`;
+  return `url(#${id})`;
 }
-function moveG(v, dur, beg, inner, kt, lin) {
+function lgx(c) {
+  const id = 'x' + c.slice(1);
+  if (!GD[id]) GD[id] = `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${lite(c, .22)}"/><stop offset=".45" stop-color="${c}"/><stop offset="1" stop-color="${dark(c, .32)}"/></linearGradient>`;
+  return `url(#${id})`;
+}
+function lv(c) {
+  const id = 'v' + c.slice(1);
+  if (!GD[id]) GD[id] = `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${lite(c, .24)}"/><stop offset=".45" stop-color="${c}"/><stop offset="1" stop-color="${dark(c, .32)}"/></linearGradient>`;
+  return `url(#${id})`;
+}
+function rg(c) {
+  const id = 'r' + c.slice(1);
+  if (!GD[id]) GD[id] = `<radialGradient id="${id}" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="${lite(c, .32)}"/><stop offset=".5" stop-color="${c}"/><stop offset="1" stop-color="${dark(c, .36)}"/></radialGradient>`;
+  return `url(#${id})`;
+}
+
+/* ===== INTERPOLASI HALUS (kubik monoton, tanpa patah di tiap keyframe) ===== */
+const nsamp = d => Math.max(24, Math.min(200, Math.round(d * 72)));
+const _bg = (beg, dur) => ((beg % dur) + dur) % dur;
+function smp(v, kts, N) {
+  const n = v.length;
+  if (n < 2) return Array(N + 1).fill(v[0] || 0);
+  const t = kts && kts.length === n ? kts : v.map((_, i) => i / (n - 1));
+  const del = v[n - 1] - v[0], per = n >= 3 && Math.abs(del - Math.round(del / 360) * 360) < 1e-6;
+  const h = [], d = [];
+  for (let i = 0; i < n - 1; i++) { h[i] = t[i + 1] - t[i]; d[i] = h[i] > 1e-9 ? (v[i + 1] - v[i]) / h[i] : 0; }
+  const pc = (d0, h0, d1, h1) => { if (d0 * d1 <= 0) return 0; const w1 = 2 * h1 + h0, w2 = h1 + 2 * h0; return (w1 + w2) / (w1 / d0 + w2 / d1); };
+  const m = [];
+  for (let i = 1; i < n - 1; i++) m[i] = pc(d[i - 1], h[i - 1], d[i], h[i]);
+  if (per) m[0] = m[n - 1] = pc(d[n - 2], h[n - 2], d[0], h[0]); else { m[0] = d[0]; m[n - 1] = d[n - 2]; }
+  const out = []; let k = 0;
+  for (let j = 0; j <= N; j++) {
+    const x = j / N;
+    while (k < n - 2 && x > t[k + 1]) k++;
+    const hh = h[k] || 1e-9, u = Math.min(1, Math.max(0, (x - t[k]) / hh)), u2 = u * u, u3 = u2 * u;
+    out.push((2 * u3 - 3 * u2 + 1) * v[k] + (u3 - 2 * u2 + u) * hh * m[k] + (-2 * u3 + 3 * u2) * v[k + 1] + (u3 - u2) * hh * m[k + 1]);
+  }
+  return out;
+}
+const _kt = kt => typeof kt === 'string' ? kt.split(';').map(Number) : kt;
+
+function rotG(v, dur, beg, inner, kt) {
+  if (!Array.isArray(v)) return v ? `<g transform="rotate(${v})">${inner}</g>` : inner;
+  const s = smp(v, _kt(kt), nsamp(dur)).map(x => x.toFixed(2)).join(';');
+  return `<g><animateTransform attributeName="transform" type="rotate" values="${s}" dur="${dur}s" begin="${-_bg(beg, dur)}s" repeatCount="indefinite"/>${inner}</g>`;
+}
+function moveG(v, dur, beg, inner, kt) {
   if (!Array.isArray(v)) return inner;
-  const n = v.length, times = kt || v.map((_, i) => (i / (n - 1)).toFixed(3)).join(';');
-  return `<g><animateTransform attributeName="transform" type="translate" values="${v.map(p => p.join(' ')).join(';')}" keyTimes="${times}" dur="${dur}s" begin="${-beg}s" repeatCount="indefinite" ${lin ? 'calcMode="linear"' : `calcMode="spline" keySplines="${spl(n)}"`}/>${inner}</g>`;
+  const N = nsamp(dur), kk = _kt(kt), xs = smp(v.map(p => p[0]), kk, N), ys = smp(v.map(p => p[1]), kk, N);
+  const s = xs.map((x, i) => `${x.toFixed(2)} ${ys[i].toFixed(2)}`).join(';');
+  return `<g><animateTransform attributeName="transform" type="translate" values="${s}" dur="${dur}s" begin="${-_bg(beg, dur)}s" repeatCount="indefinite"/>${inner}</g>`;
+}
+
+/* ===== anggota badan v2: 2 ruas berotot + pemendekan perspektif (skala sepanjang sumbu) ===== */
+const _smpS = (arr, dur, f, kt) => smp(arr, kt ? _kt(kt) : null, nsamp(dur)).map(f).join(';');
+function scG(arr, dur, beg, inner, kt) {            /* skala sepanjang sumbu x (pemendekan) */
+  if (!Array.isArray(arr)) return inner;
+  return `<g><animateTransform attributeName="transform" type="scale" values="${_smpS(arr, dur, v => v.toFixed(3) + ' 1', kt)}" dur="${dur}s" begin="${-_bg(beg, dur)}s" repeatCount="indefinite"/>${inner}</g>`;
+}
+function trG(arr, len, dur, beg, inner, kt) {       /* sendi ikut bergeser sesuai pemendekan */
+  if (!Array.isArray(arr)) return `<g transform="translate(${len} 0)">${inner}</g>`;
+  return `<g><animateTransform attributeName="transform" type="translate" values="${_smpS(arr, dur, v => (len * v).toFixed(2) + ' 0', kt)}" dur="${dur}s" begin="${-_bg(beg, dur)}s" repeatCount="indefinite"/>${inner}</g>`;
 }
 function limb(px, py, base, l1, l2, A, B, dur, beg, lag, col, w, tip, k) {
   k = k || {};
-  const c2 = k.c2 || col;
-  const OL = 'stroke="#000" stroke-opacity=".38" stroke-width=".8" stroke-linejoin="round"';
-  /* segmen otot: lebar awal a, tengah m (menggembung), ujung b */
-  const sg = (len, a, m, b, f) => `<path d="M0 ${-a / 2}Q${len * .42} ${-m * .64} ${len} ${-b / 2}A${b / 2} ${b / 2} 0 0 1 ${len} ${b / 2}Q${len * .42} ${m * .64} 0 ${a / 2}A${a / 2} ${a / 2} 0 0 1 0 ${-a / 2}Z" fill="${f}" ${OL}/>`;
-  const hl = (len, m, b) => `<path d="M${len * .18} ${-m * .26}Q${len * .5} ${-m * .36} ${len * .84} ${-b * .2}" stroke="#fff" stroke-opacity=".26" stroke-width=".9" fill="none" stroke-linecap="round"/>`;
-  const lower = sg(l2, w * .8, w * .92, w * .56, c2) + hl(l2, w * .92, w * .56) + (tip || '');
+  const c2 = k.c2 || col, fl = base > 0, lagS = k.lag === undefined ? 0 : k.lag, lagT = k.lagT === undefined ? Math.min(dur * .04, .06) : k.lagT;
+  const path = (len, a, m, b) => `M0 ${-a / 2}Q${len * .42} ${-m * .64} ${len} ${-b / 2}A${b / 2} ${b / 2} 0 0 1 ${len} ${b / 2}Q${len * .42} ${m * .64} 0 ${a / 2}A${a / 2} ${a / 2} 0 0 1 0 ${-a / 2}Z`;
+  const sg = (len, a, m, b, f) => `<path d="${path(len, a, m, b)}" fill="${lg(f, fl)}"/>`;
+  const sh = (len, a, m, b) => `<path d="${path(len, a, m, b)}" fill="#0b1b3a" opacity=".2" transform="translate(.5 1.3)"/>`;
+  const hl = (len, m, b) => `<path d="M${len * .16} ${-m * .27}Q${len * .5} ${-m * .38} ${len * .86} ${-b * .22}" stroke="#fff" stroke-opacity=".3" stroke-width="1" fill="none" stroke-linecap="round"/>`;
+  const mov = Array.isArray(A) || Array.isArray(B);
+  const tipRot = k.tipRot === undefined ? [-8, 10, -8] : k.tipRot;
+  const tipW = tip ? rotG(mov ? tipRot : 0, dur, beg - lagT, `<g transform="translate(${-l2} 0)">${tip}</g>`) : '';
+  const lowerShapes = sh(l2, w * .8, w * .92, w * .56) + sg(l2, w * .8, w * .92, w * .56, c2) + hl(l2, w * .92, w * .56);
+  const lower = scG(k.s2, dur, beg - lagS, lowerShapes, k.Bk) + trG(k.s2, l2, dur, beg - lagS, tipW, k.Bk);
   const sleeve = k.sl ? sg(l1 * .52, w * 1.2, w * 1.34, w * 1.16, k.sl) : '';
-  const upper = `<g transform="translate(${l1} 0)">${rotG(B, dur, beg + lag, lower, k.Bk, k.Bl)}</g>` + sg(l1, w * 1.12, w * 1.22, w * .8, col) + hl(l1, w * 1.22, w * .8) + sleeve;
-  return `<g transform="translate(${px} ${py}) rotate(${base})">${rotG(A, dur, beg, upper, k.Ak, k.Al)}</g>`;
+  const upperShapes = sh(l1, w * 1.12, w * 1.22, w * .8) + sg(l1, w * 1.12, w * 1.22, w * .8, col) + hl(l1, w * 1.22, w * .8) + sleeve;
+  const upper = scG(k.s1, dur, beg, upperShapes, k.Ak) + trG(k.s1, l1, dur, beg, rotG(B, dur, beg - lagS, lower, k.Bk), k.Ak);
+  return `<g transform="translate(${px} ${py}) rotate(${base})">${rotG(A, dur, beg, upper, k.Ak)}</g>`;
 }
-const handT = (l2, c) => `<g transform="translate(${l2 - .4} 0)"><path d="M0 -2.2Q3.6 -3 7 -1.5Q8.1 0 7 1.5Q3.6 2.8 0 2.3Z" fill="${c}" stroke="#000" stroke-opacity=".38" stroke-width=".7" stroke-linejoin="round"/><path d="M1.2 -2Q3.4 -4 5 -3.2" stroke="#000" stroke-opacity=".3" stroke-width=".6" fill="none"/></g>`;
-const footT = (l2, c) => `<path d="M${l2 - .4} -2.1Q${l2 + 5} -2.8 ${l2 + 9} -.6Q${l2 + 10} .7 ${l2 + 8.4} 1.7Q${l2 + 4} 2.9 ${l2 - .4} 2.3Z" fill="${c}" stroke="#000" stroke-opacity=".38" stroke-width=".7" stroke-linejoin="round"/>`;
 
+/* ===== TANGAN: telapak, 4 jari (ruas + kuku + lipatan), ibu jari; m = -1 untuk tangan sebelah (cermin) ===== */
+function handT(l2, c, m) {
+  m = m || 1;
+  const body = lg(c), dk = dark(c, .34), nail = lite(c, .62);
+  const fng = (x0, y0, len, wd, ang) => {
+    const r = wd * .5, e = len - r;
+    return `<g transform="translate(${x0} ${y0}) rotate(${ang})"><path d="M0 ${-r}L${e} ${-r * .86}A${r * .86} ${r * .86} 0 0 1 ${e} ${r * .86}L0 ${r}Z" fill="${body}"/><path d="M${len * .42} ${-r * .8}Q${len * .45} 0 ${len * .42} ${r * .8}" stroke="${dk}" stroke-opacity=".4" stroke-width=".28" fill="none" stroke-linecap="round"/><ellipse cx="${len - r * 1.05}" cy="${-r * .18}" rx="${r * .55}" ry="${r * .5}" fill="${nail}" opacity=".7"/></g>`;
+  };
+  const web = `<path d="M3.4 -1.85L5.6 -1.9 5.7 1.9 3.6 2Z" fill="${dk}" opacity=".6"/>`;
+  const f = fng(3.7, -1.4, 3.45, .86, -5) + fng(3.9, -.47, 3.9, .9, -1.5) + fng(3.9, .47, 3.55, .88, 2.5) + fng(3.7, 1.38, 2.8, .8, 7);
+  const thumb = `<g transform="translate(.9 -1.35) rotate(-34)"><path d="M0 -.62L2.3 -.52A.58 .58 0 0 1 2.3 .62L0 .78Z" fill="${body}"/><path d="M2.3 -.5L3 -.4A.56 .56 0 0 1 3 .6L2.3 .66Z" fill="${lite(c, .06)}"/><ellipse cx="2.9" cy="-.1" rx=".36" ry=".3" fill="${nail}" opacity=".7"/></g>`;
+  const palm = `<path d="M-.4 -1.5C1 -2 2.9 -2.1 4.1 -1.8L4.3 1.8C2.8 2.2 1 2.1 -.4 1.5Z" fill="${body}"/><path d="M.8 -1.2Q2.4 -1.5 3.9 -1.2" stroke="#fff" stroke-opacity=".3" stroke-width=".5" fill="none" stroke-linecap="round"/><path d="M1.4 0H3.6M1.4 .9H3.6" stroke="${dk}" stroke-opacity=".22" stroke-width=".3" fill="none" stroke-linecap="round"/>`;
+  return `<g transform="translate(${l2 - .5} 0) scale(1 ${m})">${thumb}${palm}${web}${f}</g>`;
+}
+/* ===== KAKI TELANJANG (perenang): tumit, lengkung, 5 jari kaki, mata kaki; ujung kaki menunjuk (plantar-fleksi) ===== */
+function footT(l2, c) {
+  const body = lg(c, true), dk = dark(c, .34), nail = lite(c, .6);
+  const toes = [[9.4, .25, 1.35, 1, 0], [8.5, 1.45, 1.05, .8, 12], [7.7, 2.35, .9, .72, 22], [6.9, 3, .78, .64, 30], [6.2, 3.5, .66, .58, 38]];
+  return `<g transform="translate(${l2 - .5} 0)"><path d="M-.2 -1.9C2.6 -2.3 6.2 -2.1 9.3 -.5L9.8 1.2C7.2 2 4.5 2.8 2.4 3.3C1 3.8 -.4 3.5 -.7 2.2Z" fill="#0b1b3a" opacity=".2" transform="translate(.4 .6)"/>`
+    + `<path d="M-.4 -1.9C2.6 -2.5 6.2 -2.3 9.2 -.7C10.4 0 10.4 1.4 9.4 1.8C7 2.5 4.6 3.1 2.6 3.6C1.2 4.1 -.4 3.8 -.8 2.3Z" fill="${body}"/>`
+    + toes.map(t => `<ellipse cx="${t[0]}" cy="${t[1]}" rx="${t[2]}" ry="${t[3]}" transform="rotate(${t[4]} ${t[0]} ${t[1]})" fill="${rg(c)}"/>`).join('')
+    + `<ellipse cx="9.9" cy=".1" rx=".42" ry=".34" fill="${nail}" opacity=".75"/><path d="M8.2 1.5L8.7 1.9M7.4 2.4L7.8 2.8M6.7 3.1L7 3.4" stroke="${dk}" stroke-opacity=".3" stroke-width=".25" stroke-linecap="round"/>`
+    + `<ellipse cx=".7" cy="1.9" rx="1" ry=".85" fill="${lite(c, .12)}" opacity=".5"/><path d="M2.4 2.6Q4.6 .9 7 1.5" stroke="${dk}" stroke-opacity=".22" stroke-width=".4" fill="none" stroke-linecap="round"/>`
+    + `<path d="M1.6 -1.7Q5 -2 8 -.9" stroke="#fff" stroke-opacity=".35" stroke-width=".55" fill="none" stroke-linecap="round"/></g>`;
+}
+/* ===== SEPATU (tampak depan): kerah, lidah, tali, ujung membulat, sol ===== */
+function shoeT(l2, accent) {
+  const w = '#f7f9fc';
+  return `<g transform="translate(${l2 - 3.6} 0)">`
+    + `<path d="M0 -3.1L5 -4.4Q10.4 -4.6 10.6 -1.2V1.2Q10.4 4.6 5 4.4L0 3.1Z" fill="#0b1b3a" opacity=".16" transform="translate(.4 .7)"/>`
+    + `<path d="M6.6 -4.5Q11.8 -4.7 12 0Q11.8 4.7 6.6 4.5Z" fill="#9aa8bb"/>`
+    + `<path d="M0 -2.9L5.2 -4.2Q9.6 -4.4 10 -1.4V1.4Q9.6 4.4 5.2 4.2L0 2.9Z" fill="${lg(w)}"/>`
+    + `<path d="M6.4 -4.2Q10.2 -3.9 10.2 0Q10.2 3.9 6.4 4.2Q8 0 6.4 -4.2Z" fill="${accent}"/>`
+    + `<path d="M0 -2.9L1.7 -3.3Q.9 0 1.7 3.3L0 2.9Z" fill="#7d8da3"/>`
+    + `<rect x="2.2" y="-1.9" width="3" height="3.8" rx="1.3" fill="#fff"/><path d="M2.8 -1.3H4.6M2.8 -.2H4.6M2.8 .9H4.6" stroke="#a5b4c7" stroke-width=".42" stroke-linecap="round"/>`
+    + `<ellipse cx="8" cy="-2.1" rx="1.1" ry=".6" fill="#fff" opacity=".8"/></g>`;
+}
 
 function headG(x, y, o = {}) {
+  const cap = o.cap || CAP;
   const mouth = o.mouthO
-    ? `<ellipse cx="5.4" cy="3.8" rx="1.1" ry="1.3" fill="#6b2a2a"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="${o.mkt || '0;.5;.6;.88;1'}" dur="${o.D}s" begin="${-(o.beg || 0)}s" repeatCount="indefinite"/></ellipse>`
-    : `<path d="M3.9 3.7 Q5.1 4.4 6.3 3.6" stroke="#8a4a3a" stroke-width=".7" fill="none" stroke-linecap="round"/>`;
-  const OL = 'stroke="#000" stroke-opacity=".38" stroke-width=".8" stroke-linejoin="round"';
-  const face = `<ellipse rx="5.6" ry="6" fill="${SKIN}" ${OL}/>
-    <path d="M5 -.6 L7.5 1.8 L5.2 2.7Z" fill="${SKIN}" ${OL}/>
-    <ellipse cx="-1.4" cy="1.3" rx="1.1" ry="1.7" fill="${SKIN2}"/>
-    <path d="M-5.6 1 C-6.8 -6.4 -1 -8 3.8 -5.8 C5.8 -4.8 6 -2.8 5.4 -1.8 Q0 -2.8 -5.6 1Z" fill="${o.cap || CAP}" ${OL}/>
-    <path d="M-5.2 -1.7 L3.4 -1.2" stroke="#1a1a1a" stroke-width=".9" opacity=".8"/>
-    <ellipse cx="3.7" cy="-.2" rx="2.7" ry="2.1" fill="#2d5d86" opacity=".92" stroke="#111" stroke-width=".8"/><path d="M2.6 -1 l1.4 -.4" stroke="#fff" stroke-width=".7" opacity=".7" stroke-linecap="round"/>
+    ? `<ellipse cx="5.4" cy="4.1" rx="1.3" ry="1.4" fill="#6b2a2a"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="${o.mkt || '0;.5;.6;.88;1'}" dur="${o.D}s" begin="${-(o.beg || 0)}s" repeatCount="indefinite"/></ellipse>`
+    : `<path d="M3.6 4.0 Q5.2 4.6 6.6 3.9" stroke="#8a4a3a" stroke-width=".85" fill="none" stroke-linecap="round"/>`;
+  /* wajah maskulin: rahang lebih kotak, dagu tegas, hidung lebih tajam, alis tebal */
+  const face = `<ellipse rx="5.2" ry="6.8" fill="${rg(SKIN)}"/>
+    <path d="M-2 2.4L6 1.6Q7 4 5.2 6Q2.6 7.6 -.6 7Z" fill="${rg(SKIN)}"/>
+    <path d="M-1.4 6.4Q2.2 7.8 5.6 5.6" stroke="${dark(SKIN,.5)}" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".28"/>
+    <path d="M4.5 -.5 Q7.8 1.2 7.6 2.7 Q6.7 3.4 4.9 3.1Z" fill="${rg(SKIN)}"/>
+    <path d="M-1.5 5.2 Q1.5 7.0 4.2 5.8" stroke="${dark(SKIN,.3)}" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".4"/>
+    <ellipse cx="2.9" cy="3.6" rx="1.6" ry="1.05" fill="#ff8f80" opacity=".16"/>
+    <ellipse cx="-1.4" cy="1.3" rx="1.2" ry="1.8" fill="${dark(SKIN, .22)}"/><ellipse cx="-1.5" cy="1.1" rx=".5" ry=".9" fill="${SKIN2}"/>
+    <path d="M-5.6 1 C-6.8 -6.4 -1 -8 3.8 -5.8 C5.8 -4.8 6 -2.8 5.4 -1.8 Q0 -2.8 -5.6 1Z" fill="${rg(cap)}"/>
+    <path d="M-3.2 -5.5 Q0 -6.8 2.8 -5.3" stroke="#fff" stroke-opacity=".45" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <path d="M-5.2 -1.7 L3.4 -1.2" stroke="#1a2230" stroke-width="1.15" opacity=".9"/>
+    <ellipse cx="3.7" cy="-.2" rx="3" ry="2.4" fill="#16283a"/><ellipse cx="3.7" cy="-.2" rx="2.5" ry="1.9" fill="url(#lens)"/><path d="M2.5 -1 l1.5 -.5" stroke="#fff" stroke-width=".7" opacity=".75" stroke-linecap="round"/>
     ${mouth}`;
   return `<g transform="translate(${x} ${y})">${rotG(o.rot === undefined ? 0 : o.rot, o.D || 2, o.beg || 0, face, o.kt)}</g>`;
 }
@@ -203,37 +347,51 @@ function puff(x, y, D, at, big) {
   });
   return s;
 }
-const torsoSide = `<path d="M58 36C62 34.8 66 36.2 72 36S82 33.8 89 34.5C93 35.5 94 40 92 43C90 46.5 84 47 80 46S68 45 62 46.2C58.5 46.6 55.5 43 56 40C56 38 57 36.6 58 36Z" fill="${SKIN}" stroke="#000" stroke-opacity=".38" stroke-width=".9" stroke-linejoin="round"/><path d="M66 40.2Q76 38.4 87 40" stroke="#000" stroke-opacity=".16" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M62 37.2Q74 36.2 86 36" stroke="#fff" stroke-opacity=".25" stroke-width="1.1" fill="none" stroke-linecap="round"/><path d="M56.6 37C62 35 68 36.4 72.4 36.6L73.4 45.8C66 46 62 46.6 58 46.6C55.5 44.5 55.5 40 56.6 37Z" fill="${SUIT}" stroke="#000" stroke-opacity=".4" stroke-width=".8" stroke-linejoin="round"/>`;
-const neckS = `<line x1="89.5" y1="38" x2="95.5" y2="36.4" stroke="#000" stroke-opacity=".38" stroke-width="6.2" stroke-linecap="round"/><line x1="89.5" y1="38" x2="95.5" y2="36.4" stroke="${SKIN}" stroke-width="5" stroke-linecap="round"/>`;
+/* torso atletis: bahu lebih lebar, dada & punggung lebih berisi, pinggang streamline */
+const torsoSide = `<path d="M56 35.2C60 33.2 65 34.4 72 34.6S83 32.6 90 33.6C95 34.8 96 40 93.6 43.4C91 47.2 84 47.6 79.5 46.8S67 45.8 61 46.8C57 47.4 54 43.6 54.8 40.2C55 37.8 55.6 36 56 35.2Z" fill="${lg(SKIN)}"/>
+  <path d="M70 34.6Q78 33 88 34M72 38Q80 36.4 90 38" stroke="#7a3d2c" stroke-opacity=".2" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <path d="M64 33.6Q71 32.4 77 33.6" stroke="#fff" stroke-opacity=".28" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M65 41.5Q77 39.6 89 41.2" stroke="#7a3d2c" stroke-opacity=".16" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M62 37.2Q74 35.8 87 36.2" stroke="#fff" stroke-opacity=".3" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <path d="M55 36.5C61 34.2 68 36 73 36.4L74.2 47.2C66.5 47.5 61.5 48.2 57 48C53.5 45.5 53.2 40.5 55 36.5Z" fill="${lg(SUIT)}"/>
+  <path d="M57 38.5Q66 36.8 72.5 37.6" stroke="#fff" stroke-opacity=".18" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+  <path d="M74 36.8Q82 35.5 89 36.5" stroke="#fff" stroke-opacity=".12" stroke-width=".9" fill="none" stroke-linecap="round"/>`;
+const neckS = `<path d="M89.2 34.2Q94.5 31.8 99.4 33.4L99.6 39.8Q94 42.2 89.5 41Z" fill="${lg(SKIN2)}"/>`;
+/* lengan & kaki lebih berotot (atletis, bukan bodybuilder) */
+const swArm = (c, beg, A, B, D, k) => `<circle cx="89" cy="40" r="4.1" fill="${rg(c)}"/>` + limb(89, 40, 0, 15.5, 13.5, A, B, D, beg, .06, c, 5.6, handT(13.5, c), k);
+const swLeg = (c, beg, A, B, D, k) => `<ellipse cx="57" cy="42" rx="6.2" ry="5.6" fill="${rg(c === SKIN2 ? SUIT2 : SUIT)}"/>` + limb(57, 42, 180, 17.5, 16.5, A, B, D, beg, .09, c, 8.4, footT(16.5, c), Object.assign({ sl: c === SKIN2 ? SUIT2 : SUIT }, k));
 
 function swimG(st, o = {}) {
-  const arm = (c, beg, A, B, D, k) => limb(88, 40, 0, 15, 13, A, B, D, beg, .06, c, 5.6, handT(13, c), k);
-  const leg = (c, beg, A, B, D, k) => limb(58, 41, 180, 17, 16, A, B, D, beg, .09, c, 8.4, footT(16, c), Object.assign({ sl: c === SKIN2 ? SUIT2 : SUIT }, k));
+  const arm = swArm, leg = swLeg;
   const rollG = (v, D, amp, cx, cy) => `<g><animateTransform attributeName="transform" type="rotate" values="${-amp} ${cx} ${cy};${amp} ${cx} ${cy};${-amp} ${cx} ${cy}" dur="${D}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines="${spl(3)}"/>${v}</g>`;
   const AK = '0;.14;.28;.43;.58;.73;.87;1';
   let far = '', near = '', headS = '', extra = '', wrap = v => v;
 
   if (st === 'free' || st === 'breath') {
-    const D = st === 'breath' ? 2.6 : 1.7, big = st === 'breath';
-    const ak = { Ak: AK, Al: true, Bk: AK, Bl: true };
-    const aA = [10, 55, 110, 165, 235, 285, 335, 370], aB = [15, 55, 65, 15, 85, 95, 55, 15];
-    far = arm(SKIN2, D / 2, aA, aB, D, ak) + leg(SKIN2, .23, [-13, 13, -13], [8, -26, 8], .46);
-    near = leg(SKIN, 0, [-13, 13, -13], [8, -26, 8], .46) + arm(SKIN, 0, aA, aB, D, ak);
-    headS = headG(99, 35.2, { rot: [0, 0, big ? -44 : -34, big ? -44 : -34, 0], kt: '0;.45;.6;.88;1', D, mouthO: true, mkt: '0;.5;.6;.88;1' }) + puff(106, 39, D, .6, big);
-    wrap = v => moveG([[0, 0], [0, 1.4], [0, 0]], D, 0, rollG(v, D, 2.4, 73, 40));
+    const D = st === 'breath' ? 2.5 : 1.65, big = st === 'breath';
+    /* biomekanika freestyle: entry → high-elbow catch → pull → push → exit → recovery */
+    const FK = [0, .08, .18, .32, .42, .52, .62, .72, .82, .92, 1];
+    const ak = { Ak: FK, Bk: FK, s1: [1, 1, 1, .98, .95, .9, .82, .78, .82, .92, 1] };
+    const aA = [5, 35, 75, 125, 160, 190, 230, 270, 310, 345, 365];
+    const aB = [-340, -300, -285, -320, -355, -410, -475, -510, -560, -630, -700];
+    const kA = [11, 2, -10, 2, 11], kB = [5, 26, 6, 2, 5];
+    far = arm(SKIN2, D / 2, aA, aB, D, ak) + leg(SKIN2, .2, kA, kB, .42);
+    near = leg(SKIN, 0, kA, kB, .42) + arm(SKIN, 0, aA, aB, D, ak);
+    headS = headG(100, 34.8, { rot: [0, 0, big ? -42 : -32, big ? -42 : -32, 0], kt: '0;.42;.58;.86;1', D, mouthO: true, mkt: '0;.48;.58;.86;1' }) + puff(107, 38.5, D, .58, big);
+    wrap = v => moveG([[0, 0], [0, 1.6], [0, 0]], D, 0, rollG(v, D, 3.2, 74, 40));
   } else if (st === 'back') {
     const D = 1.9, bk = '0;.25;.5;.62;.75;.88;1';
     const ak = { Ak: bk, Al: true, Bk: bk, Bl: true };
     const aA = [180, 270, 360, 405, 450, 495, 540], aB = [3, 3, 6, 55, 62, 25, 3];
-    far = arm(SKIN2, D / 2, aA, aB, D, ak) + leg(SKIN2, .25, [-12, 12, -12], [8, -22, 8], .5);
-    near = leg(SKIN, 0, [-12, 12, -12], [8, -22, 8], .5) + arm(SKIN, 0, aA, aB, D, ak);
+    far = arm(SKIN2, D / 2, aA, aB, D, ak) + leg(SKIN2, .25, [9, 0, -9, 0, 9], [4, 22, 5, 2, 4], .5);
+    near = leg(SKIN, 0, [9, 0, -9, 0, 9], [4, 22, 5, 2, 4], .5) + arm(SKIN, 0, aA, aB, D, ak);
     headS = headG(98.5, 34.2, { rot: -84, D });
     extra = `<path transform="translate(112 18)" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3Z" fill="#ffd23f"><animateTransform attributeName="transform" type="scale" additive="sum" values=".5;1.2;.5" dur="1.4s" repeatCount="indefinite"/></path>`;
     wrap = v => `<g transform="translate(0 3.4)">${moveG([[0, 0], [0, -1.2], [0, 0]], D, 0, rollG(v, D, 2, 73, 40))}</g>`;
   } else if (st === 'breast') {
     const D = 2.4, at = '0;.12;.3;.48;.62;.8;1', lt = '0;.3;.5;.58;.72;1';
     const aA = [0, 0, 50, 95, 80, 25, 0], aB = [0, 0, 8, -55, -80, -25, 0];
-    const lA = [0, 0, -42, -30, 5, 0], lB = [0, 0, 96, 82, 0, 0];
+    const lA = [0, 0, -48, -36, 5, 0], lB = [0, 0, 82, 70, 0, 0];
     far = arm(SKIN2, 0, aA, aB, D, { Ak: at, Bk: at }) + leg(SKIN2, .04, lA, lB, D, { Ak: lt, Bk: lt });
     near = leg(SKIN, 0, lA, lB, D, { Ak: lt, Bk: lt }) + arm(SKIN, 0, aA, aB, D, { Ak: at, Bk: at });
     headS = headG(99, 35.2, { rot: [0, 0, -10, -22, -12, 0, 0], kt: at, D, mouthO: true, mkt: '0;.3;.4;.6;.7;.85;1' }) + puff(106, 39, D, .55);
@@ -242,7 +400,7 @@ function swimG(st, o = {}) {
     const D = 1.6;
     const ak = { Ak: AK, Al: true, Bk: AK, Bl: true };
     const aA = [10, 55, 110, 165, 235, 290, 335, 370], aB = [10, 50, 60, 12, 25, 20, 12, 10];
-    const kA = [-14, 14, -14], kB = [10, -22, 10];
+    const kA = [8, 0, -10, 0, 8], kB = [5, 30, 4, 2, 5];
     far = arm(SKIN2, 0, aA, aB, D, ak);
     near = leg(SKIN2, .08, kA, kB, D / 2) + leg(SKIN, 0, kA, kB, D / 2) + arm(SKIN, 0, aA, aB, D, ak);
     headS = headG(99, 35.2, { rot: [8, -4, -26, -26, 8], kt: '0;.3;.5;.8;1', D, mouthO: true, mkt: '0;.4;.5;.76;1' }) + puff(106, 39, D, .55);
@@ -267,62 +425,87 @@ function swimG(st, o = {}) {
 
 function waterOverlay(y = 42, x0 = -20, w = 190, h = 90, op = .42) {
   let p = `M${x0} ${y}`; for (let k = 0; k < Math.ceil(w / 14) + 2; k++) p += ` q7 -3.6 14 0`;
-  return `<rect x="${x0}" y="${y}" width="${w}" height="${h}" fill="#1aa6d6" opacity="${op}"/><path d="${p}" stroke="#d4f6ff" stroke-width="1.7" fill="none" stroke-linecap="round" opacity=".9"><animateTransform attributeName="transform" type="translate" values="0 0;-28 0" dur="1.6s" repeatCount="indefinite"/></path>`;
+  /* gelembung & percikan air lebih hidup */
+  let bub = '';
+  [[30, 48, 2.2, 0], [55, 52, 1.6, .4], [80, 47, 2.8, .8], [105, 51, 1.9, 1.2], [45, 55, 1.4, 1.6], [95, 54, 2.1, 2]].forEach((b, i) => {
+    bub += `<circle cx="${b[0]}" cy="${b[1]}" r="${b[2]}" fill="#fff" opacity="0"><animate attributeName="cy" values="${b[1]};${b[1] - 18}" dur="1.8s" begin="${b[3]}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.7;0" dur="1.8s" begin="${b[3]}s" repeatCount="indefinite"/><animate attributeName="r" values="${b[2]};${b[2] * 1.6}" dur="1.8s" begin="${b[3]}s" repeatCount="indefinite"/></circle>`;
+  });
+  return `<rect x="${x0}" y="${y}" width="${w}" height="${h}" fill="#1aa6d6" opacity="${op}"/><path d="${p}" stroke="#d4f6ff" stroke-width="1.7" fill="none" stroke-linecap="round" opacity=".9"><animateTransform attributeName="transform" type="translate" values="0 0;-28 0" dur="1.6s" repeatCount="indefinite"/></path>${bub}`;
 }
 const SWSVG = (st, vb = '8 2 128 66') => `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid meet">${swimG(st)}${waterOverlay(42, -20, 190, 40, .4)}</svg>`;
 
 /* ORANG TAMPAK DEPAN */
 function rotC(v, cx, cy, dur, beg, inner) {
   if (!Array.isArray(v)) return v ? `<g transform="rotate(${v} ${cx} ${cy})">${inner}</g>` : inner;
-  const n = v.length;
-  return `<g><animateTransform attributeName="transform" type="rotate" values="${v.map(a => `${a} ${cx} ${cy}`).join(';')}" keyTimes="${v.map((_, i) => (i / (n - 1)).toFixed(3)).join(';')}" dur="${dur}s" begin="${-beg}s" repeatCount="indefinite" calcMode="spline" keySplines="${spl(n)}"/>${inner}</g>`;
+  const s = smp(v, null, nsamp(dur)).map(a => `${a.toFixed(2)} ${cx} ${cy}`).join(';');
+  return `<g><animateTransform attributeName="transform" type="rotate" values="${s}" dur="${dur}s" begin="${-_bg(beg, dur)}s" repeatCount="indefinite"/>${inner}</g>`;
 }
 function figV(p) {
   const d = p.dur || 1.2, ph = p.ph || 0, SK = p.skin || SKIN, SK2 = p.skin2 || SKIN2, TOP = p.top || '#ff6b5e', SH = p.shorts || TRUNK;
   const A = (k, def) => p[k] === undefined ? def : p[k];
   const vl = (sx, sy, l1, l2, U, F, c1, c2, w, tip, beg, k) => limb(sx, sy, 90, l1, l2, U, F, d, beg, .08, c1, w, tip, Object.assign({ c2 }, k || {}));
   const aL = A('aL', [0, 0]), aR = A('aR', [0, 0]), lL = A('lL', [0, 0]), lR = A('lR', [0, 0]);
-  const OL = 'stroke="#000" stroke-opacity=".38" stroke-width=".8" stroke-linejoin="round"';
-  const shoe = `<path d="M13.4 -3.4Q19.6 -3.8 21 0Q21.4 3.6 16.2 4Q13.8 3.8 13.4 3.4Z" fill="#f4f4f4" ${OL}/><path d="M14.4 2.4H20.2" stroke="#ff6b5e" stroke-width="1"/>`;
-  const legs = vl(28.6, 36.5, 17.5, 16, lL[0], lL[1], SK, SK, 8.2, shoe, ph, { sl: SH }) + vl(35.4, 36.5, 17.5, 16, lR[0], lR[1], SK, SK, 8.2, shoe, ph, { sl: SH });
-  const pelvis = `<path d="M25 32H39L40.4 40.5Q32 42 23.6 40.5Z" fill="${SH}" ${OL}/>`;
-  const shirt = `<path d="M23 15.8Q23.6 13.6 27 13.6H37Q40.4 13.6 41 15.8L39.6 36.4Q32 38.2 24.4 36.4Z" fill="${TOP}" ${OL}/><path d="M29 13.8Q32 17.6 35 13.8" stroke="#000" stroke-opacity=".3" stroke-width=".8" fill="none"/><path d="M26 22Q32 24 38 22" stroke="#fff" stroke-opacity=".18" stroke-width="1.2" fill="none"/>`;
-  const armL = vl(24, 15.8, 12.5, 11, aL[0], aL[1], SK, SK, 5.4, handT(11, SK) + (aL[2] ? `<g transform="translate(13 0) rotate(-90)">${aL[2]}</g>` : ''), ph, { sl: TOP });
-  const armR = vl(40, 15.8, 12.5, 11, aR[0], aR[1], SK, SK, 5.4, handT(11, SK) + (aR[2] ? `<g transform="translate(13 0) rotate(-90)">${aR[2]}</g>` : ''), ph, { sl: TOP });
+  const shoe = shoeT(16, TOP), K = (a, o) => Object.assign({ s1: a[3], s2: a[4] }, o);
+  const legs = vl(28.6, 36.5, 17.5, 16, lL[0], lL[1], SK, SK, 8, shoe, ph, K(lL, { sl: SH, tipRot: 0 })) + vl(35.4, 36.5, 17.5, 16, lR[0], lR[1], SK, SK, 8, shoe, ph, K(lR, { sl: SH, tipRot: 0 }));
+  const pelvis = `<path d="M25 32H39L40.4 40.5Q32 42 23.6 40.5Z" fill="${lgx(SH)}"/><path d="M25 32.5H39" stroke="${dark(SH, .35)}" stroke-width="1.3" stroke-linecap="round" opacity=".7"/><path d="M32 33.5V40.8" stroke="${dark(SH, .4)}" stroke-width=".6" opacity=".35"/><circle cx="28.8" cy="37.4" r="4.1" fill="${rg(SH)}"/><circle cx="35.2" cy="37.4" r="4.1" fill="${rg(SH)}"/>`;
+  const shirt = `<path d="M21.8 16.2Q22.4 13.6 27 13.6H37Q41.6 13.6 42.2 16.2L40 36.4Q32 38 24 36.4Z" fill="${lgx(TOP)}"/><path d="M29 13.7Q32 18.2 35 13.7Z" fill="${SK2}"/><path d="M29 13.7Q32 18.2 35 13.7" stroke="${dark(TOP, .3)}" stroke-width=".7" fill="none" opacity=".6"/><path d="M25.4 30Q27.6 26 26.6 21" stroke="${dark(TOP, .45)}" stroke-opacity=".28" stroke-width="1.1" fill="none" stroke-linecap="round"/><path d="M38.6 29Q36.6 25 37.6 20.6" stroke="${dark(TOP, .45)}" stroke-opacity=".28" stroke-width="1.1" fill="none" stroke-linecap="round"/><path d="M24.6 21.4Q28.4 25 31.7 22.4M32.3 22.4Q35.6 25 39.4 21.4" stroke="#fff" stroke-opacity=".24" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M32 22.6V29" stroke="#000" stroke-opacity=".08" stroke-width=".8"/>`;
+  const shoulders = `<circle cx="23.4" cy="16.4" r="3.9" fill="${rg(TOP)}"/><circle cx="40.6" cy="16.4" r="3.9" fill="${rg(TOP)}"/>`;
+  const armL = vl(23.4, 16, 12.5, 11, aL[0], aL[1], SK, SK, 5.6, handT(11, SK, 1) + (aL[2] ? `<g transform="translate(13 0) rotate(-90)">${aL[2]}</g>` : ''), ph, K(aL, { sl: TOP }));
+  const armR = vl(40.6, 16, 12.5, 11, aR[0], aR[1], SK, SK, 5.6, handT(11, SK, -1) + (aR[2] ? `<g transform="translate(13 0) rotate(-90)">${aR[2]}</g>` : ''), ph, K(aR, { sl: TOP }));
   const hasH = p.head !== undefined, gog = p.goggles !== false;
   const cap = p.cap || CAP;
   const eyes = gog
-    ? `<ellipse cx="29.5" cy="7.3" rx="2.5" ry="1.9" fill="#2d5d86" opacity=".92" stroke="#111" stroke-width=".7"/><ellipse cx="34.5" cy="7.3" rx="2.5" ry="1.9" fill="#2d5d86" opacity=".92" stroke="#111" stroke-width=".7"/><path d="M27 7.3H26.4M37 7.3H37.6M32 7.2V7.4" stroke="#111" stroke-width=".8"/><path d="M28.4 6.6l1.4-.3M33.4 6.6l1.4-.3" stroke="#fff" stroke-width=".6" opacity=".7"/>`
-    : `<ellipse cx="29.8" cy="7.3" rx="1.05" ry=".7" fill="#2a1b14"/><ellipse cx="34.2" cy="7.3" rx="1.05" ry=".7" fill="#2a1b14"/><path d="M28.2 5.6Q29.8 5 31.2 5.6M32.8 5.6Q34.2 5 35.8 5.6" stroke="#2a1b14" stroke-width=".6" fill="none"/>`;
+    ? `<ellipse cx="29.5" cy="7.3" rx="2.9" ry="2.3" fill="#16283a"/><ellipse cx="34.5" cy="7.3" rx="2.9" ry="2.3" fill="#16283a"/><ellipse cx="29.5" cy="7.3" rx="2.4" ry="1.85" fill="url(#lens)"/><ellipse cx="34.5" cy="7.3" rx="2.4" ry="1.85" fill="url(#lens)"/><path d="M26.6 6.9H26.9M37.1 6.9H37.4M26.6 6.5H37.4" stroke="#16283a" stroke-width=".9" opacity=".85"/><path d="M26.9 4.7L31.6 4.2M32.4 4.2L37.1 4.7" stroke="#2a1b14" stroke-width="1.3" stroke-linecap="round" opacity=".55"/><path d="M28.4 6.5l1.4-.4M33.4 6.5l1.4-.4" stroke="#fff" stroke-width=".6" opacity=".75" stroke-linecap="round"/>`
+    : `<ellipse cx="29.8" cy="7.3" rx="1.5" ry="1" fill="#fff"/><ellipse cx="34.2" cy="7.3" rx="1.5" ry="1" fill="#fff"/><circle cx="29.9" cy="7.3" r=".78" fill="#2a1b14"/><circle cx="34.1" cy="7.3" r=".78" fill="#2a1b14"/><circle cx="30.2" cy="7" r=".25" fill="#fff"/><circle cx="34.4" cy="7" r=".25" fill="#fff"/><path d="M27 5.6L31.4 4.6M32.6 4.6L37 5.6" stroke="#2a1b14" stroke-width="1.4" fill="none" stroke-linecap="round"/>`;
   const mouth = p.talk
-    ? `<ellipse cx="32" cy="11.3" rx="1.5" ry=".5" fill="#6b2a2a"><animate attributeName="ry" values=".3;1.3;.4;1;.3" dur=".9s" repeatCount="indefinite"/></ellipse>`
-    : `<path d="M30.2 11.2Q32 12.4 33.8 11.2" stroke="#8a4a3a" stroke-width=".8" fill="none" stroke-linecap="round"/>`;
-  const headM = `<rect x="29.6" y="11.4" width="4.8" height="4.4" rx="1.6" fill="${SK2}"/><ellipse cx="25.8" cy="7.5" rx="1.1" ry="1.8" fill="${SK2}"/><ellipse cx="38.2" cy="7.5" rx="1.1" ry="1.8" fill="${SK2}"/>
-    <ellipse cx="32" cy="7.3" rx="5.3" ry="6.3" fill="${SK}" ${OL}/>
-    <path d="M26.5 5.8C26 -.8 30 -1.8 32 -1.8C34 -1.8 38 -.8 37.5 5.8Q32 3.2 26.5 5.8Z" fill="${cap}" ${OL}/>
-    ${eyes}<path d="M32 8.2L31.4 10.2H32.6" stroke="${SK2}" stroke-width=".7" fill="none" stroke-linecap="round"/>${mouth}`;
+    ? `<ellipse cx="32" cy="11.5" rx="1.7" ry=".55" fill="#6b2a2a"><animate attributeName="ry" values=".3;1.3;.4;1;.3" dur=".9s" repeatCount="indefinite"/></ellipse>`
+    : `<path d="M29.8 11.4 Q32 12.2 34.2 11.4" stroke="#8a4a3a" stroke-width=".9" fill="none" stroke-linecap="round"/>`;
+  /* wajah maskulin: rahang kotak, dagu tegas, alis tebal lurus, pipi lebih tegas */
+  const headM = `<ellipse cx="32" cy="15.0" rx="5.5" ry="2.0" fill="#0b1b3a" opacity=".16"/><rect x="29.2" y="11.5" width="5.6" height="5" rx="1.8" fill="${dark(SK, .22)}"/><ellipse cx="26.4" cy="8" rx="1.1" ry="1.9" fill="${dark(SK, .18)}"/><ellipse cx="37.6" cy="8" rx="1.1" ry="1.9" fill="${dark(SK, .18)}"/>
+    <ellipse cx="32" cy="7.6" rx="5.1" ry="7" fill="${rg(SK)}"/>
+    <path d="M27 9.5Q27.2 13 29.4 14.8Q32 16.6 34.6 14.8Q36.8 13 37 9.5Z" fill="${rg(SK)}" stroke="none"/><path d="M27.6 12Q29.2 14.8 32 15.4Q34.8 14.8 36.4 12" stroke="${dark(SK,.5)}" stroke-width=".7" fill="none" opacity=".25" stroke-linecap="round"/>
+    <path d="M26.5 5.8C26 -.8 30 -1.8 32 -1.8C34 -1.8 38 -.8 37.5 5.8Q32 3.2 26.5 5.8Z" fill="${rg(cap)}"/>
+    <path d="M28.6 -.2Q31 -1.6 33.6 -.9" stroke="#fff" stroke-opacity=".4" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <ellipse cx="28.4" cy="10.2" rx="1.35" ry=".85" fill="#ff8f80" opacity=".16"/><ellipse cx="35.6" cy="10.2" rx="1.35" ry=".85" fill="#ff8f80" opacity=".16"/>
+    ${eyes}<path d="M32 8.4L31.2 10.5Q32 10.9 32.8 10.5Z" fill="${dark(SK, .25)}" opacity=".55"/>${mouth}`;
   const head = rotC(hasH ? p.head : [-2.5, 2.5, -2.5], 32, 12, hasH ? d : d * 1.7, ph, headM);
-  const torso = rotC(A('torso', 0), 32, 37, d, ph, shirt + (p.chest || '') + armL + armR + head);
+  const breath = `<g transform="translate(32 26)"><g><animateTransform attributeName="transform" type="scale" values="1 1;1.02 1.03;1 1" dur="${(d * 2.2).toFixed(2)}s" begin="${-ph}s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.5;1" keySplines="${spl(3)}"/><g transform="translate(-32 -26)">${shirt}${p.chest || ''}</g></g></g>`;
+  const torso = rotC(A('torso', 0), 32, 37, d, ph, breath + shoulders + armL + armR + head);
   const bb = Array.isArray(p.bob) ? p.bob : null;
   let body = `${legs}${pelvis}${torso}`;
   if (bb) {
     const jumpy = Math.min(...bb) < 0;
-    body = moveG(bb.map(y => [0, y]), p.bobDur || d, ph, body, null, false);
+    body = moveG(bb.map(y => [0, y]), p.bobDur || d, ph, body, null);
     if (jumpy) body = `<g transform="translate(32 72)"><g><animateTransform attributeName="transform" type="scale" values="${bb.map(y => y < -.5 ? '.97 1.04' : '1.05 .95').join(';')}" keyTimes="${bb.map((_, i) => (i / (bb.length - 1)).toFixed(3)).join(';')}" dur="${p.bobDur || d}s" begin="${-ph}s" repeatCount="indefinite"/><g transform="translate(-32 -72)">${body}</g></g></g>`;
   }
-  return `<svg viewBox="-6 -4 76 78" overflow="visible">${p.pre || ''}<ellipse cx="32" cy="72" rx="14" ry="2.2" fill="#000" opacity=".22"/>${body}${p.prop || ''}</svg>`;
+  const stand = p.lift ? `<g transform="translate(0 ${-p.lift}) translate(32 72) scale(${p.sc || .88}) translate(-32 -72)">` : '<g>';
+  return `<svg viewBox="-6 -4 76 78" overflow="visible">${p.pre || ''}${stand}<ellipse cx="32" cy="72" rx="14" ry="2.2" fill="#000" opacity=".22"/>${body}</g>${p.prop || ''}</svg>`;
 }
 const spark = (x, y, dur = 1.1) => `<path transform="translate(${x} ${y})" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3Z" fill="#ffd23f"><animateTransform attributeName="transform" type="scale" additive="sum" values=".4;1.2;.4" dur="${dur}s" repeatCount="indefinite"/></path>`;
 const sweat = `<g fill="#7ec8ff"><path d="M46 12 q-2.5 4 0 5.5 q2.5 -1.5 0 -5.5Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 12" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.2s" repeatCount="indefinite"/></path><path d="M18 10 q-2 3.5 0 5 q2 -1.5 0 -5Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 12" dur="1.2s" begin="-.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.2s" begin="-.6s" repeatCount="indefinite"/></path></g>`;
-const stopSign = `<g><circle r="5.8" fill="#e0453a" stroke="${INK}" stroke-width="1"/><rect x="-3.5" y="-.9" width="7" height="1.8" fill="#fff"/></g>`;
-const medalP = `<g transform="translate(32 31)"><path d="M-4 -9 L0 -2 L4 -9" stroke="#e0453a" stroke-width="2.4" fill="none"/><circle r="4.6" fill="#ffd23f" stroke="${INK}" stroke-width="1.2"/></g>`;
+const stopSign = `<g><circle r="6" fill="#a82a22"/><circle r="5.3" fill="${rg('#e0453a')}"/><rect x="-3.5" y="-.9" width="7" height="1.8" rx=".6" fill="#fff"/></g>`;
+const medalP = `<g transform="translate(32 31)"><path d="M-4 -9 L0 -2 L4 -9" stroke="#e0453a" stroke-width="2.4" fill="none"/><circle r="4.8" fill="#c98f00"/><circle r="4.2" fill="${rg('#ffd23f')}"/><circle r="2.2" fill="#ffe98a" opacity=".7"/></g>`;
 const noRun = `<g transform="translate(32 34)" opacity=".95"><circle r="30" fill="none" stroke="#e0453a" stroke-width="5"/><path d="M-21 -21 L21 21" stroke="#e0453a" stroke-width="5" stroke-linecap="round"/></g>`;
-const podium = `<g><rect x="12" y="58" width="40" height="14" rx="2" fill="#ffd23f" stroke="${INK}" stroke-width="1.6"/><text x="32" y="69" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="700" font-size="10" fill="${INK}">1</text></g>`;
+const podium = `<g><rect x="12" y="58" width="40" height="14" rx="2" fill="${lv('#ffd23f')}"/><rect x="12" y="58" width="40" height="2.4" rx="1.2" fill="#fff" opacity=".45"/><text x="32" y="69" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="700" font-size="10" fill="${INK}">1</text></g>`;
+/* siklus (8 sampel, t=0 tumit mendarat) -> tertutup; setengah siklus untuk anggota badan sisi lawan */
+const _cy = a => a.concat(a[0]), _hf = a => _cy(a.slice(a.length / 2).concat(a.slice(0, a.length / 2))), _ng = a => a.map(v => -v);
+const RUN = (() => {
+  const lS1 = [.72, .92, 1, .88, .62, .5, .55, .66], lS2 = [.95, 1, 1, .92, .55, .42, .6, .85], lA = [2, 1, 1, 2, 3, 4, 4, 3], lB = [0, 0, 0, 0, 3, 4, 3, 0];
+  const aS1 = [1, .95, .9, .78, .6, .5, .62, .85], aS2 = [1, 1, .9, .7, .42, .36, .5, .8], aA = [-16, -14, -12, -10, -8, -7, -10, -14], aB = [4, 6, 10, 22, 36, 40, 28, 10];
+  return {
+    lL: [_cy(lA), _cy(lB), 0, _cy(lS1), _cy(lS2)], lR: [_ng(_hf(lA)), _ng(_hf(lB)), 0, _hf(lS1), _hf(lS2)],
+    aR: [_cy(aA), _cy(aB), 0, _cy(aS1), _cy(aS2)], aL: [_ng(_hf(aA)), _ng(_hf(aB)), 0, _hf(aS1), _hf(aS2)]
+  };
+})();
+const JACK = (() => {
+  const A = [0, 38, 95, 140, 150, 140, 95, 38, 0], L = [0, 4, 10, 13, 14, 13, 10, 4, 0];
+  return { aL: [A, [0, 2, 4, 6, 6, 6, 4, 2, 0]], aR: [_ng(A), [0, -2, -4, -6, -6, -6, -4, -2, 0]], lL: [L, 0], lR: [_ng(L), 0] };
+})();
 const FIGP = {
-  warm: { dur: 1, bob: [0, -4, 0], aL: [[0, 155, 0], [4, 14, 4]], aR: [[0, -155, 0], [-4, -14, -4]], lL: [[0, 14, 0], 0], lR: [[0, -14, 0], 0], prop: spark(54, 14) },
-  run: { dur: .62, bobDur: .31, bob: [0, -3, 0, -3, 0], torso: 5, aL: [[-40, 40, -40], -75], aR: [[40, -40, 40], 75], lL: [[-30, 30, -30], [0, 55, 0]], lR: [[30, -30, 30], [55, 0, 55]] },
-  stop: { dur: 1.8, torso: [0, 4, 0], head: [0, 6, 0], aL: [[8, 14, 8], [5, 10, 5]], aR: [[-150, -160, -150], [-6, 16, -6], stopSign], prop: sweat },
-  cheer: { dur: .9, bob: [0, -5, 0], aL: [150, [-14, 14, -14]], aR: [-150, [14, -14, 14]], chest: medalP, prop: spark(6, 10, .8) + spark(58, 10, .8), pre: podium }
+  warm: Object.assign({ dur: 1.1, bob: [0, 0, -1.5, -3.6, -4, -3.6, -1.5, 0, 0], prop: spark(54, 14) }, JACK),
+  run: Object.assign({ dur: .7, bobDur: .35, bob: [0, -1, -3, -3.4, -1.6, 0, 0], torso: [-2.5, 2.5, -2.5], head: [-2, 2, -2] }, RUN),
+  stop: { dur: 1.8, torso: [0, 3, 0], head: [0, 5, 0], aL: [[8, 14, 8], [5, 10, 5]], aR: [[-150, -158, -150], [-4, 12, -4], stopSign], prop: sweat },
+  cheer: { dur: .9, lift: 13, sc: .82, bob: [0, -5, 0], aL: [[134, 146, 134], [-14, 14, -14]], aR: [[-134, -146, -134], [14, -14, 14]], chest: medalP, prop: spark(6, 10, .8) + spark(58, 10, .8), pre: podium }
 };
 const FIGV = n => figV(FIGP[n]);
 const FIGNORUN = () => figV(Object.assign({}, FIGP.run, { prop: noRun }));
@@ -348,9 +531,7 @@ const ICON = {
   free: `<svg viewBox="30 8 100 52" preserveAspectRatio="xMidYMid meet">${swimG('free')}${waterOverlay(42, 0, 160, 40, .45)}</svg>`,
   trophy: figV(FIGP.cheer),
   buoy: I64(`<g transform="translate(32 32)"><g>${AT('rotate', '0;360', 8)}<circle r="20" fill="none" stroke="#ff5a6e" stroke-width="12"/><circle r="26" fill="none" stroke="#0e2f4f" stroke-width="2"/><circle r="14" fill="none" stroke="#0e2f4f" stroke-width="2"/><g fill="#fff" stroke="#0e2f4f" stroke-width="1.6"><rect x="-6" y="-26" width="12" height="12" rx="2"/><rect x="-6" y="14" width="12" height="12" rx="2"/><rect x="-26" y="-6" width="12" height="12" rx="2"/><rect x="14" y="-6" width="12" height="12" rx="2"/></g></g>${AT('translate', '0 -2;0 2;0 -2', 2.4, 'additive="sum"')}</g>`),
-  start: I64(`<rect x="0" y="46" width="64" height="18" fill="#3fb6e8" opacity=".7"/><rect x="6" y="38" width="26" height="9" rx="2" fill="#e9fbff" stroke="#0e2f4f" stroke-width="2"/><rect x="10" y="46" width="4" height="10" fill="#0e2f4f"/><g><circle r="5" cx="0" cy="0" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="2"/><path d="M-4 5 L-8 22 M-3 6 L7 8" stroke="#ff6b5e" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M-8 22 L-4 36" stroke="#f6c9a0" stroke-width="4" stroke-linecap="round"/>${AT('translate', '16 12;16 12;24 4;42 14;50 40;50 40', 2.2, 'keyTimes="0;.3;.5;.7;.9;1" calcMode="spline" keySplines="0 0 1 1;.3 0 .7 1;.4 0 .6 1;.4 0 .6 1;0 0 1 1"')}${A('opacity', '1;1;1;1;0;0', 2.2, 'keyTimes="0;.3;.5;.7;.9;1"')}</g><g stroke="#fff" stroke-width="2" fill="none"><circle cx="50" cy="48" r="2">${A('r', '0;9;9', 2.2, 'keyTimes="0;.9;1"')}${A('opacity', '0;0;.9;0', 2.2, 'keyTimes="0;.7;.9;1"')}</circle></g>`),
   turn: I64(`<path d="M8 20 H44 a12 12 0 0 1 0 24 H18" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="1" pathLength="1">${A('stroke-dashoffset', '1;0;0;1', 2.4, 'keyTimes="0;.5;.85;1"')}</path><path d="M8 20 H44 a12 12 0 0 1 0 24 H22" fill="none" stroke="#0e2f4f" stroke-width="2" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" values="0;-16" dur=".8s" repeatCount="indefinite"/></path><path d="M24 36 L14 44 L24 52" fill="none" stroke="#ff6b5e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`),
-  finish: I64(`<rect x="50" y="6" width="14" height="52" fill="#e9fbff" stroke="#0e2f4f" stroke-width="2.4"/><path d="M50 18h14M50 30h14M50 42h14" stroke="#27c4e8" stroke-width="2"/><g><circle r="6" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="2"/><path d="M-12 0 H-3" stroke="#f6c9a0" stroke-width="6" stroke-linecap="round"/>${AT('translate', '14 32;40 32;44 32;14 32', 2, 'keyTimes="0;.4;.6;1" calcMode="spline" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1"')}</g><circle cx="50" cy="32" r="3" fill="none" stroke="#fff" stroke-width="2.4">${A('r', '2;18;18', 2, 'keyTimes="0;.5;1"')}${A('opacity', '0;0;1;0', 2, 'keyTimes="0;.4;.45;.8"')}</circle>`),
   dq: I64(`<g transform="translate(32 32)"><g>${AT('rotate', '-10;10;-10', .5)}<rect x="-13" y="-19" width="26" height="38" rx="4" fill="#ff4b3e" stroke="#0e2f4f" stroke-width="2.6"/><path d="M-6 -7 L6 7 M6 -7 L-6 7" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g></g>`),
   suit: I64(`<g transform="translate(32 32)"><g>${AT('rotate', '-3;3;-3', 2.2)}<path d="M-12 -24 h7 l5 8 l5 -8 h7 l3 14 q-4 6 -2 12 q3 8 -1 18 h-7 l-5 -10 l-5 10 h-7 q-4 -10 -1 -18 q2 -6 -2 -12Z" transform="translate(0 4) scale(.95)" fill="#ff6b5e" stroke="#0e2f4f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-4 -12 l4 5 l4 -5" fill="none" stroke="#fff" stroke-width="2"/></g></g>`),
   goggles: I64(`<g transform="translate(32 33)"><g>${AT('translate', '0 -2;0 2;0 -2', 1.8)}<path d="M-27 -4 Q-30 6 -24 8 M27 -4 Q30 6 24 8" stroke="#0e2f4f" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M-27 -4 Q-30 6 -24 8 M27 -4 Q30 6 24 8" stroke="#ffd23f" stroke-width="2.6" fill="none" stroke-linecap="round"/><rect x="-24" y="-10" width="21" height="19" rx="9" fill="#bdeeff" stroke="#0e2f4f" stroke-width="2.6"/><rect x="3" y="-10" width="21" height="19" rx="9" fill="#bdeeff" stroke="#0e2f4f" stroke-width="2.6"/><path d="M-3 -2 h6" stroke="#0e2f4f" stroke-width="3"/><path d="M-20 -5 l5 -2" stroke="#fff" stroke-width="2.4" stroke-linecap="round">${A('opacity', '.2;1;.2', 1.6)}</path><path d="M7 -5 l5 -2" stroke="#fff" stroke-width="2.4" stroke-linecap="round">${A('opacity', '.2;1;.2', 1.6)}</path></g></g>`),
@@ -358,9 +539,44 @@ const ICON = {
   warm: figV(FIGP.warm),
   stop: figV(FIGP.stop),
   norun: FIGNORUN(),
-  buddy: I64(`<g>${AT('translate', '0 0;0 -2;0 0', 1.2)}<circle cx="20" cy="22" r="8" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="2"/><path d="M12 22 C10 12 24 10 28 18 Q20 18 12 22Z" fill="#ffd23f" stroke="#0e2f4f" stroke-width="1.6"/><rect x="12" y="31" width="16" height="20" rx="6" fill="#ff6b5e" stroke="#0e2f4f" stroke-width="2"/></g><g>${AT('translate', '0 -2;0 0;0 -2', 1.2)}<circle cx="44" cy="22" r="8" fill="#f6c9a0" stroke="#0e2f4f" stroke-width="2"/><path d="M36 22 C34 12 48 10 52 18 Q44 18 36 22Z" fill="#7ed8ff" stroke="#0e2f4f" stroke-width="1.6"/><rect x="36" y="31" width="16" height="20" rx="6" fill="#2b6cb0" stroke="#0e2f4f" stroke-width="2"/></g><path d="M28 38 Q32 33 36 38" stroke="#0e2f4f" stroke-width="3.6" fill="none" stroke-linecap="round"/><g transform="translate(32 8)"><path d="M0 4 C-8 -3 -3 -8 0 -4 C3 -8 8 -3 0 4Z" fill="#ff5a6e" stroke="#0e2f4f" stroke-width="1.4">${AT('scale', '1;1.3;1', 1)}</path></g>`),
   sign: I64(`<g transform="translate(32 34)"><g>${AT('rotate', '-4;4;-4', 2.4)}<rect x="-3" y="10" width="6" height="22" fill="#0e2f4f"/><rect x="-22" y="-24" width="44" height="38" rx="6" fill="#fff" stroke="#0e2f4f" stroke-width="2.6"/><path d="M-15 -14 l4 4 l7 -8" stroke="#14a39a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15 0 l4 4 l7 -8" stroke="#14a39a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M0 -12 h14 M0 2 h14" stroke="#0e2f4f" stroke-width="3" stroke-linecap="round"/></g></g>`)
 };
+/* ikon orang (tanpa garis tepi): start, finish, buddy */
+(() => {
+  /* ---- START: melompat dari balok ke air ---- */
+  const D = 2.6, K = '0;.12;.3;.5;.72;.86;1', lk = { Ak: K, Bk: K };
+  const nearA = [160, 195, 110, 15, 0, 0, 0], nearB = [10, 12, 22, 6, 0, 0, 0];
+  const farA = [150, 190, 100, 10, 0, 0, 0], farB = [14, 14, 24, 8, 0, 0, 0];
+  const lA = [0, -30, -14, 6, 0, 0, 0], lB = [4, 62, 38, 8, 0, 0, 0];
+  const far = swArm(SKIN2, 0, farA, farB, D, lk) + swLeg(SKIN2, 0, lA.map(v => v + 3), lB, D, lk);
+  const near = swLeg(SKIN, 0, lA, lB, D, lk) + swArm(SKIN, 0, nearA, nearB, D, lk);
+  const head = headG(99, 35.2, { rot: [0, 0, -8, 6, 18, 22, 22], kt: K, D });
+  const fig = far + torsoSide + neckS + near + head;
+  const P = [[13, 19.5], [13, 22], [22, 13], [34, 10], [46, 30], [50, 50], [50, 58]], R = [-80, -62, -32, 4, 52, 80, 84];
+  const body = moveG(P, D, 0, `<g transform="scale(.45)">${rotG(R, D, 0, `<g transform="translate(-72 -40)">${fig}</g>`, K)}</g>`, K);
+  const blk = `<rect x="3" y="36" width="22" height="10" rx="2" fill="${lv('#f2fbff')}"/><rect x="3" y="36" width="22" height="2.4" rx="1.2" fill="#fff"/><rect x="7" y="46" width="4" height="10" fill="${lv('#9fb7c8')}"/>`;
+  const ring = `<ellipse cx="50" cy="46" rx="1" ry=".8" fill="none" stroke="#fff" stroke-width="1.4"><animate attributeName="rx" values="0;0;0;0;1;11;14" keyTimes="${K}" dur="${D}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;0;0;.9;.6;0" keyTimes="${K}" dur="${D}s" repeatCount="indefinite"/></ellipse>`;
+  ICON.start = I64(`<g transform="translate(10 8) scale(.8)">${blk}<g><animate attributeName="opacity" values="0;1;1;1;1;.9;0" keyTimes="${K}" dur="${D}s" repeatCount="indefinite"/>${body}</g><rect x="-30" y="46" width="130" height="50" fill="${lv('#3fb6e8')}" opacity=".82"/>${ring}</g>`);
+
+  /* ---- FINISH: menyentuh dinding kolam ---- */
+  const D2 = 3, K2 = '0;.25;.5;.7;.9;1', ak = { Ak: K2, Bk: K2 };
+  const f2 = swArm(SKIN2, 0, [200, 270, 330, 370, 370, 370], [40, 40, 25, 8, 6, 6], D2, ak) + swLeg(SKIN2, .23, [-13, 13, -13], [8, -26, 8], .46);
+  const n2 = swLeg(SKIN, 0, [-13, 13, -13], [8, -26, 8], .46) + swArm(SKIN, 0, [10, 140, 270, 370, 370, 370], [12, 60, 70, 12, 6, 6], D2, ak);
+  const h2 = headG(99, 35.2, { rot: [0, -30, 0, 0, 0, 0], kt: K2, D: D2, mouthO: true });
+  const sw = moveG([[7, 35], [12, 35], [17, 35], [22.5, 35], [26.5, 35], [26.5, 35]], D2, 0, `<g transform="scale(.45)"><g transform="translate(-72 -40)">${f2 + torsoSide + neckS + n2 + h2}</g></g>`, K2);
+  const ring2 = `<ellipse cx="50" cy="37" rx="1" ry=".8" fill="none" stroke="#fff" stroke-width="1.4"><animate attributeName="rx" values="0;0;0;1;9;12" keyTimes="${K2}" dur="${D2}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;0;.9;.5;0" keyTimes="${K2}" dur="${D2}s" repeatCount="indefinite"/></ellipse>`;
+  ICON.finish = I64(`<g transform="translate(4 6) scale(.88)"><rect x="-20" y="37" width="70" height="40" fill="${lv('#3fb6e8')}" opacity=".5"/><g><animate attributeName="opacity" values="0;1;1;1;1;0" keyTimes="${K2}" dur="${D2}s" repeatCount="indefinite"/>${sw}</g><rect x="-20" y="37" width="70" height="40" fill="#1aa6d6" opacity=".35"/>${ring2}<rect x="50" y="8" width="14" height="56" fill="${lgx('#e9fbff')}"/><rect x="50" y="26" width="3" height="20" rx="1.5" fill="${lv('#ffd23f')}"/><path d="M53 20H64M53 52H64" stroke="#27c4e8" stroke-width="2"/></g>`);
+
+  /* ---- BUDDY: dua anak berpegangan tangan ---- */
+  const kid = o => figV(Object.assign({ dur: 1.6, bob: [0, 1.2, 0], head: [-4, 4, -4], torso: [-1, 1, -1] }, o))
+  const place = (s, x) => `<g transform="translate(${x} 0)">${s.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '')}</g>`;
+  const k1 = kid({ aR: [[-58, -54, -58], [-5, -1, -5]], aL: [[3, 6, 3], [3, 6, 3]], cap: '#ff6b5e', top: '#ff6b5e' });
+  const k2 = kid({ ph: .3, aL: [[58, 54, 58], [5, 1, 5]], aR: [[-3, -6, -3], [-3, -6, -3]], skin: '#b9835c', skin2: '#9d6b47', cap: '#27c4e8', top: '#14a39a', shorts: '#1f3b6b' });
+  const clasp = moveG([[0, 0], [0, 1.2], [0, 0]], 1.6, 0, `<ellipse cx="60" cy="28.6" rx="3.4" ry="3" fill="${rg(SKIN)}"/>`);
+  const heart = `<g transform="translate(60 6)"><g><animateTransform attributeName="transform" type="scale" values="1;1.3;1;1.2;1" keyTimes="0;.15;.3;.45;1" dur="1.1s" repeatCount="indefinite"/><path d="M0 5C-9 -2 -4 -8 0 -3C4 -8 9 -2 0 5Z" fill="${rg('#ff5a6e')}"/></g></g>`;
+  ICON.buddy = `<svg viewBox="-6 -4 132 78" preserveAspectRatio="xMidYMid meet">${place(k1, 0)}${place(k2, 56)}${clasp}${heart}</svg>`;
+})();
+
 const poolFloor = () => { let t = '<g stroke="#fff" stroke-width="1.1" opacity=".5">'; for (let k = -2; k < 9; k++) t += `<path d="M${k * 24} 54 V66"/>`; t += '</g>'; let r = ''; for (let k = -3; k < 18; k++) r += `<path d="M${k * 12} 61 h6" stroke="${k % 2 ? '#ff6b5e' : '#ffd23f'}"/>`; return `<g><animateTransform attributeName="transform" type="translate" values="0 0;-24 0" dur="1.5s" repeatCount="indefinite"/>${t}<g stroke-width="2.6" stroke-linecap="round" opacity=".85">${r}</g></g>` + [[30, 52, 0], [62, 57, .5], [96, 51, 1], [118, 58, 1.5]].map(c => `<ellipse cx="${c[0]}" cy="${c[1]}" rx="7" ry="1.4" fill="#fff" opacity="0"><animate attributeName="opacity" values="0;.55;0" dur="2.4s" begin="${c[2]}s" repeatCount="indefinite"/><animate attributeName="rx" values="4;9;4" dur="2.4s" begin="${c[2]}s" repeatCount="indefinite"/></ellipse>`).join(''); };
 const BIG = id => `<svg viewBox="8 2 128 66" preserveAspectRatio="xMidYMid meet">${poolFloor()}${swimG(id)}${waterOverlay(42, -20, 190, 40, .42)}</svg>`;
 
@@ -368,7 +584,14 @@ const BIG = id => `<svg viewBox="8 2 128 66" preserveAspectRatio="xMidYMid meet"
 const COL = ['#ffd23f', '#9be8d0', '#ffb3c7', '#a8dcff', '#ffc98a'];
 const DATA = {
   judul: 'OLAHRAGA\nRENANG', kelompok: 'KELOMPOK 1', mapel: 'Tugas PJOK',
-  anggota: ['Nama Kamu', 'Nama Teman 1', 'Nama Teman 2'],
+  /* ===== GANTI NAMA DI SINI ===== */
+  anggota: [
+    'SHOFFA',
+    'RICHIE',
+    'CHALIFA',
+    'NISA'
+  ],
+  /* ============================== */
   toc: [['Pengertian Renang', 3], ['Tujuan Berenang', 4], ['Teknik Dasar', 5], ['Gaya Renang', 6], ['Peraturan', 11], ['Peralatan', 12], ['Keselamatan', 13], ['Penutup', 14]],
   pengertian: 'Renang adalah olahraga yang dilakukan <b>di dalam air</b> dengan menggerakkan <b>tangan dan kaki</b> untuk mempertahankan diri agar tidak tenggelam dan bergerak maju.',
   pengertian2: 'Sudah ada sejak <b>zaman prasejarah</b> dan merupakan salah satu insting dasar manusia untuk bertahan hidup.',
@@ -401,7 +624,7 @@ const DECOSVG = {
 };
 
 /* ---------------- PEMBUAT SLIDE (landscape) ---------------- */
-const pool = (id, cls = '', tag = '') => `<div class="pool ${cls} pop">${tag ? `<span class="tag">${tag}</span>` : ''}${BIG(id)}</div>`;
+const pool = (id, cls = '', tag = '') => `<div class="pool ${cls} pop" data-m="p-${id}">${tag ? `<span class="tag">${tag}</span>` : ''}${BIG(id)}</div>`;
 const wv = t => { let n = 0; return t.split('<br>').map(l => [...l].map(c => `<span class="l" style="--i:${n++}">${c}</span>`).join('')).join('<br>'); };
 const ttl = (t, s = '') => `<h1 class="ttl pop">${[...t].map(c => `<span class="l">${c === ' ' ? '&nbsp;' : c}</span>`).join('')}${s ? `<small>${s}</small>` : ''}</h1>`;
 const cardsH = (items, cols) => `<div class="cards n${items.length}" style="--cols:${cols}">${items.map((it, i) => `<div class="card pop" style="--c:${COL[i % 5]};--n:${i}"><span class="no">${i + 1}</span><div class="ic ${/^(heart|buoy|suit|goggles|cap)$/.test(it[2]) ? '' : 'sq'}">${ICON[it[2]]}</div><div><h3>${it[0]}</h3><p>${it[1]}</p></div></div>`).join('')}</div>`;
@@ -409,12 +632,12 @@ const coachH = n => { const [s, t] = GURU[n]; return `<div class="cch ${s}">${CO
 const strokeH = g => `<div class="wrap">${ttl(g.nama, g.en)}<div class="split"><div>${pool(g.id, '', g.tag)}</div><ul class="blist">${g.b.map((x, i) => `<li class="pop"><i>${i + 1}</i><span>${x}</span></li>`).join('')}</ul></div></div>`;
 const SL = [];
 SL[0] = `<div class="cover"><div class="cl"><h1 class="ttl big pop">${wv(DATA.judul.replace('\n', '<br>'))}</h1><div class="sub pop">${DATA.mapel} · ${DATA.kelompok}</div><button class="go pop" data-next>Mulai ▸</button></div>${pool('free')}</div>`;
-SL[1] = `<div class="wrap">${ttl('Disusun Oleh', DATA.kelompok)}<div class="members">${DATA.anggota.map((a, i) => `<div class="member pop"><div class="av">${[figV(Object.assign({}, FIGP.warm, { cap: '#ff6b5e' })), figV(Object.assign({}, FIGP.cheer, { skin: '#b9835c', skin2: '#9d6b47', cap: '#27c4e8', top: '#14a39a' })), figV(Object.assign({}, FIGP.run, { skin: '#f0c7a4', skin2: '#d9a982', cap: '#ffb3c7', top: '#ffd23f' }))][i]}</div>${a}</div>`).join('')}</div></div>`;
+SL[1] = `<div class="wrap">${ttl('Disusun Oleh', DATA.kelompok)}<div class="members">${DATA.anggota.map((a, i) => `<div class="member pop"><span class="no">${i + 1}</span>${a}</div>`).join('')}</div></div>`;
 SL[2] = `<div class="wrap">${ttl('Daftar Isi', '7 materi renang')}<div class="toc">${DATA.toc.map((t, i) => `<div class="card pop" data-go="${t[1]}" style="--c:${COL[i % 5]}"><span class="num">${i + 1}</span><h3>${t[0]}</h3></div>`).join('')}</div></div>`;
 SL[3] = `<div class="wrap">${ttl('1. Pengertian Renang')}<div class="split">${pool('free', '', 'Olahraga air')}<div class="col"><div class="txtcard pop">${DATA.pengertian}<br><br>${DATA.pengertian2}</div><div class="chips pop"><span class="chip">💧 Di dalam air</span><span class="chip">🦵 Tangan &amp; kaki</span><span class="chip">🛟 Bertahan hidup</span></div></div></div></div>`;
 SL[4] = `<div class="wrap">${ttl('2. Tujuan Berenang')}${cardsH(DATA.tujuan, 4)}</div>`;
 SL[5] = `<div class="wrap">${ttl('3. Teknik Dasar Renang')}<div class="intro pop">Sebelum belajar berbagai gaya, kuasai dulu teknik dasar ini:</div>${cardsH(DATA.teknik, 3)}</div>`;
-SL[6] = `<div class="wrap">${ttl('4. Gaya Renang', '4 gaya utama · klik untuk melihat')}<div class="gcards">${DATA.gaya.map((g, i) => `<div class="gcard pop" data-go="${7 + i}"><div class="pool">${BIG(g.id)}</div><h4>${g.nama}</h4><p>${g.ov}</p></div>`).join('')}</div></div>`;
+SL[6] = `<div class="wrap">${ttl('4. Gaya Renang', '4 gaya utama · klik untuk melihat')}<div class="gcards">${DATA.gaya.map((g, i) => `<div class="gcard pop" data-go="${7 + i}"><div class="pool" data-m="p-${g.id}">${BIG(g.id)}</div><h4>${g.nama}</h4><p>${g.ov}</p></div>`).join('')}</div></div>`;
 DATA.gaya.forEach((g, i) => SL[7 + i] = strokeH(g));
 SL[11] = `<div class="wrap">${ttl('5. Peraturan dalam Renang')}${cardsH(DATA.aturan, 5)}</div>`;
 SL[12] = `<div class="wrap">${ttl('6. Peralatan Renang')}${cardsH(DATA.alat, 3)}</div>`;
@@ -422,6 +645,7 @@ SL[13] = `<div class="wrap">${ttl('7. Keselamatan di Kolam', '5 hal penting')}${
 SL[14] = `<div class="cover"><div class="cl"><h1 class="ttl big pop">${wv('TERIMA<br>KASIH')}</h1><div class="sub pop">Selamat berenang dengan aman! 🏊</div></div>${pool('free')}</div>`;
 const N = SL.length;
 
+document.body.insertAdjacentHTML('afterbegin', `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${Object.values(GD).join('')}</defs></svg>`);
 document.getElementById('decos').innerHTML = ['sun', 'c1', 'c2', 'ball', 'shell'].map(k => `<div class="deco" id="${k}"><div class="in">${DECOSVG[k === 'c1' || k === 'c2' ? 'cloud' : k]}</div></div>`).join('');
 document.getElementById('slides').innerHTML = SL.map((h, i) => `<section class="slide" data-i="${i}">${h}${coachH(i)}</section>`).join('');
 
@@ -433,6 +657,12 @@ const cnt = document.querySelector('.cnt'), prev = document.getElementById('prev
 let cur = -1, busy = false, queued = null;
 const smil = (el, on) => el.querySelectorAll('svg').forEach(s => { try { on ? s.unpauseAnimations() : s.pauseAnimations(); } catch (e) { } });
 slides.forEach(s => smil(s, false));
+slides.forEach(sl => {
+  let k = 0;
+  sl.querySelectorAll('.card,.member,.blist li').forEach(e => e.dataset.m = 'k' + (k++));
+  const t = sl.querySelector('.ttl:not(.big)'); if (t) t.dataset.m = 'ttl';
+  const c = sl.querySelector('.cch'); if (c) c.dataset.m = 'coach';
+});
 
 /* skala panggung 16:9 mengikuti ukuran layar */
 let wasPt = false, tT = 0;
@@ -453,69 +683,243 @@ function fit() {
   const pt = VH > VW && VW < 800;
   if (pt && !wasPt) toast();
   wasPt = pt;
+  if (cur >= 0) applyDeco(cur, true);
 }
 addEventListener('resize', fit); addEventListener('orientationchange', () => setTimeout(fit, 250));
 if (window.visualViewport) visualViewport.addEventListener('resize', fit);
 fit();
 
-function applyDeco(n) {
-  const d = DV[n % DV.length];
-  for (const k in d) { const el = document.getElementById(k); el.style.left = d[k][0] + '%'; el.style.top = d[k][1] + '%'; el.style.transform = `scale(${d[k][2]})`; }
+function applyDeco(n, instant) {
+  const d = DV[n % DV.length], W = deck.offsetWidth, H = deck.offsetHeight;
+  for (const k in d) {
+    const el = document.getElementById(k);
+    if (instant) el.style.transition = 'none';
+    el.style.transform = `translate3d(${(d[k][0] * W / 100).toFixed(1)}px,${(d[k][1] * H / 100).toFixed(1)}px,0) scale(${d[k][2]})`;
+    if (instant) { void el.offsetWidth; el.style.transition = ''; }
+  }
 }
 const PAL = [['#5fd8f5', '#23b5e0', '#0a5f94', '#1b9ed0', '#0a6f9a'], ['#8af0dc', '#1fb5b0', '#0b6d7a', '#14a39a', '#0a6f7a'], ['#58aaf5', '#2a6fe0', '#0f2f8c', '#2f7de0', '#143a99'], ['#c9a6ff', '#6f7be0', '#23407f', '#5a63cf', '#2a3e8a'], ['#ffd08a', '#ff8f8f', '#8a4fb8', '#c0599e', '#6a3a96']];
 const PIDX = [0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 4, 4];
-let bgc = 0;
+let bgc = 0, lastP = -1, bgT = 0;
 function setBg(n) {
-  const p = PAL[PIDX[n]], L = [document.getElementById('bg1'), document.getElementById('bg2')];
+  if (PIDX[n] === lastP) return;            /* palet sama: tidak perlu transisi */
+  lastP = PIDX[n];
+  const p = PAL[lastP], L = [document.getElementById('bg1'), document.getElementById('bg2')];
   const nx = L[bgc ^ 1], ol = L[bgc]; bgc ^= 1;
-  nx.style.background = `linear-gradient(180deg,${p[0]} 0%,${p[1]} 45%,${p[2]} 100%)`; nx.style.opacity = 1; ol.style.opacity = 0;
+  /* lapisan baru memudar DI ATAS lapisan lama (tidak ada celah transparan di tengah) */
+  nx.style.transition = 'none'; nx.style.opacity = 0; nx.style.zIndex = 0; ol.style.zIndex = -1;
+  nx.style.background = `linear-gradient(180deg,${p[0]} 0%,${p[1]} 45%,${p[2]} 100%)`;
+  void nx.offsetWidth; nx.style.transition = ''; nx.style.opacity = 1;
+  clearTimeout(bgT); bgT = setTimeout(() => { ol.style.transition = 'none'; ol.style.opacity = 0; void ol.offsetWidth; ol.style.transition = ''; }, 1600);
   const st = document.querySelector('.stage').style; st.setProperty('--w1', p[3]); st.setProperty('--w2', p[4]);
 }
 /* huruf judul muncul satu-satu */
 function scr(el, base) {
-  el.querySelectorAll('.l').forEach((s, i) => s.animate([{ opacity: 0, transform: 'translateY(22px) scale(.4)' }, { opacity: 1, transform: 'none' }], { duration: 340, delay: base + i * 18, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'backwards' }));
+  el.querySelectorAll('.l').forEach((s, i) => s.animate([{ opacity: 0, transform: 'translate3d(0,16px,0) scale(.7)' }, { opacity: 1, transform: 'none' }], { duration: 520, delay: base + Math.min(i, 24) * 16, easing: 'cubic-bezier(0.22,1,0.36,1)', fill: 'backwards' }));
 }
 function splash() {
   const w = document.querySelector('.waves'), ry = document.querySelector('.rays');
-  w.animate([{ transform: 'none' }, { transform: 'translateY(-12%)', offset: .4 }, { transform: 'none' }], { duration: 1100, easing: 'ease-in-out' });
-  for (let i = 0; i < 12; i++) {
-    const b = document.createElement('i'), s = 6 + Math.random() * 18; b.className = 'bub'; b.style.cssText = `left:${Math.random() * 100}%;width:${s}px;height:${s}px;animation:none;bottom:-10px`;
-    ry.appendChild(b); b.animate([{ transform: 'translateY(0) scale(.6)', opacity: 0 }, { opacity: 1, offset: .2 }, { transform: `translateY(-${30 + Math.random() * 45}vh) translateX(${Math.random() * 40 - 20}px) scale(1.1)`, opacity: 0 }], { duration: 1300 + Math.random() * 900, delay: Math.random() * 300, easing: 'ease-out' }).onfinish = () => b.remove();
+  w.animate([{ transform: 'translate3d(0,0,0)' }, { transform: 'translate3d(0,-10%,0)', offset: .4 }, { transform: 'translate3d(0,0,0)' }], { duration: 1500, easing: 'cubic-bezier(.65,0,.35,1)' });
+  for (let i = 0; i < 9; i++) {
+    const b = document.createElement('i'), s = 6 + Math.random() * 18; b.className = 'bub'; b.style.cssText = `left:${Math.random() * 100}%;width:${s}px;height:${s}px;animation:none;bottom:-10px;opacity:0`;
+    ry.appendChild(b); b.animate([{ transform: 'translate3d(0,0,0) scale(.6)', opacity: 0 }, { opacity: 1, offset: .25 }, { transform: `translate3d(${Math.random() * 40 - 20}px,-${30 + Math.random() * 45}vh,0) scale(1.1)`, opacity: 0 }], { duration: 1500 + Math.random() * 900, delay: Math.random() * 300, easing: 'cubic-bezier(.33,1,.68,1)' }).onfinish = () => b.remove();
   }
 }
 function burst() {
   const cols = ['#ffd23f', '#ff6b5e', '#9be8d0', '#ffb3c7', '#fff'];
-  for (let i = 0; i < 70; i++) {
-    const d = document.createElement('i'); d.style.cssText = `position:absolute;z-index:20;left:${50 + (Math.random() - .5) * 20}%;top:45%;width:${8 + Math.random() * 10}px;height:${10 + Math.random() * 10}px;background:${cols[i % 5]};border:2px solid #0e2f4f;border-radius:${i % 3 ? 2 : 50}%;pointer-events:none`;
+  for (let i = 0; i < 56; i++) {
+    const d = document.createElement('i'); d.style.cssText = `position:absolute;z-index:20;left:${50 + (Math.random() - .5) * 20}%;top:45%;width:${8 + Math.random() * 10}px;height:${10 + Math.random() * 10}px;background:${cols[i % 5]};border:2px solid #0e2f4f;border-radius:${i % 3 ? 2 : 50}%;pointer-events:none;will-change:transform,opacity`;
     deck.appendChild(d); const a = Math.random() * Math.PI * 2, v = 160 + Math.random() * 340;
-    d.animate([{ transform: 'translate(0,0) rotate(0)', opacity: 1 }, { transform: `translate(${Math.cos(a) * v}px,${Math.sin(a) * v - 140}px) rotate(${Math.random() * 720}deg)`, opacity: 1, offset: .45 }, { transform: `translate(${Math.cos(a) * v * 1.2}px,${Math.sin(a) * v + 420}px) rotate(900deg)`, opacity: 0 }], { duration: 1800 + Math.random() * 800, easing: 'cubic-bezier(.2,.6,.4,1)' }).onfinish = () => d.remove();
+    d.animate([{ transform: 'translate3d(0,0,0) rotate(0)', opacity: 1 }, { transform: `translate3d(${Math.cos(a) * v}px,${Math.sin(a) * v - 140}px,0) rotate(${Math.random() * 720}deg)`, opacity: 1, offset: .45, easing: 'cubic-bezier(.4,0,.8,.6)' }, { transform: `translate3d(${Math.cos(a) * v * 1.2}px,${Math.sin(a) * v + 420}px,0) rotate(900deg)`, opacity: 0 }], { duration: 2000 + Math.random() * 800, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => d.remove();
   }
 }
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Morph halus: FLIP + cubic-bezier (interpolasi GPU kontinu, bukan sampling patah) */
+const EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';       /* Material standard — sangat mulus */
+const EASE_IO = 'cubic-bezier(0.45, 0, 0.55, 1)';  /* masuk-keluar seimbang */
+const EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+const MORPH_STYLES = [
+  { name: 'glide', D: 1500, Z: 160, arcY: 12, arcX: 0,  spin: .5,  camY: 10, camP: 3,  camZ: 70,  enter: 'up' },
+  { name: 'orbit', D: 1500, Z: 200, arcY: 8,  arcX: 18, spin: 1.1, camY: 22, camP: 4,  camZ: 100, enter: 'side' },
+  { name: 'lift',  D: 1500, Z: 240, arcY: 36, arcX: 0,  spin: .35, camY: 6,  camP: 12, camZ: 120, enter: 'down' },
+  { name: 'flip',  D: 1500, Z: 180, arcY: 6,  arcX: 0,  spin: .55, camY: 5,  camP: 18, camZ: 90,  enter: 'flip', extraRX: 32 },
+  { name: 'zoom',  D: 1500, Z: 220, arcY: 4,  arcX: 0,  spin: .3,  camY: 8,  camP: 3,  camZ: 150, enter: 'zoom', punch: .12 },
+  { name: 'sweep', D: 1500, Z: 170, arcY: 14, arcX: 28, spin: .75, camY: 26, camP: 5,  camZ: 85,  enter: 'side' }
+];
+
 function show(n) {
   const old = cur >= 0 ? slides[cur] : null, nw = slides[n], dir = n >= cur ? 1 : -1;
   busy = true;
-  nw.classList.add('on'); nw.style.zIndex = 3; if (old) old.style.zIndex = 2;
-  smil(nw, true); applyDeco(n); setBg(n);
-  if (!reduced) {
-    splash();
-    nw.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 380, easing: 'ease-out', fill: 'backwards' });
-    [...nw.querySelectorAll('.pop')].forEach((e, i) => {
-      const d = 140 + Math.min(i, 12) * 55;
-      if (e.classList.contains('ttl')) scr(e, d);
-      e.animate([{ opacity: 0, transform: `translate3d(${dir * 80}px,30px,0) scale(.9)` }, { opacity: 1, transform: 'none' }], { duration: 700, delay: d, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
-    });
-  }
-  if (old) {
-    const done = () => { old.classList.remove('on'); smil(old, false); old.getAnimations({ subtree: true }).forEach(a => a.cancel()); old.style.zIndex = ''; };
-    if (reduced) done(); else old.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-dir * 90}px) scale(.97)` }], { duration: 380, easing: 'ease-in', fill: 'forwards' }).onfinish = done;
-  }
+  const style = MORPH_STYLES[Math.abs(n) % MORPH_STYLES.length];
+  const D = style.D;
+  const morph = !!old && !reduced;
+  const sc = deck.getBoundingClientRect().width / deck.offsetWidth || 1;
+  const Z = style.Z;
+
+  const om = new Map();
+  if (morph) old.querySelectorAll('[data-m]').forEach(e => {
+    const r = e.getBoundingClientRect();
+    if (r.width && r.height) om.set(e.dataset.m, { e, r });
+  });
+
+  nw.classList.add('on', 'tr');
+  nw.style.zIndex = 3;
+  nw.style.opacity = '0.001';
+  if (old) { old.style.zIndex = 2; old.classList.add('tr'); }
+  smil(nw, true); applyDeco(n, !old); setBg(n);
+
   cur = n;
   dots.querySelectorAll('i').forEach((d, i) => d.classList.toggle('on', i === n));
   cnt.textContent = (n + 1) + ' / ' + N;
   prev.disabled = n === 0; next.disabled = n === N - 1;
-  if (n === N - 1 && !reduced) setTimeout(burst, 500);
-  setTimeout(() => { busy = false; if (queued !== null) { const q = queued; queued = null; go(q); } }, reduced ? 50 : 900);
+
+  const pairs = new Map();
+  if (morph) nw.querySelectorAll('[data-m]').forEach(e => {
+    const o = om.get(e.dataset.m); if (!o) return;
+    const r = e.getBoundingClientRect(); if (!r.width || !r.height) return;
+    pairs.set(e, { o: o.e, or: o.r, nr: r });
+  });
+
+  const run = () => {
+    nw.style.opacity = '';
+    if (!reduced) {
+      const punch = style.punch || 0;
+      const extraRX = style.extraRX || 0;
+      let pi = 0;
+
+      pairs.forEach((v, e) => {
+        const dx = (v.or.left - v.nr.left) / sc;
+        const dy = (v.or.top - v.nr.top) / sc;
+        const sx0 = v.or.width / v.nr.width;
+        const sy0 = v.or.height / v.nr.height;
+        const ry = (clamp(dx * .07, -28, 28) || 16 * dir) * style.spin;
+        const rx = clamp(-dy * .04, -14, 14) * style.spin;
+        const rz = clamp(dx * .012, -6, 6) * style.spin;
+        const dl = Math.min(pi++, 6) * 20; /* stagger kecil, sinkron */
+        e.style.transformOrigin = '50% 50%';
+        v.o.style.transformOrigin = '50% 50%';
+        e.style.willChange = 'transform, opacity';
+        v.o.style.willChange = 'transform, opacity';
+
+        /* 3 keyframe kontinu: start → puncak (mid) → end — browser interpolasi mulus antar titik */
+        const midX = dx * .5 + style.arcX * dir * .5;
+        const midY = dy * .5 - style.arcY;
+        const midZ = Z;
+        const midRX = rx + extraRX * .5;
+        const midRY = ry * .5;
+        const midS = 1 + punch;
+
+        /* elemen BARU: mulai di posisi lama → mendarat di posisi baru */
+        e.animate([
+          {
+            offset: 0,
+            opacity: 0.25,
+            transform: `translate3d(${dx.toFixed(2)}px,${dy.toFixed(2)}px,0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(${sx0.toFixed(4)},${sy0.toFixed(4)})`
+          },
+          {
+            offset: 0.45,
+            opacity: 1,
+            transform: `translate3d(${midX.toFixed(2)}px,${midY.toFixed(2)}px,${midZ.toFixed(1)}px) rotateX(${midRX.toFixed(2)}deg) rotateY(${midRY.toFixed(2)}deg) rotateZ(${(rz * .5).toFixed(2)}deg) scale(${((sx0 + 1) / 2 * midS).toFixed(4)},${((sy0 + 1) / 2 * midS).toFixed(4)})`
+          },
+          {
+            offset: 1,
+            opacity: 1,
+            transform: 'translate3d(0,0,0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1,1)'
+          }
+        ], { duration: D, delay: dl, easing: EASE, fill: 'both' });
+
+        /* elemen LAMA: ikut gerak ke arah target lalu hilang */
+        v.o.animate([
+          {
+            offset: 0,
+            opacity: 1,
+            transform: 'translate3d(0,0,0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1,1)'
+          },
+          {
+            offset: 0.45,
+            opacity: 0.55,
+            transform: `translate3d(${(-dx * .5 - style.arcX * dir * .35).toFixed(2)}px,${(-dy * .5 - style.arcY * .7).toFixed(2)}px,${(midZ * .75).toFixed(1)}px) rotateX(${(-midRX * .8).toFixed(2)}deg) rotateY(${(-midRY).toFixed(2)}deg) rotateZ(${(-rz * .4).toFixed(2)}deg) scale(${((1 + sx0) / 2).toFixed(4)},${((1 + sy0) / 2).toFixed(4)})`
+          },
+          {
+            offset: 1,
+            opacity: 0,
+            transform: `translate3d(${(-dx).toFixed(2)}px,${(-dy).toFixed(2)}px,0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(${sx0.toFixed(4)},${sy0.toFixed(4)})`
+          }
+        ], { duration: D, delay: dl, easing: EASE, fill: 'both' });
+      });
+
+      /* kamera: 2 keyframe + easing — tidak patah */
+      if (old) {
+        const camMid = `rotateY(${(-dir * style.camY).toFixed(2)}deg) rotateX(${style.camP.toFixed(2)}deg) translateZ(${(-style.camZ).toFixed(1)}px)`;
+        const aout = old.animate([
+          { offset: 0, transform: 'rotateY(0deg) rotateX(0deg) translateZ(0px)', opacity: 1 },
+          { offset: 0.5, transform: camMid, opacity: 0.4 },
+          { offset: 1, transform: 'rotateY(0deg) rotateX(0deg) translateZ(0px)', opacity: 0 }
+        ], { duration: D, easing: EASE_IO, fill: 'both' });
+        aout.onfinish = () => cleanOld(old);
+        nw.animate([
+          { offset: 0, transform: 'rotateY(0deg) rotateX(0deg) translateZ(0px)' },
+          { offset: 0.5, transform: camMid },
+          { offset: 1, transform: 'rotateY(0deg) rotateX(0deg) translateZ(0px)' }
+        ], { duration: D, easing: EASE_IO, fill: 'both' });
+      }
+
+      /* elemen baru tanpa pasangan */
+      const base = old ? 260 : 60; let i = 0;
+      nw.querySelectorAll('.pop').forEach(e => {
+        if (pairs.has(e)) return;
+        if ([...pairs.keys()].some(k => e.contains(k))) {
+          e.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 80, easing: EASE_OUT, fill: 'backwards' });
+          return;
+        }
+        const d = base + Math.min(i++, 8) * 36;
+        if (e.classList.contains('ttl')) scr(e, d);
+        let from;
+        if (style.enter === 'side') from = { opacity: 0, transform: `translate3d(${dir * 40}px,10px,0) scale(.96)` };
+        else if (style.enter === 'down') from = { opacity: 0, transform: 'translate3d(0,-28px,0) scale(.96)' };
+        else if (style.enter === 'flip') from = { opacity: 0, transform: 'translate3d(0,16px,0) rotateX(18deg) scale(.96)' };
+        else if (style.enter === 'zoom') from = { opacity: 0, transform: 'scale(.88)' };
+        else from = { opacity: 0, transform: 'translate3d(0,18px,0) scale(.97)' };
+        e.animate([from, { opacity: 1, transform: 'translate3d(0,0,0) rotateX(0deg) scale(1)' }], {
+          duration: 750, delay: d, easing: EASE_OUT, fill: 'backwards'
+        });
+      });
+
+      requestAnimationFrame(splash);
+      setTimeout(() => {
+        nw.classList.remove('tr');
+        nw.style.zIndex = '';
+        /* commit ke state akhir lalu bersihkan — hindari snap saat cancel */
+        pairs.forEach((v, e) => {
+          e.getAnimations().forEach(a => { try { a.finish(); } catch (_) {} });
+          v.o.getAnimations().forEach(a => { try { a.finish(); } catch (_) {} });
+          e.style.transform = '';
+          e.style.opacity = '';
+          e.style.willChange = '';
+          e.style.transformOrigin = '';
+          v.o.style.transformOrigin = '';
+          v.o.style.willChange = '';
+        });
+        nw.getAnimations().forEach(a => { try { a.finish(); } catch (_) {} });
+        nw.style.transform = '';
+      }, D + 80);
+    } else if (old) cleanOld(old);
+
+    if (n === N - 1 && !reduced) setTimeout(burst, 650);
+    setTimeout(() => {
+      busy = false;
+      if (queued !== null) { const q = queued; queued = null; go(q); }
+    }, reduced ? 40 : D + 160);
+  };
+  requestAnimationFrame(() => requestAnimationFrame(run));
+}
+function cleanOld(old) {
+  old.classList.remove('on', 'tr');
+  smil(old, false);
+  old.getAnimations({ subtree: true }).forEach(a => a.cancel());
+  old.style.zIndex = '';
 }
 function go(n) {
   n = Math.max(0, Math.min(N - 1, n));
@@ -529,7 +933,7 @@ next.onclick = () => go(cur + 1); prev.onclick = () => go(cur - 1);
 document.addEventListener('click', e => {
   const g = e.target.closest('[data-go]'); if (g) go(+g.dataset.go);
   if (e.target.closest('[data-next]')) go(cur + 1);
-  const c = e.target.closest('.cch'); if (c) c.animate([{ transform: 'none' }, { transform: 'translateY(-34px) scale(.95,1.08)', offset: .4 }, { transform: 'translateY(0) scale(1.08,.92)', offset: .7 }, { transform: 'none' }], { duration: 650, easing: 'ease-out' });
+  const c = e.target.closest('.cch'); if (c) c.animate([{ transform: 'none', easing: 'cubic-bezier(.33,1,.68,1)' }, { transform: 'translate3d(0,-34px,0) scale(.96,1.06)', offset: .4, easing: 'cubic-bezier(.32,0,.67,0)' }, { transform: 'translate3d(0,0,0) scale(1.05,.95)', offset: .72, easing: 'cubic-bezier(.33,1,.68,1)' }, { transform: 'none' }], { duration: 800 });
 });
 addEventListener('keydown', e => {
   if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); go(cur + 1); }
@@ -546,5 +950,33 @@ document.querySelector('.fs').onclick = fs;
 /* gelembung latar */
 const rays = document.querySelector('.rays');
 for (let i = 0; i < 16; i++) { const b = document.createElement('i'); b.className = 'bub'; const s = 8 + Math.random() * 26; b.style.cssText = `left:${Math.random() * 100}%;width:${s}px;height:${s}px;animation-duration:${9 + Math.random() * 10}s;animation-delay:${-Math.random() * 14}s`; rays.appendChild(b); }
-show(0);
+/* kamera 3D: miring mengikuti kursor / sensor HP; saat diam bergoyang pelan sendiri; dekor & latar paralaks */
+(() => {
+  if (reduced) return;
+  const sl = document.getElementById('slides'), dc = document.getElementById('decos'), rs = document.querySelector('.rays'), wv = document.querySelector('.waves');
+  const T = { x: 0, y: 0, tx: 0, ty: 0, last: -1e9 }, cl = (v, a, b) => Math.max(a, Math.min(b, v));
+  addEventListener('pointermove', e => { T.tx = (e.clientX / innerWidth - .5) * 2; T.ty = (e.clientY / innerHeight - .5) * 2; T.last = performance.now(); }, { passive: true });
+  addEventListener('deviceorientation', e => { if (e.gamma == null) return; T.tx = cl(e.gamma / 22, -1, 1); T.ty = cl((e.beta - 50) / 22, -1, 1); T.last = performance.now(); }, { passive: true });
+  (function loop(now) {
+    /* selama morph (busy) jangan timpa transform slide — penyebab patah-patah */
+    if (!busy) {
+      const idle = now - T.last > 2500;
+      const gx = idle ? Math.sin(now / 2400) * .55 : T.tx, gy = idle ? Math.cos(now / 3000) * .4 : T.ty;
+      T.x += (gx - T.x) * .05; T.y += (gy - T.y) * .05;
+      sl.style.transform = `perspective(1500px) rotateY(${(T.x * 8).toFixed(2)}deg) rotateX(${(-T.y * 6).toFixed(2)}deg)`;
+      dc.style.transform = `translate3d(${(-T.x * 26).toFixed(1)}px,${(-T.y * 18).toFixed(1)}px,0)`;
+      rs.style.transform = `translate3d(${(-T.x * 12).toFixed(1)}px,${(-T.y * 8).toFixed(1)}px,0)`;
+      wv.style.transform = `translate3d(${(T.x * 14).toFixed(1)}px,0,0)`;
+    } else {
+      /* pelan-pelan kembalikan parallax ke netral supaya tidak loncat setelah morph */
+      T.x *= .85; T.y *= .85; T.tx = 0; T.ty = 0;
+    }
+    requestAnimationFrame(loop);
+  })(performance.now());
+})();
+const _fontsReady = Promise.race([
+  Promise.all(['700 40px Fredoka', '600 20px Fredoka', '700 20px Quicksand'].map(f => document.fonts ? document.fonts.load(f).catch(() => { }) : 0)),
+  new Promise(r => setTimeout(r, 1400))
+]);
+_fontsReady.then(() => requestAnimationFrame(() => show(0)));
 </script></body></html>
